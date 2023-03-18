@@ -5,13 +5,19 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
+        <!-- Get font -->
+        <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+
         <!-- main.css -->
         <link rel="stylesheet" href="/view/css/main.css">
 
         <!-- URL : / -->
         <script defer src="/view/js/main.js"></script>
+        <script defer src="/view/js/project.js"></script>
         
         <!-- Meta tag -->
+        <title>인클루더 - 한국해양대학교</title>
+        <link rel="icon" href="/view/img/한국해양대 로고.png">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
@@ -24,27 +30,35 @@
                 </a>
         
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" class="nav-link px-2 link-secondary">메인</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">프로젝트</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">게시판</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">세미나</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">QnA</a></li>
+                    <li><a href="/intro" class="nav-link px-2 text-white">소개</a></li>
+                    <li><a href="/project" class="nav-link px-2 text-white">프로젝트</a></li>
+                    <li><a href="/study" class="nav-link px-2 text-white">스터디</a></li>
+                    <li><a href="/board" class="nav-link px-2 text-white">게시판</a></li>
                 </ul>
 
                 <div class="col-md-3 text-end">
-                    <button type="button" class="btn btn-outline-primary me-2">로그인</button>
-                    <button type="button" class="btn btn-primary">회원가입</button>
+                    <a href="/signin" class="btn btn-outline-primary me-2">로그인</a>
+                    <a href="/signup" class="btn btn-primary">회원가입</a>
                 </div>
             </div>
         </nav>
 
         <!-- Content -->
-        <div id="main_data"></div>
+        <div id="main_data">
+            
+        </div>
 
         <!-- footer -->
         <div class="container">
             <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-                <p class="col-md-4 mb-0 text-muted">KMOU</p>
+                <p class="col-md-4 mb-0 text-muted">
+                    <img src="/view/img/한국해양대 로고.png" style="width: 20px;">
+                    한국해양대학교
+                    <br>
+                    (49112) 부산광역시 영도구 태종로 727(동삼동) 한국해양대학교
+                    <br>
+                    전화 : 051-410-4114 / 팩스 : 051-405-5569
+                </p>
             
                 <ul class="nav col-md-4 justify-content-end">
                     <!-- <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li> -->
