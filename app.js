@@ -10,7 +10,8 @@ const port = 3000;
 app.set('view engine', 'html');
 nunjucks.configure('view', {
     autoescape: true,
-    express: app
+    express: app,
+    watch: true
 });
 
 // db init
