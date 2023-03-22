@@ -1,5 +1,7 @@
-if(document.location.pathname == '/board') {
-    fetch("/api/board").then(function(res) {
+if(document.location.pathname.startsWith('/board/')) {
+    let board_url = document.location.pathname;
+
+    fetch("/api" + board_url).then(function(res) {
         return res.json();
     }).then(function(text) {
         let data = '';
@@ -7,7 +9,7 @@ if(document.location.pathname == '/board') {
             data += `
                 <tr>
                     <td>` + text[for_a]['date'] + `</td>
-                    <td>` + text[for_a]['post_name'] + `</td>
+                    <td><a href="` + board_url + '/' + text[for_a]['post_id'] + `">` + text[for_a]['post_name'] + `</a></td>
                     <td>` + text[for_a]['writer'] + `</td>
                     <td>` + text[for_a]['count'] + `</td>
                 </tr>
@@ -15,6 +17,7 @@ if(document.location.pathname == '/board') {
         }
 
         document.getElementById('main_data').innerHTML = `
+            ` + bbs_nav() + `
             <br>
             <div class="container px-5">
                 <div class="table-responsive">
