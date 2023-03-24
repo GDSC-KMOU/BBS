@@ -1,17 +1,17 @@
 if(document.location.pathname.startsWith('/board/')) {
-    let board_url = document.location.pathname;
+    let board_name = document.location.pathname.split('/')[2];
 
-    fetch("/api" + board_url).then(function(res) {
+    fetch("/api/board/" + url_encode(board_name)).then(function(res) {
         return res.json();
     }).then(function(text) {
         let data = '';
         for(let for_a = 0; for_a < text.length; for_a++) {
             data += `
                 <tr>
+                    <td>` + text[for_a]['doc_id'] + `</td>
+                    <td><a href="/board_read/` + url_encode(board_name) + '/' + text[for_a]['doc_id'] + `">` + text[for_a]['title'] + `</a></td>
                     <td>` + text[for_a]['date'] + `</td>
-                    <td><a href="` + board_url + '/' + text[for_a]['post_id'] + `">` + text[for_a]['post_name'] + `</a></td>
-                    <td>` + text[for_a]['writer'] + `</td>
-                    <td>` + text[for_a]['count'] + `</td>
+                    <td>` + text[for_a]['user_name'] + `</td>
                 </tr>
             `;
         }
@@ -24,10 +24,13 @@ if(document.location.pathname.startsWith('/board/')) {
                     <table class="table table-striped table-sm">
                         <thead>
                             <tr>
+                                <th scope="col">번호</th>
+                                <th scope="col">
+                                    게시글명
+                                    <a href="/board_add/` + url_encode(board_name) + `">(글 올리기)</a>
+                                </th>
                                 <th scope="col">날짜</th>
-                                <th scope="col">게시글명</th>
                                 <th scope="col">작성자</th>
-                                <th scope="col">조회수</th>
                             </tr>
                         </thead>
                         <tbody>

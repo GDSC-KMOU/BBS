@@ -3,8 +3,13 @@ function url_encode(data) {
     return encodeURIComponent(data);
 }
 
-function xss_filter() {
+function xss_filter(data) {
+    data = data.replace('"', "&quot;");
+    data = data.replace("'", "&#x27;");
+    data = data.replace("<", "&lt;");
+    data = data.replace(">", "&gt;");
 
+    return data;
 }
 
 // purposeful

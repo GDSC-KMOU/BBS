@@ -1,4 +1,4 @@
-if(document.location.pathname == '/project') {
+if(document.location.pathname === '/project') {
     let project_url = document.location.pathname;
 
     fetch("/api" + project_url).then(function(res) {
@@ -27,15 +27,14 @@ if(document.location.pathname == '/project') {
         }
 
         document.getElementById('main_data').innerHTML = `
-            <main>
-                <div class="album py-5 bg-light">
-                    <div class="container">
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                            ` + data + `
-                        </div>
+            <br>
+            <div class="container px-5">
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        ` + data + `
                     </div>
                 </div>
-            </main>
+            </div>
         `;
     });
 }

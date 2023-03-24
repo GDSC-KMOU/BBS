@@ -1,4 +1,4 @@
-if(document.location.pathname == '/') {
+if(document.location.pathname === '/') {
     document.getElementById('main_data').innerHTML = `
         <header class="bg-dark py-5">
             <div class="container px-5">
