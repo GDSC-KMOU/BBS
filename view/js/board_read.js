@@ -11,7 +11,7 @@ if(document.location.pathname.startsWith('/board_read/')) {
             <br>
             <div class="container px-5">
                 <h2>` + text.title + `</h2>
-                <p class="lead">` + text.content.replace('\n', '<br>') + `</p>
+                <p class="lead">` + text.content.replaceAll('\n', '<br>') + `</p>
             </div>
         `;
     });
