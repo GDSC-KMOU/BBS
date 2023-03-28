@@ -1,4 +1,4 @@
-if(document.location.pathname === '/intro') {
+if(document.location.pathname === '/ex/intro') {
     document.getElementById('main_data').innerHTML = `
         <br>
         <div class="container px-5">

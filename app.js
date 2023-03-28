@@ -62,18 +62,23 @@ app.get('/', (req, res) => { res.render('index', {}) });
 
 app.get('/intro', (req, res) => { res.render('index', {}) });
 
-app.get('/project', (req, res) => { res.render('index', {}) });
-app.get('/project/:id', (req, res) => { res.render('index', {}) });
-app.get('/project_add', (req, res) => { res.render('index', {}) });
+// url route - ex
+app.get('/ex', (req, res) => { res.render('index_ex', {}) });
 
-app.get('/board/:b_name', (req, res) => { res.render('index', {}) });
-app.get('/board_add/:b_name', (req, res) => { res.render('index', {}) });
-app.get('/board_read/:b_name/:id', (req, res) => { res.render('index', {}) });
+app.get('/ex/intro', (req, res) => { res.render('index_ex', {}) });
 
-app.get('/study', (req, res) => { res.render('index', {}) });
+app.get('/ex/project', (req, res) => { res.render('index_ex', {}) });
+app.get('/ex/project/:id', (req, res) => { res.render('index_ex', {}) });
+app.get('/ex/project_add', (req, res) => { res.render('index_ex', {}) });
 
-app.get('/signup', (req, res) => { res.render('index', {}) });
-app.get('/signin', (req, res) => { res.render('index', {}) });
+app.get('/ex/board/:b_name', (req, res) => { res.render('index_ex', {}) });
+app.get('/ex/board_add/:b_name', (req, res) => { res.render('index_ex', {}) });
+app.get('/ex/board_read/:b_name/:id', (req, res) => { res.render('index_ex', {}) });
+
+app.get('/ex/study', (req, res) => { res.render('index_ex', {}) });
+
+app.get('/ex/signup', (req, res) => { res.render('index_ex', {}) });
+app.get('/ex/signin', (req, res) => { res.render('index_ex', {}) });
 
 // api route
 app.get('/api/board/:b_name', (req, res) => {

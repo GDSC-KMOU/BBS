@@ -1,4 +1,4 @@
-if(document.location.pathname === '/project') {
+if(document.location.pathname === '/ex/project') {
     let project_url = document.location.pathname;
 
     fetch("/api" + project_url).then(function(res) {

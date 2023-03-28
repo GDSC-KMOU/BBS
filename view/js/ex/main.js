@@ -1,4 +1,4 @@
-if(document.location.pathname === '/') {
+if(document.location.pathname === '/ex') {
     document.getElementById('main_data').innerHTML = `
         <header class="bg-dark py-5">
             <div class="container px-5">
@@ -8,7 +8,7 @@ if(document.location.pathname === '/') {
                             <h1 class="display-5 fw-bolder text-white mb-2">인클루더 동아리</h1>
                             <p class="lead fw-normal text-white-50 mb-4">인클루더는 2022년에 설립되어서 2023년에 정식 승격된 한국해양대학교 정식 프로그래밍 동아리입니다.</p>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="/intro">자세히 알아보기</a>
+                                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="/ex/intro">자세히 알아보기</a>
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@ if(document.location.pathname === '/') {
                         </div>
                         <h3 class="fs-2">프로젝트팀</h3>
                         <p>다양한 웹과 앱 프로젝트를 하면서 현업에 대한 지식을 늘리는 팀입니다.</p>
-                        <a href="/project" class="icon-link d-inline-flex align-items-center">
+                        <a href="/ex/project" class="icon-link d-inline-flex align-items-center">
                             자세히 알아보기
                         </a>
                     </div>
@@ -42,7 +42,7 @@ if(document.location.pathname === '/') {
                         </div>
                         <h3 class="fs-2">파이썬팀</h3>
                         <p>파이썬을 배우면서 프로그래밍의 기초를 배우는 팀입니다.</p>
-                        <a href="/study" class="icon-link d-inline-flex align-items-center">
+                        <a href="/ex/study" class="icon-link d-inline-flex align-items-center">
                         자세히 알아보기
                         </a>
                     </div>
@@ -54,7 +54,7 @@ if(document.location.pathname === '/') {
                         </div>
                         <h3 class="fs-2">C언어팀</h3>
                         <p>C언어를 배워봅시다.</p>
-                        <a href="/study" class="icon-link d-inline-flex align-items-center">
+                        <a href="/ex/study" class="icon-link d-inline-flex align-items-center">
                             자세히 알아보기
                         </a>
                     </div>

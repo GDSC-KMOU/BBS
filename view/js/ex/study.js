@@ -1,4 +1,4 @@
-if(document.location.pathname === '/study') {
+if(document.location.pathname === '/ex/study') {
     document.getElementById('main_data').innerHTML = `
         <div class="container px-5">
             <div class="my-3 p-3 bg-body rounded shadow-sm">
@@ -64,7 +64,7 @@ if(document.location.pathname === '/study') {
                 </div>
 
                 <small class="d-block text-end mt-3">
-                    <a href="#">추가하기</a>
+                    <a href="/ex/project_add">추가하기</a>
                 </small>
             </div>
     `;
