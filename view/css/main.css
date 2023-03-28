@@ -1,3 +1,76 @@
 body {
     font-family: 'SUIT', sans-serif;
 }
+
+.nav-items {
+    color: #198754;
+}
+
+.nav-items:hover {
+    color: #198754;
+}
+
+#top .divider {
+    width: 52%;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+    border-top: 2px solid #FFF;
+}
+
+.top-h {
+    background-image: url(/view/img/top_background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90vh;
+}
+
+.ban {
+    transition: 400ms ease;
+}
+
+.ban:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+#faq,
+#footer {
+    background-color: rgba(96, 125, 139, 0.1);
+}
+
+/* 로고 애니메이션*/
+@keyframes logo-hover {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-15px);
+    }
+}
+
+.in_logo {
+    animation: logo-hover;
+    animation-duration: 900ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@media screen and (max-width: 768px) {
+    .ban {
+        margin-bottom: 16px;
+    }
+
+    .intro__logo {
+        display: none;
+    }
+
+    .active__logo {
+        margin-bottom: 1rem;
+    }
+
+    #navbar .nav-content {
+        padding: 0%;
+    }
+}

@@ -21,48 +21,50 @@
     </head>
     <body>
         <!-- Header Part -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container px-5">
+        <nav class="navbar navbar-expand-lg" id="nav">
+            <div class="container px-5 nav-content">
                 <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-                    <span class="navbar-brand">인클루더</span>
+                    <i class="fa-solid fa-cloud me-2 mb-1 text-success fs-4"></i>
+                    <span class="navbar-brand fw-bolder text-success">INCLUDER</span>
                 </a>
-        
+    
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/ex" class="nav-link px-2 text-white">베타</a></li>
-                    <li><a href="/intro" class="nav-link px-2 text-white">소개</a></li>
-                    <li><a href="/project" class="nav-link px-2 text-white">프로젝트</a></li>
-                    <li><a href="/study" class="nav-link px-2 text-white">스터디</a></li>
-                    <li><a href="/board/main" class="nav-link px-2 text-white">게시판</a></li>
+                    <li><a href="/project" class="nav-link px-2 nav-items">프로젝트</a></li>
+                    <li><a href="/study" class="nav-link px-2 nav-items">스터디</a></li>
+                    <li><a href="/board/main" class="nav-link px-2 nav-items">게시판</a></li>
                 </ul>
-
+    
                 <div class="col-md-3 text-end">
-                    <a href="/signin" class="btn btn-outline-primary me-2">로그인</a>
-                    <a href="/signup" class="btn btn-primary">회원가입</a>
+                    <a href="/signin" class="btn btn-outline-success me-2">로그인</a>
+                    <a href="/signup" class="btn btn-success">회원가입</a>
                 </div>
             </div>
         </nav>
-
         <!-- Content -->
         <div id="main_data">
             
         </div>
 
         <!-- footer -->
-        <div class="container">
-            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-                <p class="col-md-4 mb-0 text-muted">
-                    <img src="/view/img/한국해양대 로고.png" style="width: 20px;">
-                    한국해양대학교
-                    <br>
-                    (49112) 부산광역시 영도구 태종로 727(동삼동) 한국해양대학교
-                    <br>
-                    전화 : 051-410-4114 / 팩스 : 051-405-5569
-                </p>
-            
-                <ul class="nav col-md-4 justify-content-end">
-                    <!-- <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li> -->
-                </ul>
-            </footer>
-        </div>
+        <section id="footer">
+            <div class="container">
+                <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top border-2">
+                    <p class="col-md-4 mb-0 text-muted">
+                        <img src="/view/img/한국해양대 로고.png" class="mb-1" style="width: 20px;">
+                        한국해양대학교
+                        <br>
+                        (49112) 부산광역시 영도구 태종로 727(동삼동) 한국해양대학교
+                        <br>
+                        전화 : 051-410-4114 / 팩스 : 051-405-5569
+                    </p>
+
+                    <ul class="nav col-md-4 justify-content-end">
+                        <!-- <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li> -->
+                    </ul>
+                </footer>
+            </div>
+        </section>
+    </div>
+
     </body>
 </html>
