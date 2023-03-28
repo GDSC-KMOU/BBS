@@ -1,7 +1,5 @@
 if(document.location.pathname === '/ex/project') {
-    let project_url = document.location.pathname;
-
-    fetch("/api" + project_url).then(function(res) {
+    fetch("/api/project").then(function(res) {
         return res.json();
     }).then(function(text) {
         let data = '';
@@ -35,6 +33,7 @@ if(document.location.pathname === '/ex/project') {
                     </div>
                 </div>
             </div>
+            <br>
         `;
     });
 }

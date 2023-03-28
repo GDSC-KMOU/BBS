@@ -16,7 +16,6 @@ if(document.location.pathname.startsWith('/ex/board_add/')) {
         let title = document.getElementById('board_add_title').value;
         let content = document.getElementById('board_add_content').value;
 
-        console.log(title, content);
         let board_url = document.location.pathname;
         fetch("/api" + board_url, {
             method : 'POST',

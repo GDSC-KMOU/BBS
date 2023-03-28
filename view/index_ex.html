@@ -24,6 +24,9 @@
 
         <script defer src="/view/js/ex/intro.js"></script>
         <script defer src="/view/js/ex/study.js"></script>
+
+        <script defer src="/view/js/ex/signup.js"></script>
+        <script defer src="/view/js/ex/signin.js"></script>
         
         <!-- Meta tag -->
         <title>인클루더 - 한국해양대학교</title>
@@ -35,20 +38,26 @@
     <!-- Header Part -->
     <nav class="navbar navbar-expand-lg" id="nav">
         <div class="container px-5 nav-content">
-            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <a href="/ex" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
                 <i class="fa-solid fa-cloud me-2 mb-1 text-success fs-4"></i>
                 <span class="navbar-brand fw-bolder text-success">INCLUDER</span>
             </a>
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/project" class="nav-link px-2 nav-items">프로젝트</a></li>
-                <li><a href="/study" class="nav-link px-2 nav-items">스터디</a></li>
-                <li><a href="/board/main" class="nav-link px-2 nav-items">게시판</a></li>
+                <li><a href="/" class="nav-link px-2 nav-items">일반</a></li>
+                <li><a href="/ex/project" class="nav-link px-2 nav-items">프로젝트</a></li>
+                <li><a href="/ex/study" class="nav-link px-2 nav-items">스터디</a></li>
+                <li><a href="/ex/board/main" class="nav-link px-2 nav-items">게시판</a></li>
             </ul>
 
             <div class="col-md-3 text-end">
-                <a href="/signin" class="btn btn-outline-success me-2">로그인</a>
-                <a href="/signup" class="btn btn-success">회원가입</a>
+                {% if session.user_name %}
+                    <a href="/ex/set" class="btn btn-outline-success me-2">설정</a>
+                    <a href="/ex/signout" class="btn btn-success">로그아웃</a>
+                {% else %}
+                    <a href="/ex/signin" class="btn btn-outline-success me-2">로그인</a>
+                    <a href="/ex/signup" class="btn btn-success">회원가입</a>
+                {% endif %}
             </div>
         </div>
     </nav>

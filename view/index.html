@@ -29,14 +29,20 @@
                 </a>
     
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/ex" class="nav-link px-2 nav-items">베타</a></li>
                     <li><a href="/project" class="nav-link px-2 nav-items">프로젝트</a></li>
                     <li><a href="/study" class="nav-link px-2 nav-items">스터디</a></li>
                     <li><a href="/board/main" class="nav-link px-2 nav-items">게시판</a></li>
                 </ul>
     
                 <div class="col-md-3 text-end">
-                    <a href="/signin" class="btn btn-outline-success me-2">로그인</a>
-                    <a href="/signup" class="btn btn-success">회원가입</a>
+                    {% if session.user_name %}
+                        <a href="/set" class="btn btn-outline-success me-2">설정</a>
+                        <a href="/signout" class="btn btn-success">로그아웃</a>
+                    {% else %}
+                        <a href="/signin" class="btn btn-outline-success me-2">로그인</a>
+                        <a href="/signup" class="btn btn-success">회원가입</a>
+                    {% endif %}
                 </div>
             </div>
         </nav>
