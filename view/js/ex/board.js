@@ -1,11 +1,11 @@
-if(document.location.pathname.startsWith('/ex/board/')) {
+if (document.location.pathname.startsWith('/ex/board/')) {
     let board_name = document.location.pathname.split('/')[3];
 
-    fetch("/api/board/" + url_encode(board_name)).then(function(res) {
+    fetch("/api/board/" + url_encode(board_name)).then(function (res) {
         return res.json();
-    }).then(function(text) {
+    }).then(function (text) {
         let data = '';
-        for(let for_a = 0; for_a < text.length; for_a++) {
+        for (let for_a = 0; for_a < text.length; for_a++) {
             data += `
                 <tr>
                     <td>` + text[for_a]['doc_id'] + `</td>
@@ -17,28 +17,47 @@ if(document.location.pathname.startsWith('/ex/board/')) {
         }
 
         document.getElementById('main_data').innerHTML = `
-            ` + bbs_nav() + `
-            <br>
-            <div class="container px-5">
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">번호</th>
-                                <th scope="col">
-                                    게시글명
-                                    <a href="/ex/board_add/` + url_encode(board_name) + `">(글 올리기)</a>
-                                </th>
-                                <th scope="col">날짜</th>
-                                <th scope="col">작성자</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ` + data + `
-                        </tbody>
-                    </table>
-                </div>
+        <section id="board">
+        <div class="container-xxl p-5 board-content">
+          <div class=" row  gap-5">
+            <div class="col-md-2 shadow-sm rounded-5">
+              <div class="row nav gap-2 py-2">
+                <li class="board_item text-center"><a href="/ex/board/main"
+                    class="text-decoration-none text-success fw-bold">주요사안</a> </li>
+                <li class="board_item text-center"><a href="/ex/board/talk" class="text-decoration-none text-success">토론</a>
+                </li>
+                <li class="board_item text-center"><a href="/ex/board/free" class="text-decoration-none text-success">자유</a>
+                </li>
+                <li class="board_item text-center"><a href="/ex/board/secret"
+                    class="text-decoration-none text-success">비공개</a> </li>
+              </div>
             </div>
+            <div class="col-md-9 shadow-sm rounded-5">
+              <div class="container px-1">
+                <div class="table-responsive">
+                  <table class="table table-striped table-sm">
+                    <thead>
+                      <tr class="text-center">
+                        <th scope="col">번호</th>
+                        <th scope="col">
+                          게시글명
+                          <a href="/ex/board_add/` + url_encode(board_name) + `"
+                            class="text-decoration-none text-success">(글 올리기)</a>
+                        </th>
+                        <th scope="col">날짜</th>
+                        <th scope="col">작성자</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ` + data + `
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
         `;
     });
 }

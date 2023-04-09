@@ -2,21 +2,6 @@ body {
     font-family: 'SUIT', sans-serif;
 }
 
-.nav-items {
-    color: #198754;
-}
-
-.nav-items:hover {
-    color: #198754;
-}
-
-#top .divider {
-    width: 52%;
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-    border-top: 2px solid #FFF;
-}
-
 .top-h {
     background-image: url(/view/img/top_background.jpg);
     background-repeat: no-repeat;
@@ -38,6 +23,7 @@ body {
     background-color: rgba(96, 125, 139, 0.1);
 }
 
+
 /* 로고 애니메이션*/
 @keyframes logo-hover {
     from {
@@ -57,6 +43,29 @@ body {
     animation-direction: alternate;
 }
 
+.board_item {
+    font-size: 14px;
+}
+
+/* Mobile button */
+#nav .offcanvas {
+    width: 300px !important;
+}
+
+#nav .offcanvas .mobile-menu a {
+    font-size: 1.1rem !important;
+}
+
+#nav .offcanvas .mobile-menu a.active {
+    font-weight: bold !important;
+    color: #0e2d16;
+}
+
+#nav .offcanvas .mobile-menu li {
+    padding-left: 0.75rem;
+    line-height: 1.75;
+}
+
 @media screen and (max-width: 768px) {
     .ban {
         margin-bottom: 16px;
@@ -72,5 +81,13 @@ body {
 
     #navbar .nav-content {
         padding: 0%;
+    }
+
+    .nav__list {
+        display: none;
+    }
+
+    .top-h {
+        height: 60vh;
     }
 }

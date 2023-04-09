@@ -7,7 +7,6 @@ if(document.location.pathname.startsWith('/ex/board_read/')) {
     }).then(function(text) {
         console.log(text);
         document.getElementById('main_data').innerHTML = `
-            ` + bbs_nav() + `
             <br>
             <div class="container px-5">
                 <h2>` + text.title + `</h2>

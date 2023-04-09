@@ -1,6 +1,5 @@
 if(document.location.pathname.startsWith('/ex/board_add/')) {
     document.getElementById('main_data').innerHTML = `
-        ` + bbs_nav() + `
         <br>
         <div class="container px-5">
             <div class="input-group mb-3">
@@ -8,7 +7,7 @@ if(document.location.pathname.startsWith('/ex/board_add/')) {
             </div>
             <textarea id="board_add_content" class="form-control" rows="15" placeholder="내용" aria-label="내용"></textarea>
             <br>
-            <button type="submit" class="btn btn-primary" id="board_add_save">저장</button>
+            <button type="submit" class="btn btn-success" id="board_add_save">저장</button>
         </div>
     `;
 
@@ -16,6 +15,7 @@ if(document.location.pathname.startsWith('/ex/board_add/')) {
         let title = document.getElementById('board_add_title').value;
         let content = document.getElementById('board_add_content').value;
 
+        console.log(title, content);
         let board_url = document.location.pathname;
         fetch("/api" + board_url, {
             method : 'POST',
