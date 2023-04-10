@@ -17,36 +17,40 @@ if (document.location.pathname.startsWith('/ex/board/')) {
         }
 
         document.getElementById('main_data').innerHTML = `
-          <section id="board">
-          <div class="container-xxl p-5 board-content">
-            <div class="row gap-5">
-              ` + bbs_nav() + `
-              <div class="col-md-9 shadow-sm rounded-5">
-                <div class="container px-1">
-                  <div class="table-responsive">
-                    <table class="table table-striped table-sm">
-                      <thead>
-                        <tr class="text-center">
-                          <th scope="col">번호</th>
-                          <th scope="col">
-                            게시글명
-                            <a href="/ex/board_add/` + url_encode(board_name) + `"
-                              class="text-decoration-none text-success">(글 올리기)</a>
-                          </th>
-                          <th scope="col">날짜</th>
-                          <th scope="col">작성자</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        ` + data + `
-                      </tbody>
-                    </table>
-                  </div>
+            <section id="board">
+                <div class="container-xxl p-5 board-content">
+                    <div class="row gap-5">
+                        ` + bbs_nav() + `
+                        <div class="col-md-9 shadow-sm rounded-5">
+                            <div class="container px-1">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-sm">
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">
+                                            번호
+                                        </th>
+                                        <th scope="col">
+                                            게시글명 <a href="/ex/board_add/` + url_encode(board_name) + `" class="text-decoration-none text-success">(글 올리기)</a>
+                                        </th>
+                                        <th scope="col">
+                                            날짜
+                                        </th>
+                                        <th scope="col">
+                                            작성자
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    ` + data + `
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      `;
+            </section>
+        `;
     });
 }
