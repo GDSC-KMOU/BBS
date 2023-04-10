@@ -66,12 +66,13 @@ body {
     line-height: 1.75;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
+
     .ban {
         margin-bottom: 16px;
     }
 
-    .intro__logo {
+    .top__logo, .intro__logo {
         display: none;
     }
 
@@ -83,11 +84,25 @@ body {
         padding: 0%;
     }
 
-    .nav__list {
+    .nav__list, .nav__sign {
         display: none;
     }
 
     .top-h {
         height: 60vh;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .top__logo, .intro__logo {
+        display: none;
+    }
+    .ban {
+        margin-bottom: 16px;
+    }
+    .nav__list, .nav__sign {
+        display: none;
+    }
+    .top-h {
+        height: 40vh;
     }
 }
