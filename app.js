@@ -71,6 +71,7 @@ new Promise(function(resolve) {
     });
 }).then(function() {
     // 임시로 하드 코딩
+    
     let bbs_list = ['main', 'talk', 'free', 'secret'];
 
     // url route
@@ -97,6 +98,34 @@ new Promise(function(resolve) {
     app.get('/ex/signin', function(req, res) { res.render('index_ex', {}) });
 
     app.get('/ex/signout', function(req, res) { req.session['user_name'] = undefined; res.redirect('/ex') });
+    
+    //일반 페이지를 위한 코드 복붙 -------------------------------------------------------
+    // url route
+    app.get('/', function(req, res) { res.render('index', {}) });
+
+    app.get('/intro', function(req, res) { res.render('index', {}) });
+
+    // url route - ex
+    app.get('', function(req, res) { res.render('index', {}) });
+
+    app.get('/intro', function(req, res) { res.render('index', {}) });
+
+    app.get('/project', function(req, res) { res.render('index', {}) });
+    app.get('/project/:id', function(req, res) { res.render('index', {}) });
+    app.get('/project_add', function(req, res) { res.render('index', {}) });
+
+    app.get('/board/:b_name', function(req, res) { res.render('index', {}) });
+    app.get('/board_add/:b_name', function(req, res) { res.render('index', {}) });
+    app.get('/board_read/:b_name/:id', function(req, res) { res.render('index', {}) });
+
+    app.get('/study', function(req, res) { res.render('index', {}) });
+
+    app.get('/signup', function(req, res) { res.render('index', {}) });
+    app.get('/signin', function(req, res) { res.render('index', {}) });
+
+    app.get('/signout', function(req, res) { req.session['user_name'] = undefined; res.redirect('') });
+
+    //복붙 끝 -------------------------------------------------------
 
     // api route
     app.get('/api/board/:b_name', function(req, res) {
