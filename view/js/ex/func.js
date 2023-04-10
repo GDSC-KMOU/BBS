@@ -12,17 +12,21 @@ function xss_filter(data) {
     return data;
 }
 
-// // purposeful
-// // board
-// function bbs_nav() {
-//     return `
-//         <div class="nav-scroller bg-body shadow-sm">
-//             <nav class="nav" aria-label="Secondary navigation">
-//                 <a class="nav-link" href="/ex/board/main">주요사안</a>
-//                 <a class="nav-link" href="/ex/board/talk">토론</a>
-//                 <a class="nav-link" href="/ex/board/free">자유</a>
-//                 <a class="nav-link" href="/ex/board/secret">비공개</a>
-//             </nav>
-//         </div>
-//     `;
-// }
+// purposeful
+// board
+function bbs_nav() {
+    return `
+        <div class="col-md-2 shadow-sm rounded-5">
+            <div class="row nav gap-2 py-2">
+            <li class="board_item text-center"><a href="/ex/board/main"
+                class="text-decoration-none text-success fw-bold">주요사안</a> </li>
+            <li class="board_item text-center"><a href="/ex/board/talk" class="text-decoration-none text-success">토론</a>
+            </li>
+            <li class="board_item text-center"><a href="/ex/board/free" class="text-decoration-none text-success">자유</a>
+            </li>
+            <li class="board_item text-center"><a href="/ex/board/secret"
+                class="text-decoration-none text-success">비공개</a> </li>
+            </div>
+        </div>
+    `;
+}

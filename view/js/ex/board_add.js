@@ -1,23 +1,30 @@
 if(document.location.pathname.startsWith('/ex/board_add/')) {
     document.getElementById('main_data').innerHTML = `
-        <br>
-        <div class="container px-5">
-            <div class="input-group mb-3">
-                <input id="board_add_title" type="text" class="form-control" placeholder="제목" aria-label="제목" aria-describedby="basic-addon2">
+        <section id="board">
+            <div class="container-xxl p-5 board-content">
+                <div class="row gap-5">
+                    ` + bbs_nav() + `
+                    <div class="col-md-9 shadow-sm rounded-5">
+                        <div class="container px-1">
+                            <div class="input-group mb-3">
+                                <input id="board_add_title" type="text" class="form-control" placeholder="제목" aria-label="제목" aria-describedby="basic-addon2">
+                            </div>
+                            <textarea id="board_add_content" class="form-control" rows="15" placeholder="내용" aria-label="내용"></textarea>
+                            <br>
+                            <button type="submit" class="btn btn-success" id="board_add_save">저장</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <textarea id="board_add_content" class="form-control" rows="15" placeholder="내용" aria-label="내용"></textarea>
-            <br>
-            <button type="submit" class="btn btn-success" id="board_add_save">저장</button>
-        </div>
+        </section>
     `;
 
     document.getElementById('board_add_save').addEventListener("click", function() {
         let title = document.getElementById('board_add_title').value;
         let content = document.getElementById('board_add_content').value;
 
-        console.log(title, content);
-        let board_url = document.location.pathname;
-        fetch("/api" + board_url, {
+        let board_name = document.location.pathname.split('/')[3];
+        fetch("/api/board_add/" + url_encode(board_name), {
             method : 'POST',
             headers : { 'Content-Type': 'application/json' },
             body : JSON.stringify({

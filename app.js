@@ -75,57 +75,30 @@ new Promise(function(resolve) {
     let bbs_list = ['main', 'talk', 'free', 'secret'];
 
     // url route
-    app.get('/', function(req, res) { res.render('index', {}) });
+    for(let for_a = 0; for_a < 2; for_a++) {
+        let ex = '';
+        if(for_a == 1) {
+            ex = 'ex';
+        }
 
-    app.get('/intro', function(req, res) { res.render('index', {}) });
+        app.get('/' + ex, function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
 
-    // url route - ex
-    app.get('/ex', function(req, res) { res.render('index_ex', {}) });
+        app.get((ex == 'ex' ? '/ex' : '') + '/intro', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
 
-    app.get('/ex/intro', function(req, res) { res.render('index_ex', {}) });
+        app.get((ex == 'ex' ? '/ex' : '') + '/project', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get((ex == 'ex' ? '/ex' : '') + '/project/:id', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get((ex == 'ex' ? '/ex' : '') + '/project_add', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
 
-    app.get('/ex/project', function(req, res) { res.render('index_ex', {}) });
-    app.get('/ex/project/:id', function(req, res) { res.render('index_ex', {}) });
-    app.get('/ex/project_add', function(req, res) { res.render('index_ex', {}) });
+        app.get((ex == 'ex' ? '/ex' : '') + '/board/:b_name', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get((ex == 'ex' ? '/ex' : '') + '/board_add/:b_name', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get((ex == 'ex' ? '/ex' : '') + '/board_read/:b_name/:id', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
 
-    app.get('/ex/board/:b_name', function(req, res) { res.render('index_ex', {}) });
-    app.get('/ex/board_add/:b_name', function(req, res) { res.render('index_ex', {}) });
-    app.get('/ex/board_read/:b_name/:id', function(req, res) { res.render('index_ex', {}) });
+        app.get((ex == 'ex' ? '/ex' : '') + '/study', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
 
-    app.get('/ex/study', function(req, res) { res.render('index_ex', {}) });
-
-    app.get('/ex/signup', function(req, res) { res.render('index_ex', {}) });
-    app.get('/ex/signin', function(req, res) { res.render('index_ex', {}) });
-
-    app.get('/ex/signout', function(req, res) { req.session['user_name'] = undefined; res.redirect('/ex') });
-    
-    //일반 페이지를 위한 코드 복붙 -------------------------------------------------------
-    // url route
-    app.get('/', function(req, res) { res.render('index', {}) });
-
-    app.get('/intro', function(req, res) { res.render('index', {}) });
-
-    // url route - ex
-    app.get('', function(req, res) { res.render('index', {}) });
-
-    app.get('/intro', function(req, res) { res.render('index', {}) });
-
-    app.get('/project', function(req, res) { res.render('index', {}) });
-    app.get('/project/:id', function(req, res) { res.render('index', {}) });
-    app.get('/project_add', function(req, res) { res.render('index', {}) });
-
-    app.get('/board/:b_name', function(req, res) { res.render('index', {}) });
-    app.get('/board_add/:b_name', function(req, res) { res.render('index', {}) });
-    app.get('/board_read/:b_name/:id', function(req, res) { res.render('index', {}) });
-
-    app.get('/study', function(req, res) { res.render('index', {}) });
-
-    app.get('/signup', function(req, res) { res.render('index', {}) });
-    app.get('/signin', function(req, res) { res.render('index', {}) });
-
-    app.get('/signout', function(req, res) { req.session['user_name'] = undefined; res.redirect('') });
-
-    //복붙 끝 -------------------------------------------------------
+        app.get((ex == 'ex' ? '/ex' : '') + '/signup', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get((ex == 'ex' ? '/ex' : '') + '/signin', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get((ex == 'ex' ? '/ex' : '') + '/signout', function(req, res) { req.session['user_name'] = undefined; res.redirect('/' + ex) });
+    }
 
     // api route
     app.get('/api/board/:b_name', function(req, res) {
