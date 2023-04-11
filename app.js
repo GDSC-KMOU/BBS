@@ -44,11 +44,7 @@ new Promise(function(resolve) {
     db.all("select set_data from set_data where set_name = 'secret_key'", [], function(err, db_data) {
         let random_key = '';
         if(db_data.length === 0) {
-            let random_key_string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            for(let for_a = 0; for_a < 256; for_a++) {
-                random_key += random_key_string.charAt(Math.floor(Math.random() * random_key_string.length));
-            }
-
+            random_key = func.get_random_key();
             db.run("insert into set_data (code_id, set_name, code_data, set_data) values ('', 'secret_key', '', ?)", [random_key]);
         } else {
             random_key = db_data[0].set_data;
@@ -77,30 +73,33 @@ new Promise(function(resolve) {
     // url route
     for(let for_a = 0; for_a < 2; for_a++) {
         let ex = '';
-        if(for_a == 1) {
+        if(for_a === 1) {
             ex = 'ex';
         }
 
-        app.get('/' + ex, function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get('/' + ex, function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
 
-        app.get((ex == 'ex' ? '/ex' : '') + '/intro', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/intro', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
 
-        app.get((ex == 'ex' ? '/ex' : '') + '/project', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
-        app.get((ex == 'ex' ? '/ex' : '') + '/project/:id', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
-        app.get((ex == 'ex' ? '/ex' : '') + '/project_add', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/project', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/project/:id', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/project_add', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
 
-        app.get((ex == 'ex' ? '/ex' : '') + '/board/:b_name', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
-        app.get((ex == 'ex' ? '/ex' : '') + '/board_add/:b_name', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
-        app.get((ex == 'ex' ? '/ex' : '') + '/board_read/:b_name/:id', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/board/:b_name', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/board_add/:b_name', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/board_edit/:b_name/:id', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/board_read/:b_name/:id', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
 
-        app.get((ex == 'ex' ? '/ex' : '') + '/study', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/study', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
 
-        app.get((ex == 'ex' ? '/ex' : '') + '/signup', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
-        app.get((ex == 'ex' ? '/ex' : '') + '/signin', function(req, res) { res.render('index' + (ex == 'ex' ? '_ex' : ''), {}) });
-        app.get((ex == 'ex' ? '/ex' : '') + '/signout', function(req, res) { req.session['user_name'] = undefined; res.redirect('/' + ex) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/signup', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/signin', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/signout', function(req, res) { req.session['user_name'] = undefined; res.redirect('/' + ex) });
+
+        app.get((ex === 'ex' ? '/ex' : '') + '/set', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
     }
 
-    // api route
+    // api route - get
     app.get('/api/board/:b_name', function(req, res) {
         if(bbs_list.includes(req.params.b_name) === true) {
             if(req.params.b_name === 'secret') {
@@ -114,6 +113,10 @@ new Promise(function(resolve) {
                     for(let for_a = 0; for_a < db_data.length; for_a++) {
                         if(db_data[for_a].doc_id !== for_b) {
                             if(for_a !== 0) {
+                                if(!for_c['user_name_real']) {
+                                    for_c['user_name_real'] = for_c['user_name'];
+                                }
+                                
                                 data_list.push(for_c);
                             }
 
@@ -125,6 +128,10 @@ new Promise(function(resolve) {
                         for_c[db_data[for_a].set_name] = db_data[for_a].doc_data;
 
                         if(for_a === db_data.length - 1) {
+                            if(!for_c['user_name_real']) {
+                                for_c['user_name_real'] = for_c['user_name'];
+                            }
+
                             data_list.push(for_c);
                         }
                     }
@@ -145,34 +152,40 @@ new Promise(function(resolve) {
                     data[db_data[for_a].set_name] = db_data[for_a].doc_data;
                 }
 
+                if(!data['user_name_real']) {
+                    data['user_name_real'] = data['user_name'];
+                }
+
                 res.json(data);
             });
         }
     });
-    app.post('/api/board_add/:b_name', function(req, res) {
-        if(bbs_list.includes(req.params.b_name) === true) {
-            let data = req.body;
 
-            let user_name = '베타테스터';
-            let title = data.title;
-            let content = data.content;
-            let date = func.get_date();
+    app.get('/api/set/code', function(req, res) {
+        if(req.session['user_name']) {
+            let user_name = req.session['user_name'];
 
-            db.all("select doc_id from bbs_data where set_name = 'title' order by doc_id + 0 desc limit 1", [], function(err, db_data) {
-                let doc_id = '1'
-                if(db_data.length !== 0) {
-                    doc_id = String(Number(db_data[0].doc_id) + 1);
+            db.all("select set_data from user_data where user_name = ? and set_name = 'auth'", [user_name], function(err, db_data) {
+                if(db_data[0].set_data === 'admin') {
+                    db.all("select set_data from set_data where set_name = 'code_key'", [], function(err, db_data_2) {
+                        let data = [];
+                        for(let for_a = 0; for_a < db_data_2.length; for_a++) {
+                            data.push(db_data_2[for_a].set_data);
+                        }
+
+                        res.json(data);
+                    });
+                } else {
+                    res.json({
+                        "req" : "error",
+                        "reason" : "auth reject"
+                    });
                 }
-
-                db.run("insert into bbs_data (doc_id, set_name, doc_data, set_data) values (?, 'user_name', ?, ?)", [doc_id, user_name, req.params.b_name]);
-                db.run("insert into bbs_data (doc_id, set_name, doc_data, set_data) values (?, 'title', ?, ?)", [doc_id, title, req.params.b_name]);
-                db.run("insert into bbs_data (doc_id, set_name, doc_data, set_data) values (?, 'content', ?, ?)", [doc_id, content, req.params.b_name]);
-                db.run("insert into bbs_data (doc_id, set_name, doc_data, set_data) values (?, 'date', ?, ?)", [doc_id, date, req.params.b_name]);
-
-                res.json({
-                    "req" : "ok",
-                    "id" : doc_id
-                });
+            });
+        } else {
+            res.json({
+                "req" : "error",
+                "reason" : "user_name not exist"
             });
         }
     });
@@ -188,6 +201,122 @@ new Promise(function(resolve) {
                 "count" : "5"
             }
         ]);
+    });
+
+    // api route - post
+    app.post('/api/board_edit/:b_name/:id', function(req, res) {
+        if(bbs_list.includes(req.params.b_name) === true) {
+            if(req.session['user_name']) {
+                db.all("select doc_data from bbs_data where set_data = ? and doc_id = ? and set_name = 'user_name'", [
+                    req.params.b_name,
+                    req.params.id
+                ], function(err, db_data) {
+                    if(req.session['user_name'] === db_data[0].doc_data) {
+                        let data = req.body;
+
+                        let title = data.title;
+                        let content = data.content;
+
+                        if(content === '') {
+                            db.run("delete from bbs_data where doc_id = ?", [req.params.id]);
+                        } else {
+                            db.run("update bbs_data set doc_data = ? where set_data = ? and doc_id = ? and set_name = 'title'", [
+                                title,
+                                req.params.b_name,
+                                req.params.id
+                            ]);
+                            db.run("update bbs_data set doc_data = ? where set_data = ? and doc_id = ? and set_name = 'content'", [
+                                content,
+                                req.params.b_name,
+                                req.params.id
+                            ]);
+                        }
+
+                        res.json({
+                            "req" : "ok"
+                        });
+                    } else {
+                        res.json({
+                            "req" : "error",
+                            "reason" : "user_name !== doc_user_name"
+                        });
+                    }
+                });
+            } else {
+                res.json({
+                    "req" : "error",
+                    "reason" : "user_name not exist"
+                });
+            }
+        } else {
+            res.json({
+                "req" : "error",
+                "reason" : "bbs not exist"
+            });
+        }
+    });
+    app.post('/api/board_add/:b_name', function(req, res) {
+        if(bbs_list.includes(req.params.b_name) === true) {
+            if(req.session['user_name']) {
+                let data = req.body;
+
+                let user_name = req.session['user_name'];
+                db.all("select set_data from user_data where user_name = ? and set_name = 'user_real_name' limit 1", [user_name], function(err, db_data_2) {
+                    let user_real_name = db_data_2[0].set_data;
+                    let title = data.title;
+                    let content = data.content;
+                    let date = func.get_date();
+
+                    db.all("select doc_id from bbs_data where set_name = 'title' order by doc_id + 0 desc limit 1", [], function(err, db_data) {
+                        let doc_id = '1'
+                        if(db_data.length !== 0) {
+                            doc_id = String(Number(db_data[0].doc_id) + 1);
+                        }
+
+                        db.run("insert into bbs_data (doc_id, set_name, doc_data, set_data) values (?, 'user_name', ?, ?)", [
+                            doc_id, 
+                            user_name, 
+                            req.params.b_name
+                        ]);
+                        db.run("insert into bbs_data (doc_id, set_name, doc_data, set_data) values (?, 'user_name_real', ?, ?)", [
+                            doc_id, 
+                            user_real_name, 
+                            req.params.b_name
+                        ]);
+                        db.run("insert into bbs_data (doc_id, set_name, doc_data, set_data) values (?, 'title', ?, ?)", [
+                            doc_id, 
+                            title, 
+                            req.params.b_name
+                        ]);
+                        db.run("insert into bbs_data (doc_id, set_name, doc_data, set_data) values (?, 'content', ?, ?)", [
+                            doc_id, 
+                            content, 
+                            req.params.b_name
+                        ]);
+                        db.run("insert into bbs_data (doc_id, set_name, doc_data, set_data) values (?, 'date', ?, ?)", [
+                            doc_id, 
+                            date, 
+                            req.params.b_name
+                        ]);
+
+                        res.json({
+                            "req" : "ok",
+                            "id" : doc_id
+                        });
+                    });
+                });
+            } else {
+                res.json({
+                    "req" : "error",
+                    "reason" : "user_name not exist"
+                });
+            }
+        } else {
+            res.json({
+                "req" : "error",
+                "reason" : "bbs not exist"
+            });
+        }
     });
 
     app.post('/api/signin', function(req, res) {
@@ -279,10 +408,22 @@ new Promise(function(resolve) {
                                         random_key = db_data[0].set_data;
                                     }
                                 
-                                    db.run("insert into user_data (user_name, set_name, user_data, set_data) values (?, 'password', '', ?)", [user_name, sha3_512(password + random_key)]);
-                                    db.run("insert into user_data (user_name, set_name, user_data, set_data) values (?, 'auth', '', ?)", [user_name, auth]);
-                                    db.run("insert into user_data (user_name, set_name, user_data, set_data) values (?, 'user_real_name', '', ?)", [user_name, user_real_name]);
-                                    db.run("insert into user_data (user_name, set_name, user_data, set_data) values (?, 'code', '', ?)", [user_name, code]);
+                                    db.run("insert into user_data (user_name, set_name, user_data, set_data) values (?, 'password', '', ?)", [
+                                        user_name, 
+                                        sha3_512(password + random_key)
+                                    ]);
+                                    db.run("insert into user_data (user_name, set_name, user_data, set_data) values (?, 'auth', '', ?)", [
+                                        user_name, 
+                                        auth
+                                    ]);
+                                    db.run("insert into user_data (user_name, set_name, user_data, set_data) values (?, 'user_real_name', '', ?)", [
+                                        user_name, 
+                                        user_real_name
+                                    ]);
+                                    db.run("insert into user_data (user_name, set_name, user_data, set_data) values (?, 'code', '', ?)", [
+                                        user_name, 
+                                        code
+                                    ]);
 
                                     res.json({ "req" : "ok" });
                                 });
@@ -295,6 +436,34 @@ new Promise(function(resolve) {
                         });
                     }
                 });
+            });
+        }
+    });
+
+    app.post('/api/set/add_code', function(req, res) {
+        if(req.session['user_name']) {
+            let user_name = req.session['user_name'];
+
+            db.all("select set_data from user_data where user_name = ? and set_name = 'auth'", [user_name], function(err, db_data) {
+                if(db_data[0].set_data === 'admin') {
+                    let code_key = func.get_random_key(32);
+                    db.run("insert into set_data (code_id, set_name, code_data, set_data) values ('', 'code_key', '', ?)", [code_key]);
+                    
+                    res.json({
+                        "req" : "ok",
+                        "code" : code_key
+                    });
+                } else {
+                    res.json({
+                        "req" : "error",
+                        "reason" : "auth reject"
+                    });
+                }
+            });
+        } else {
+            res.json({
+                "req" : "error",
+                "reason" : "user_name not exist"
             });
         }
     });

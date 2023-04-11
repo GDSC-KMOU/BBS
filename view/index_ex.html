@@ -26,12 +26,14 @@
         <script defer src="/view/js/ex/board.js"></script>
         <script defer src="/view/js/ex/board_add.js"></script>
         <script defer src="/view/js/ex/board_read.js"></script>
+        <script defer src="/view/js/ex/board_edit.js"></script>
 
-        <script defer src="/view/js/ex/intro.js"></script>
         <script defer src="/view/js/ex/study.js"></script>
 
         <script defer src="/view/js/ex/signup.js"></script>
         <script defer src="/view/js/ex/signin.js"></script>
+
+        <script defer src="/view/js/ex/set.js"></script>
         
         <!-- Meta tag -->
         <title>인클루더 - 한국해양대학교</title>
@@ -56,8 +58,13 @@
                         <li><a href="/ex/board/main" class="nav-link px-2 nav-items fw-bold text-success">게시판</a></li>
                     </ul>
                 <div class="justify-content-end nav__sign">
-                    <a href="/ex/signin" class="btn btn-outline-success me-2">로그인</a>
-                    <a href="/ex/signup" class="btn btn-success">회원가입</a>
+                    {% if session.user_name %}
+                        <a href="/ex/set" class="btn btn-outline-success me-2">설정</a>
+                        <a href="/ex/signout" class="btn btn-success">로그아웃</a>
+                    {% else %}
+                        <a href="/ex/signin" class="btn btn-outline-success me-2">로그인</a>
+                        <a href="/ex/signup" class="btn btn-success">회원가입</a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -90,8 +97,13 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="/ex/signin" class="text-decoration-none link-success fw-bold">로그인</a> &nbsp;
-                            <a href="/ex/signup" class="text-decoration-none link-success fw-bold">회원가입</a>
+                            {% if session.user_name %}
+                                <a href="/ex/set" class="text-decoration-none link-success fw-bold">설정</a> &nbsp;
+                                <a href="/ex/signout" class="text-decoration-none link-success fw-bold">로그아웃</a>
+                            {% else %}
+                                <a href="/ex/signin" class="text-decoration-none link-success fw-bold">로그인</a> &nbsp;
+                                <a href="/ex/signup" class="text-decoration-none link-success fw-bold">회원가입</a>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>

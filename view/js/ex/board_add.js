@@ -38,10 +38,9 @@ if(document.location.pathname.startsWith('/ex/board_add/')) {
             return res.json();
         }).then(function(text) {
             if(text.req === 'ok') {
-                let board_name = document.location.pathname.split('/')[3];
                 document.location.pathname = '/ex/board_read/' + url_encode(board_name) + '/' + text.id;
             } else {
-                alert(text.req);
+                alert(text.req + '\n' + text.reason);
             }
         });
     });

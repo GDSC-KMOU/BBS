@@ -5,7 +5,6 @@ if(document.location.pathname.startsWith('/ex/board_read/')) {
     fetch("/api/board_read/" + url_encode(board_name) + '/' + url_encode(board_id)).then(function(res) {
         return res.json();
     }).then(function(text) {
-        console.log(text);
         document.getElementById('main_data').innerHTML = `
             <section id="board">
                 <div class="container-xxl p-5 board-content">
@@ -14,6 +13,10 @@ if(document.location.pathname.startsWith('/ex/board_read/')) {
                         <div class="col-md-9 shadow-sm rounded-5">
                             <div class="container px-1">
                                 <h2>` + text.title + `</h2>
+                                ` + text.date + ` <span style="float: right;">` + text.user_name_real + `</span>
+                                <br>
+                                <a href="/ex/board_edit/` + url_encode(board_name) + `/` + url_encode(board_id) + `">(수정)</a>
+                                <br>
                                 <p class="lead">` + text.content.replaceAll('\n', '<br>') + `</p>
                             </div>
                         </div>

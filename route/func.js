@@ -14,6 +14,17 @@ function get_date() {
     return formattedDateString;
 }
 
+function get_random_key(length = 256) {
+    let random_key = '';
+    let random_key_string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for(let for_a = 0; for_a < length; for_a++) {
+        random_key += random_key_string.charAt(Math.floor(Math.random() * random_key_string.length));
+    }
+
+    return random_key;
+}
+
 module.exports = {
-    get_date: get_date
+    get_date: get_date,
+    get_random_key : get_random_key
 };
