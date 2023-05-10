@@ -21,7 +21,7 @@ if (document.location.pathname === '/ex/set') {
         document.getElementById('make_code').addEventListener("click", function() {
             add_code = confirm("코드를 생성하겠습니까?");
             if(add_code === true) {
-                fetch("/api/set/add_code", {
+                fetch("/api/set/code/add", {
                     method : 'POST'
                 }).then(function(res) {
                     return res.json();

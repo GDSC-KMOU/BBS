@@ -1,3 +1,6 @@
+const sqlite3 = require('sqlite3');
+
+// set func
 function get_date() {
     const now = new Date();
 
@@ -24,7 +27,15 @@ function get_random_key(length = 256) {
     return random_key;
 }
 
+function bbs_list() {
+    // 임시로 하드 코딩
+    let bbs_list = ['main', 'talk', 'free', 'secret'];
+
+    return bbs_list;
+}
+
 module.exports = {
     get_date: get_date,
-    get_random_key : get_random_key
+    get_random_key : get_random_key,
+    bbs_list : bbs_list
 };
