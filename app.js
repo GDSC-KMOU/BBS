@@ -17,6 +17,7 @@ const app = express();
 const port = 3000;
 
 app.use(body_parser.json());
+app.set('json spaces', 2)
 
 // set template
 app.set('view engine', 'html');
