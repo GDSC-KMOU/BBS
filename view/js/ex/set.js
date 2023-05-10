@@ -1,4 +1,6 @@
-if (document.location.pathname === '/ex/set') {
+"use strict";
+
+if(document.location.pathname === '/ex/set') {
     fetch("/api/set/code").then(function(res) {
         return res.json();
     }).then(function(text) {

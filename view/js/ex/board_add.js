@@ -1,3 +1,5 @@
+"use strict";
+
 if(document.location.pathname.startsWith('/ex/board_add/')) {
     document.getElementById('main_data').innerHTML = `
         <section id="board">

@@ -1,4 +1,6 @@
-if (document.location.pathname.startsWith('/ex/board/')) {
+"use strict";
+
+if(document.location.pathname.startsWith('/ex/board/')) {
     let board_name = document.location.pathname.split('/')[3];
 
     fetch("/api/board/" + url_encode(board_name)).then(function (res) {

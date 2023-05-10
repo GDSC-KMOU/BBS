@@ -1,3 +1,5 @@
+"use strict";
+
 if(document.location.pathname === '/ex/study') {
     document.getElementById('main_data').innerHTML = `
         <div class="container px-5">

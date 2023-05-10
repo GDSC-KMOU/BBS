@@ -1,3 +1,5 @@
+"use strict";
+
 if(document.location.pathname === '/ex/project') {
     fetch("/api/project").then(function(res) {
         return res.json();

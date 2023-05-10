@@ -1,4 +1,6 @@
-if (document.location.pathname === '/ex') {
+"use strict";
+
+if(document.location.pathname === '/ex') {
     document.getElementById('main_data').innerHTML = `
         <header class="py-5 mb-5 top-h" id="top">
             <div class="container px-5">

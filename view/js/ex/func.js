@@ -1,3 +1,5 @@
+"use strict";
+
 // multipurpose
 function url_encode(data) {
     return encodeURIComponent(data);
