@@ -15,11 +15,7 @@ function board(req, res) {
                 let for_c = {};
                 for(let for_a = 0; for_a < db_data.length; for_a++) {
                     if(db_data[for_a].doc_id !== for_b) {
-                        if(for_a !== 0) {
-                            if(!for_c['user_name_real']) {
-                                for_c['user_name_real'] = for_c['user_name'];
-                            }
-                            
+                        if(for_a !== 0) {                            
                             data_list.push(for_c);
                         }
 
@@ -31,10 +27,6 @@ function board(req, res) {
                     for_c[db_data[for_a].set_name] = db_data[for_a].doc_data;
 
                     if(for_a === db_data.length - 1) {
-                        if(!for_c['user_name_real']) {
-                            for_c['user_name_real'] = for_c['user_name'];
-                        }
-
                         data_list.push(for_c);
                     }
                 }

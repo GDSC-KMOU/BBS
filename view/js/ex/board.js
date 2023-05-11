@@ -11,7 +11,7 @@ if(document.location.pathname.startsWith('/ex/board/')) {
             data += `
                 <tr>
                     <td>` + text[for_a]['doc_id'] + `</td>
-                    <td><a href="/ex/board_read/` + url_encode(board_name) + '/' + text[for_a]['doc_id'] + `">` + text[for_a]['title'] + `</a></td>
+                    <td><a class="text-decoration-none text-success" href="/ex/board_read/` + url_encode(board_name) + '/' + text[for_a]['doc_id'] + `">` + text[for_a]['title'] + `</a></td>
                     <td>` + text[for_a]['date'].split(' ')[1] + `</td>
                     <td>` + text[for_a]['user_name_real'] + `</td>
                 </tr>

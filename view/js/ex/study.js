@@ -66,7 +66,7 @@ if(document.location.pathname === '/ex/study') {
                 </div>
                 
                 <small class="d-block text-end mt-3">
-                    <a href="/ex/project_add" class="text-success">추가하기</a>
+                    <a href="/ex/study_add" class="text-decoration-none text-success">(추가)</a>
                 </small>
             </div>
     `;

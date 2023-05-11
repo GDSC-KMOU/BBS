@@ -1,4 +1,5 @@
 const sqlite3 = require('sqlite3');
+const commonmark = require('commonmark');
 const func = require('./func.js');
 
 function board_read(req, res) {
@@ -17,6 +18,11 @@ function board_read(req, res) {
             if(!data['user_name_real']) {
                 data['user_name_real'] = data['user_name'];
             }
+
+            const reader = new commonmark.Parser();
+            const writer = new commonmark.HtmlRenderer({ softbreak : "<br>", safe : true });
+
+            data['render_content'] = writer.render(reader.parse(data['content']));
 
             res.json(data);
         });

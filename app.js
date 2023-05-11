@@ -16,8 +16,11 @@ const board_edit = require('./route/board_edit.js').board_edit;
 
 const project = require('./route/project.js').project;
 
+const study = require('./route/study.js').study;
+
 const set_code = require('./route/set_code.js').set_code;
 const set_code_add = require('./route/set_code_add.js').set_code_add;
+const set_code_delete = require('./route/set_code_delete.js').set_code_delete;
 
 const signin = require('./route/signin.js').signin;
 const signup = require('./route/signup.js').signup;
@@ -37,21 +40,79 @@ nunjucks.configure('view', {
     watch: true
 });
 
+// set global var
+const sys_ver = 1;
+
 // set db
 const db = new sqlite3.Database('data.db');
 
-// create table
 db.serialize(function() {
+    // create table
     // code_id, set_name, code_data, set_data
     db.run("create table if not exists set_data (code_id longtext, set_name longtext, code_data longtext, set_data longtext)");
     // doc_id, set_name, doc_data, set_data
     db.run("create table if not exists bbs_data (doc_id longtext, set_name longtext, doc_data longtext, set_data longtext)");
+    // doc_id, set_name, doc_data, set_data
+    db.run("create table if not exists project_data (doc_id longtext, set_name longtext, doc_data longtext, set_data longtext)");
+    // doc_id, set_name, doc_data, set_data
+    db.run("create table if not exists study_data (doc_id longtext, set_name longtext, doc_data longtext, set_data longtext)");
     // user_name, set_name, user_data, set_data
     db.run("create table if not exists user_data (user_name longtext, set_name longtext, user_data longtext, set_data longtext)");
+
+    // update
+    db.all("select set_data from set_data where set_name = 'sys_ver'", [], function(err, db_data) {
+        let db_ver = 0;
+        if(db_data.length != 0) {
+            db_ver = Number(db_data[0].set_data);
+        }
+
+        if(1 > db_ver) {
+            let bbs_list = func.bbs_list();
+            for(let for_a = 0; for_a < bbs_list.length; for_a++) {
+                db.all("select doc_id, set_name, doc_data from bbs_data where set_data = ?", [bbs_list[for_a]], function(err, db_data) {
+                    let data_list = [];
+
+                    let for_b = '';
+                    let for_c = {};
+                    for(let for_d = 0; for_d < db_data.length; for_d++) {
+                        if(db_data[for_d].doc_id !== for_b) {
+                            if(for_d !== 0) {                            
+                                data_list.push(for_c);
+                            }
+
+                            for_c = {};
+                            for_b = db_data[for_d].doc_id;
+                            for_c['doc_id'] = for_b;
+                        }
+                        
+                        for_c[db_data[for_d].set_name] = db_data[for_d].doc_data;
+
+                        if(for_d === db_data.length - 1) {
+                            data_list.push(for_c);
+                        }
+                    }
+
+                    for(let for_d = 0; for_d < data_list.length; for_d++) {
+                        if(data_list[for_d]['user_name_real'] === undefined) {
+                            db.run("insert into bbs_data (doc_id, set_name, doc_data, set_data) values (?, 'user_name_real', ?, ?)", [
+                                data_list[for_d]['doc_id'], 
+                                data_list[for_d]['user_name'], 
+                                bbs_list[for_a]
+                            ]);
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    // init set
+    db.run("delete from set_data where set_name = 'sys_ver' and set_data = ?", [sys_ver]);
+    db.run("insert into set_data (code_id, set_name, code_data, set_data) values ('', 'sys_ver', '', ?)", [sys_ver]);
 });
 
-// init secret key
 new Promise(function(resolve) {
+    // init secret key
     db.all("select set_data from set_data where set_name = 'secret_key'", [], function(err, db_data) {
         let random_key = '';
         if(db_data.length === 0) {
@@ -99,6 +160,7 @@ new Promise(function(resolve) {
         app.get((ex === 'ex' ? '/ex' : '') + '/board_read/:b_name/:id', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
 
         app.get((ex === 'ex' ? '/ex' : '') + '/study', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/study_add', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
 
         app.get((ex === 'ex' ? '/ex' : '') + '/signup', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
         app.get((ex === 'ex' ? '/ex' : '') + '/signin', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
@@ -107,22 +169,22 @@ new Promise(function(resolve) {
         app.get((ex === 'ex' ? '/ex' : '') + '/set', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
     }
 
-    // api route - get
+    // api route
     app.get('/api/board/:b_name', board);
     app.get('/api/board_read/:b_name/:id', board_read);
-    
-    app.get('/api/set/code', set_code);
-    
-    app.get('/api/project', project);
-
-    // api route - post
     app.post('/api/board_edit/:b_name/:id', board_edit);
     app.post('/api/board_add/:b_name', board_add);
 
+    app.get('/api/set/code', set_code);
+    app.post('/api/set/code/add', set_code_add);
+    app.post('/api/set/code/delete/:id', set_code_delete);
+
+    app.get('/api/project', project);
+
+    app.get('/api/study', study);
+
     app.post('/api/signin', signin);
     app.post('/api/signup', signup);
-
-    app.post('/api/set/code/add', set_code_add);
 
     // url route sys
     app.get('/view/:url*', function(req, res) { res.sendFile(__dirname + "/view/" + req.params['url'] + req.params[0]) });

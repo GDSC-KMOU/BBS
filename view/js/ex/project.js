@@ -31,6 +31,8 @@ if(document.location.pathname === '/ex/project') {
             <div class="container px-5">
                 <div class="container">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        <a href="/ex/project_add" class="text-decoration-none text-success">(글 올리기)</a>
+                        <br>
                         ` + data + `
                     </div>
                 </div>

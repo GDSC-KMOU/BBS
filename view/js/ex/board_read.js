@@ -17,9 +17,9 @@ if(document.location.pathname.startsWith('/ex/board_read/')) {
                                 <h2>` + text.title + `</h2>
                                 ` + text.date + ` <span style="float: right;">` + text.user_name_real + `</span>
                                 <br>
-                                <a href="/ex/board_edit/` + url_encode(board_name) + `/` + url_encode(board_id) + `">(수정)</a>
+                                <a class="text-decoration-none text-success" href="/ex/board_edit/` + url_encode(board_name) + `/` + url_encode(board_id) + `">(수정)</a>
                                 <br>
-                                <p class="lead">` + text.content.replaceAll('\n', '<br>') + `</p>
+                                <p class="lead">` + text.render_content + `</p>
                             </div>
                         </div>
                     </div>

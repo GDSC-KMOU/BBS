@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3');
 const func = require('./func.js');
 
-function project(req, res) {
+function study(req, res) {
     const db = new sqlite3.Database(__dirname + '/../data.db');
 
     db.all("select doc_id, set_name, doc_data from project_data where set_data = ? order by doc_id + 0 desc", [], function(err, db_data) {
@@ -31,12 +31,10 @@ function project(req, res) {
 
         /* res.json([
             {
-                "post_id" : "1",
-                "img_src" : "/view/img/website.jpg",
-                "post_name" : "테스트",
+                "team_name" : "인클루더",
+                "content" : "동아리 친목회",
                 "date" : "2023-03-21 13:00:00",
-                "writer" : "잉여",
-                "count" : "5"
+                "writer" : "잉여"
             }
         ]); */
     });
@@ -45,5 +43,5 @@ function project(req, res) {
 }
 
 module.exports = {
-    project : project
+    study : study
 };
