@@ -9,7 +9,7 @@ function set_code_delete(req, res) {
 
         db.all("select set_data from user_data where user_name = ? and set_name = 'auth'", [user_name], function(err, db_data) {
             if(db_data[0].set_data === 'admin') {
-                db.run("delete from set_data where set_name = 'code_key' and set_data = ? limit 1", [req.params.id]);
+                db.run("delete from set_data where set_name = 'code_key' and set_data = ?", [req.params.id]);
 
                 res.json({
                     "req" : "ok"
