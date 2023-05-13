@@ -45,7 +45,7 @@ function signup(req, res) {
                     db.all("select set_name from set_data where set_name = 'code_key' and set_data = ? limit 1", [code], function(err, db_data) {
                         let code_check = 0;
                         if(db_data.length !== 0) {
-                            db.run("delete from set_data where set_name = 'code_key' and set_data = ? limit 1", [code]);
+                            db.run("delete from set_data where set_name = 'code_key' and set_data = ?", [code]);
 
                             code_check = 1;
                         } else if(auth === 'admin') {
