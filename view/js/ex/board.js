@@ -11,9 +11,9 @@ if(document.location.pathname.startsWith('/ex/board/')) {
             data += `
                 <tr>
                     <td>` + text[for_a]['doc_id'] + `</td>
-                    <td><a class="text-decoration-none text-success" href="/ex/board_read/` + url_encode(board_name) + '/' + text[for_a]['doc_id'] + `">` + text[for_a]['title'] + `</a></td>
+                    <td><a class="text-decoration-none text-success" href="/ex/board_read/` + url_encode(board_name) + '/' + text[for_a]['doc_id'] + `">` + xss_filter(text[for_a]['title']) + `</a></td>
                     <td>` + text[for_a]['date'].split(' ')[1] + `</td>
-                    <td>` + text[for_a]['user_name_real'] + `</td>
+                    <td>` + xss_filter(text[for_a]['user_name_real']) + `</td>
                 </tr>
             `;
         }
@@ -21,7 +21,7 @@ if(document.location.pathname.startsWith('/ex/board/')) {
         document.getElementById('main_data').innerHTML = `
             <section id="board">
                 <div class="container-xxl p-5 board-content">
-                    <a href="/ex/board_add/` + url_encode(board_name) + `" class="text-decoration-none text-success">(글 올리기)</a>
+                    <a href="/ex/board_add/` + url_encode(board_name) + `" class="text-decoration-none text-success">(글쓰기)</a>
                     <br>
                     <div class="row gap-5">
                         ` + bbs_nav() + `

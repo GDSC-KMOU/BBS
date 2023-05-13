@@ -14,8 +14,8 @@ if(document.location.pathname.startsWith('/ex/board_read/')) {
                         ` + bbs_nav() + `
                         <div class="col-md-9 shadow-sm rounded-5">
                             <div class="container px-1">
-                                <h2>` + text.title + `</h2>
-                                ` + text.date + ` <span style="float: right;">` + text.user_name_real + `</span>
+                                <h2>` + xss_filter(text.title) + `</h2>
+                                ` + text.date + ` <span style="float: right;">` + xss_filter(text.user_name_real) + `</span>
                                 <br>
                                 <a class="text-decoration-none text-success" href="/ex/board_edit/` + url_encode(board_name) + `/` + url_encode(board_id) + `">(수정)</a>
                                 <br>

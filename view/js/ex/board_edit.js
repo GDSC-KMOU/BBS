@@ -16,9 +16,9 @@ if(document.location.pathname.startsWith('/ex/board_edit/')) {
                             <div class="container px-1">
                                 <br>    
                                 <div class="input-group mb-3">
-                                    <input id="board_add_title" type="text" value="` + text.title + `" class="form-control" placeholder="제목" aria-label="제목" aria-describedby="basic-addon2">
+                                    <input id="board_add_title" type="text" value="` + xss_filter(text.title) + `" class="form-control" placeholder="제목" aria-label="제목" aria-describedby="basic-addon2">
                                 </div>
-                                <textarea id="board_add_content" class="form-control" rows="15" placeholder="내용" aria-label="내용">` + text.content + `</textarea>
+                                <textarea id="board_add_content" class="form-control" rows="15" placeholder="내용" aria-label="내용">` + xss_filter(text.content) + `</textarea>
                                 <br>
                                 <button type="submit" class="btn btn-success" id="board_add_save">저장</button>
                                 <br>
