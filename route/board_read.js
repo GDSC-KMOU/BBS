@@ -10,21 +10,28 @@ function board_read(req, res) {
             req.params.b_name,
             req.params.id
         ], function(err, db_data) {
-            let data = {};
-            for(let for_a = 0; for_a < db_data.length; for_a++) {
-                data[db_data[for_a].set_name] = db_data[for_a].doc_data;
+            if(db_data.length > 0) {
+                let data = {};
+                for(let for_a = 0; for_a < db_data.length; for_a++) {
+                    data[db_data[for_a].set_name] = db_data[for_a].doc_data;
+                }
+
+                if(!data['user_name_real']) {
+                    data['user_name_real'] = data['user_name'];
+                }
+
+                const reader = new commonmark.Parser();
+                const writer = new commonmark.HtmlRenderer({ softbreak : "<br>", safe : true });
+
+                data['render_content'] = writer.render(reader.parse(data['content']));
+
+                res.json(data);
+            } else {
+                res.json({
+                    "req" : "error",
+                    "reason" : "document not exist"
+                });
             }
-
-            if(!data['user_name_real']) {
-                data['user_name_real'] = data['user_name'];
-            }
-
-            const reader = new commonmark.Parser();
-            const writer = new commonmark.HtmlRenderer({ softbreak : "<br>", safe : true });
-
-            data['render_content'] = writer.render(reader.parse(data['content']));
-
-            res.json(data);
         });
     }
 

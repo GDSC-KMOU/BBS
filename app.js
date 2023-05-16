@@ -13,6 +13,8 @@ const board = require('./route/board.js').board;
 const board_add = require('./route/board_add.js').board_add;
 const board_read = require('./route/board_read.js').board_read;
 const board_edit = require('./route/board_edit.js').board_edit;
+const board_notice = require('./route/board_notice.js').board_notice;
+const board_preview = require('./route/board_preview.js').board_preview;
 
 const project = require('./route/project.js').project;
 
@@ -173,6 +175,8 @@ new Promise(function(resolve) {
     app.get('/api/board/:b_name', board);
     app.get('/api/board_read/:b_name/:id', board_read);
     app.post('/api/board_edit/:b_name/:id', board_edit);
+    app.post('/api/board_notice/:b_name/:id', board_notice);
+    app.post('/api/board_preview', board_preview);
     app.post('/api/board_add/:b_name', board_add);
 
     app.get('/api/set/code', set_code);
