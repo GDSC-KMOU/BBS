@@ -4,6 +4,7 @@ const nunjucks = require('nunjucks');
 const sqlite3 = require('sqlite3');
 const session = require('express-session');
 const body_parser = require('body-parser');
+const logger = require('morgan');
 
 // load func.js
 const func = require('./route/func.js');
@@ -31,6 +32,7 @@ const signup = require('./route/signup.js').signup;
 const app = express();
 const port = 3000;
 
+app.use(logger('dev'));
 app.use(body_parser.json());
 app.set('json spaces', 2)
 
