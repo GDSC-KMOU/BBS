@@ -32,11 +32,16 @@ if(document.location.pathname === '/ex/set') {
         document.getElementById('main_data').innerHTML = `
             <br>
             <div class="container px-5">
-                <a class="text-decoration-none text-success" id="make_code" href="javascript:void(0);">(코드 생성)</a>
                 <h2>코드</h2>
+                <a class="text-decoration-none text-success" id="make_code" href="javascript:void(0);">(코드 생성)</a>
                 <ul id="make_code_list">
                     ` + data + `
                 </ul>
+                <h2>hCaptcha</h2>
+                <div class="mb-3">
+                    <input id="project_add_title" type="text" class="form-control" placeholder="공개키" aria-label="공개키" aria-describedby="basic-addon2">
+                    <input id="project_add_title" type="text" class="form-control" placeholder="비밀키" aria-label="비밀키" aria-describedby="basic-addon2">
+                </div>
             </div>
         `;
 
