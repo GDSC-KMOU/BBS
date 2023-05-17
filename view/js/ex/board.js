@@ -3,9 +3,9 @@
 if(document.location.pathname.startsWith('/ex/board/')) {
     let board_name = document.location.pathname.split('/')[3];
 
-    fetch("/api/board/" + url_encode(board_name)).then(function (res) {
+    fetch("/api/board/" + url_encode(board_name)).then(function(res) {
         return res.json();
-    }).then(function (text) {
+    }).then(function(text) {
         let data = '';
         for (let for_a = 0; for_a < text.length; for_a++) {
             data += `

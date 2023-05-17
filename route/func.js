@@ -27,6 +27,10 @@ function get_random_key(length = 256) {
     return random_key;
 }
 
+function url_encode(data) {
+    return encodeURIComponent(data);
+}
+
 function bbs_list() {
     // 임시로 하드 코딩
     let bbs_list = ['main', 'talk', 'free', 'secret'];
@@ -37,5 +41,6 @@ function bbs_list() {
 module.exports = {
     get_date: get_date,
     get_random_key : get_random_key,
-    bbs_list : bbs_list
+    bbs_list : bbs_list,
+    url_encode : url_encode
 };

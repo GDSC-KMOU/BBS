@@ -28,6 +28,7 @@ function project(req, res) {
         }
 
         res.json(data_list);
+        db.close();
 
         /* res.json([
             {
@@ -40,8 +41,6 @@ function project(req, res) {
             }
         ]); */
     });
-
-    db.close();
 }
 
 module.exports = {

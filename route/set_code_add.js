@@ -16,11 +16,13 @@ function set_code_add(req, res) {
                     "req" : "ok",
                     "code" : code_key
                 });
+                db.close();
             } else {
                 res.json({
                     "req" : "error",
                     "reason" : "auth reject"
                 });
+                db.close();
             }
         });
     } else {
@@ -28,9 +30,8 @@ function set_code_add(req, res) {
             "req" : "error",
             "reason" : "user_name not exist"
         });
+        db.close();
     }
-
-    db.close();
 }
 
 module.exports = {

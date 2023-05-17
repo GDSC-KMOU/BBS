@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3');
 const func = require('./func.js');
 
-function set_code_delete(req, res) {
+function set_hcaptcha(req, res) {
     const db = new sqlite3.Database(__dirname + '/../data.db');
 
     if(req.session['user_name']) {
@@ -9,8 +9,17 @@ function set_code_delete(req, res) {
 
         db.all("select set_data from user_data where user_name = ? and set_name = 'auth'", [user_name], function(err, db_data) {
             if(db_data[0].set_data === 'admin') {
-                db.run("delete from set_data where set_name = 'code_key' and set_data = ?", [req.params.id]);
+                let data = req.body;
 
+                let public = data.public;
+                let secret = data.secret;
+
+                db.run("delete from set_data where set_name = 'hcaptcha_public'");
+                db.run("delete from set_data where set_name = 'hcaptcha_secret'");
+
+                db.run("insert into set_data (code_id, set_name, code_data, set_data) values ('', 'hcaptcha_public', '', ?)", [public]);
+                db.run("insert into set_data (code_id, set_name, code_data, set_data) values ('', 'hcaptcha_secret', '', ?)", [secret]);
+            
                 res.json({
                     "req" : "ok"
                 });
@@ -33,5 +42,5 @@ function set_code_delete(req, res) {
 }
 
 module.exports = {
-    set_code_delete : set_code_delete
+    set_hcaptcha : set_hcaptcha
 };

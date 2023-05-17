@@ -21,7 +21,8 @@ const project = require('./route/project.js').project;
 
 const study = require('./route/study.js').study;
 
-const set_code = require('./route/set_code.js').set_code;
+const set_load = require('./route/set_load.js').set_load;
+const set_hcaptcha = require('./route/set_hcaptcha.js').set_hcaptcha;
 const set_code_add = require('./route/set_code_add.js').set_code_add;
 const set_code_delete = require('./route/set_code_delete.js').set_code_delete;
 
@@ -181,7 +182,8 @@ new Promise(function(resolve) {
     app.post('/api/board_preview', board_preview);
     app.post('/api/board_add/:b_name', board_add);
 
-    app.get('/api/set/code', set_code);
+    app.get('/api/set/load/:set_name', set_load);
+    app.post('/api/set/hcaptcha', set_hcaptcha);
     app.post('/api/set/code/add', set_code_add);
     app.post('/api/set/code/delete/:id', set_code_delete);
 

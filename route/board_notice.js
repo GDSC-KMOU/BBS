@@ -9,14 +9,14 @@ function board_notice(req, res) {
             "req" : "error",
             "reason" : "user_name not exist"
         });
+        db.close();
     } else {
         res.json({
             "req" : "error",
             "reason" : "user_name not exist"
         });
+        db.close();
     }
-
-    db.close();
 }
 
 module.exports = {

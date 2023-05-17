@@ -26,16 +26,16 @@ function board_read(req, res) {
                 data['render_content'] = writer.render(reader.parse(data['content']));
 
                 res.json(data);
+                db.close();
             } else {
                 res.json({
                     "req" : "error",
                     "reason" : "document not exist"
                 });
+                db.close();
             }
         });
     }
-
-    db.close();
 }
 
 module.exports = {

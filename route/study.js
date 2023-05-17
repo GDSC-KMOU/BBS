@@ -28,6 +28,7 @@ function study(req, res) {
         }
 
         res.json(data_list);
+        db.close();
 
         /* res.json([
             {
@@ -38,8 +39,6 @@ function study(req, res) {
             }
         ]); */
     });
-
-    db.close();
 }
 
 module.exports = {

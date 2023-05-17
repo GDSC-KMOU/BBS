@@ -38,11 +38,13 @@ function board_edit(req, res) {
                             res.json({
                                 "req" : "ok"
                             });
+                            db.close();
                         } else {
                             res.json({
                                 "req" : "error",
                                 "reason" : "user_name !== doc_user_name && user_auth !== \"admin\""
                             });
+                            db.close();
                         }
                     });
                 } else {
@@ -50,6 +52,7 @@ function board_edit(req, res) {
                         "req" : "error",
                         "reason" : "document not exist"
                     });
+                    db.close();
                 }
             });
         } else {
@@ -57,15 +60,15 @@ function board_edit(req, res) {
                 "req" : "error",
                 "reason" : "user_name not exist"
             });
+            db.close();
         }
     } else {
         res.json({
             "req" : "error",
             "reason" : "bbs not exist"
         });
+        db.close();
     }
-
-    db.close();
 }
 
 module.exports = {

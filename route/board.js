@@ -32,11 +32,10 @@ function board(req, res) {
                 }
 
                 res.json(data_list);
+                db.close();
             });
         }
     }
-
-    db.close();
 }
 
 module.exports = {

@@ -51,6 +51,7 @@ function board_add(req, res) {
                         "req" : "ok",
                         "id" : doc_id
                     });
+                    db.close();
                 });
             });
         } else {
@@ -58,15 +59,15 @@ function board_add(req, res) {
                 "req" : "error",
                 "reason" : "user_name not exist"
             });
+            db.close();
         }
     } else {
         res.json({
             "req" : "error",
             "reason" : "bbs not exist"
         });
+        db.close();
     }
-
-    db.close();
 }
 
 module.exports = {
