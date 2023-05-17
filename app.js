@@ -32,9 +32,9 @@ const signup = require('./route/signup.js').signup;
 const app = express();
 const port = 3000;
 
-app.use(logger('dev'));
+app.use(logger('combined'));
 app.use(body_parser.json());
-app.set('json spaces', 2)
+app.set('json spaces', 2);
 
 // set template
 app.set('view engine', 'html');
