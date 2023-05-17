@@ -1,8 +1,10 @@
+"use strict";
+
 if(document.location.pathname === '/study') {
     document.getElementById('main_data').innerHTML = `
         <div class="container px-5">
-            <div class="my-3 p-3 bg-body rounded shadow-sm">
-                <h6 class="border-bottom pb-2 mb-0">최근 스터디 및 세미나 일정</h6>
+            <div class="my-3 p-3 bg-body rounded-5 shadow-sm">
+                <h6 class="border-bottom pb-2 mb-0 text-success">최근 스터디 및 세미나 일정</h6>
                 <div class="d-flex text-muted pt-3">
                     <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>Placeholder</title>
@@ -64,7 +66,7 @@ if(document.location.pathname === '/study') {
                 </div>
 
                 <small class="d-block text-end mt-3">
-                    <a href="/project_add">추가하기</a>
+                <a href="/study_add" class="text-decoration-none text-success">(추가)</a>
                 </small>
             </div>
     `;

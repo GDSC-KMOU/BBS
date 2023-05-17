@@ -1,4 +1,6 @@
-if (document.location.pathname === '/') {
+"use strict";
+
+if(document.location.pathname === '/') {
     document.getElementById('main_data').innerHTML = `
         <header class="py-5 mb-5 top-h" id="top">
             <div class="container px-5">
@@ -13,7 +15,7 @@ if (document.location.pathname === '/') {
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-5 col-xxl-6 text-center top__logo">
+                    <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
                         <img class="img-fluid my-5 in_logo" src="/view/img/logo.jpg" alt="..." style="height: 500px; width: 500px;">
                     </div>
                 </div>

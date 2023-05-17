@@ -1,3 +1,5 @@
+"use strict";
+
 if(document.location.pathname === '/signup') {
     document.getElementById('main_data').innerHTML = `
         <br>

@@ -1,28 +1,34 @@
+"use strict";
+
 // multipurpose
 function url_encode(data) {
-  return encodeURIComponent(data);
+    return encodeURIComponent(data);
 }
 
 function xss_filter(data) {
-  data = data.replace('"', "&quot;");
-  data = data.replace("'", "&#x27;");
-  data = data.replace("<", "&lt;");
-  data = data.replace(">", "&gt;");
+    data = data.replace('"', "&quot;");
+    data = data.replace("'", "&#x27;");
+    data = data.replace("<", "&lt;");
+    data = data.replace(">", "&gt;");
 
-  return data;
+    return data;
 }
 
 // purposeful
 // board
 function bbs_nav() {
-  return `
-      <div class="nav-scroller bg-body shadow-sm">
-          <nav class="nav" aria-label="Secondary navigation">
-              <a class="nav-link" href="/ex/board/main">주요사안</a>
-              <a class="nav-link" href="/ex/board/talk">토론</a>
-              <a class="nav-link" href="/ex/board/free">자유</a>
-              <a class="nav-link" href="/ex/board/secret">비공개</a>
-          </nav>
-      </div>
-  `;
+    return `
+        <div class="col-md-2 shadow-sm rounded-5">
+            <div class="row nav gap-2 py-2">
+            <li class="board_item text-center"><a href="/board/main"
+                class="text-decoration-none text-success fw-bold">주요사안</a> </li>
+            <li class="board_item text-center"><a href="/board/talk" class="text-decoration-none text-success">토론</a>
+            </li>
+            <li class="board_item text-center"><a href="/board/free" class="text-decoration-none text-success">자유</a>
+            </li>
+            <li class="board_item text-center"><a href="/board/secret"
+                class="text-decoration-none text-success">비공개</a> </li>
+            </div>
+        </div>
+    `;
 }
