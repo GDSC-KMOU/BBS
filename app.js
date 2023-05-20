@@ -20,11 +20,17 @@ const board_preview = require('./route/board_preview.js').board_preview;
 const project = require('./route/project.js').project;
 
 const study = require('./route/study.js').study;
+const study_add = require('./route/study_add.js').study_add;
+const study_edit = require('./route/study_edit.js').study_edit;
+const study_read = require('./route/study_read.js').study_read;
 
 const set_load = require('./route/set_load.js').set_load;
 const set_hcaptcha = require('./route/set_hcaptcha.js').set_hcaptcha;
 const set_code_add = require('./route/set_code_add.js').set_code_add;
 const set_code_delete = require('./route/set_code_delete.js').set_code_delete;
+const set_admin_add = require('./route/set_admin_add.js').set_admin_add;
+const set_admin_delete = require('./route/set_admin_delete.js').set_admin_delete;
+const set_user_delete = require('./route/set_user_delete.js').set_user_delete;
 
 const signin = require('./route/signin.js').signin;
 const signup = require('./route/signup.js').signup;
@@ -166,6 +172,7 @@ new Promise(function(resolve) {
 
         app.get((ex === 'ex' ? '/ex' : '') + '/study', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
         app.get((ex === 'ex' ? '/ex' : '') + '/study_add', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+        app.get((ex === 'ex' ? '/ex' : '') + '/study_edit/:id', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
 
         app.get((ex === 'ex' ? '/ex' : '') + '/signup', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
         app.get((ex === 'ex' ? '/ex' : '') + '/signin', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
@@ -186,10 +193,16 @@ new Promise(function(resolve) {
     app.post('/api/set/hcaptcha', set_hcaptcha);
     app.post('/api/set/code/add', set_code_add);
     app.post('/api/set/code/delete/:id', set_code_delete);
+    app.post('/api/set/admin/add', set_admin_add);
+    app.post('/api/set/admin/delete/:id', set_admin_delete);
+    app.post('/api/set/user/delete/:id', set_user_delete);
 
     app.get('/api/project', project);
 
     app.get('/api/study', study);
+    app.get('/api/study_read/:id', study_read);
+    app.post('/api/study_add', study_add);
+    app.post('/api/study_edit/:id', study_edit);
 
     app.post('/api/signin', signin);
     app.post('/api/signup', signup);

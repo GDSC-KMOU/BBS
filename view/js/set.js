@@ -11,7 +11,6 @@ function set_code_delete_btn(element) {
             return res.json();
         }).then(function(text) {
             if(text.req === 'ok') {
-                console.log(code);
                 document.getElementById('remove_code_' + code).remove();
             } else {
                 alert(text.req + '\n' + text.reason);

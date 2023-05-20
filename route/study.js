@@ -1,43 +1,45 @@
 const sqlite3 = require('sqlite3');
 const func = require('./func.js');
 
+function study_select(res, data_list, for_a = 0, result = []) {
+    const db = new sqlite3.Database(__dirname + '/../data.db');
+
+    if(data_list === []) {
+        db.close();
+        res.json(result);
+    }
+
+    db.all("select doc_id, set_name, doc_data from study_data where doc_id = ?", [data_list[for_a]], function(err, db_data) {
+        let data = {};
+        for(let for_a = 0; for_a < db_data.length; for_a++) {
+            data[db_data[for_a].set_name] = db_data[for_a].doc_data;
+        }
+        data["doc_id"] = db_data[0].doc_id;
+
+        result.push(data);
+
+        if(data_list.length <= for_a + 1) {
+            db.close();
+            res.json(result);
+        } else {
+            db.close();
+            study_select(res, data_list, for_a + 1, result);
+        }
+    });
+}
+
 function study(req, res) {
     const db = new sqlite3.Database(__dirname + '/../data.db');
 
-    db.all("select doc_id, set_name, doc_data from project_data where set_data = ? order by doc_id + 0 desc", [], function(err, db_data) {
+    db.all("select doc_data, doc_id from study_data where set_name = 'date' order by doc_data desc", [], function(err, db_data) {
         let data_list = [];
-    
-        let for_b = '';
-        let for_c = {};
         for(let for_a = 0; for_a < db_data.length; for_a++) {
-            if(db_data[for_a].doc_id !== for_b) {
-                if(for_a !== 0) {                    
-                    data_list.push(for_c);
-                }
-
-                for_c = {};
-                for_b = db_data[for_a].doc_id;
-                for_c['doc_id'] = for_b;
-            }
-            
-            for_c[db_data[for_a].set_name] = db_data[for_a].doc_data;
-
-            if(for_a === db_data.length - 1) {
-                data_list.push(for_c);
-            }
+            data_list.push(db_data[for_a].doc_id);
         }
 
-        res.json(data_list);
         db.close();
-
-        /* res.json([
-            {
-                "team_name" : "인클루더",
-                "content" : "동아리 친목회",
-                "date" : "2023-03-21 13:00:00",
-                "writer" : "잉여"
-            }
-        ]); */
+        
+        study_select(res, data_list);
     });
 }
 

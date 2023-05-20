@@ -1,9 +1,7 @@
 const sqlite3 = require('sqlite3');
 
 // set func
-function get_date() {
-    const now = new Date();
-
+function date_change(now) {
     const year = now.getFullYear();
     const month = ('0' + (now.getMonth() + 1)).slice(-2);
     const day = ('0' + now.getDate()).slice(-2);
@@ -15,6 +13,12 @@ function get_date() {
     const formattedDateString = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
     return formattedDateString;
+}
+
+function get_date() {
+    const now = new Date();
+
+    return date_change(now);
 }
 
 function get_random_key(length = 256) {
@@ -39,7 +43,8 @@ function bbs_list() {
 }
 
 module.exports = {
-    get_date: get_date,
+    get_date : get_date,
+    date_change : date_change,
     get_random_key : get_random_key,
     bbs_list : bbs_list,
     url_encode : url_encode
