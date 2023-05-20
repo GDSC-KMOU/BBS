@@ -14,8 +14,8 @@ function board_read(req, res) {
                 let data = {};
                 for(let for_a = 0; for_a < db_data.length; for_a++) {
                     data[db_data[for_a].set_name] = db_data[for_a].doc_data;
+                    data["doc_id"] = db_data[0].doc_id;
                 }
-                data["doc_id"] = db_data[0].doc_id;
 
                 if(!data['user_name_real']) {
                     data['user_name_real'] = data['user_name'];
