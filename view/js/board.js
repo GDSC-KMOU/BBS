@@ -7,10 +7,11 @@ if(document.location.pathname.startsWith('/board/')) {
         return res.json();
     }).then(function (text) {
         let data = '';
-        let now=new Date().getTime();
+        let now = new Date();
+        now=new Date().getTime();
         let the_str='0'
         for (let for_a = 0; for_a < text.length; for_a++) {
-            let past_time=new Date(text[for_a]['date']);
+            let past_time=new Date(text[for_a]['date'].replace(/-/g, '/'));
             past_time=past_time.getTime();
             
             let the_time= new Date(now - past_time); 
