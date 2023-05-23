@@ -23,7 +23,7 @@ if(document.location.pathname === '/study') {
             }
 
             let bbs_link = '';
-            if(text[for_a].bbs_id !== undefined && text[for_a].bbs_id !== null) {
+            if(text[for_a].bbs_id !== undefined && text[for_a].bbs_id !== null && text[for_a].bbs_id !== '') {
                 bbs_link += '<a class="text-decoration-none text-success" href="/board_read' + xss_filter(text[for_a].bbs_id) + '">(게시글)</a>';
             }
 
