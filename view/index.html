@@ -15,7 +15,6 @@
 
         <!-- Get font -->
         <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
-        
 
         <!-- main.css -->
         <link rel="stylesheet" href="/view/css/main.css">
@@ -35,6 +34,8 @@
         <script defer src="/view/js/board_edit.js"></script>
 
         <script defer src="/view/js/study.js"></script>
+        <script defer src="/view/js/study_edit.js"></script>
+        <script defer src="/view/js/study_add.js"></script>
 
         <script defer src="/view/js/signup.js"></script>
         <script defer src="/view/js/signin.js"></script>
@@ -58,7 +59,6 @@
                     </a>
                 </div>
                     <ul class="nav col-md-auto mb-2 justify-content-center mb-md-0 nav__list">
-                        <li><a href="/ex" class="nav-link px-2 nav-items fw-bold text-success">베타</a></li>
                         <li><a href="/project" class="nav-link px-2 nav-items fw-bold text-success">프로젝트</a></li>
                         <li><a href="/study" class="nav-link px-2 nav-items fw-bold text-success">스터디</a></li>
                         <li><a href="/board/main" class="nav-link px-2 nav-items fw-bold text-success">게시판</a></li>
@@ -75,8 +75,8 @@
             </div>
 
             <!-- mobile  -->
-            <button class="btn btn-outline-success d-block d-lg-none position-absolute" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="right: 5%;">
+            <button class="btn btn-outline-success position-absolute" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="right: 5%;" id="mobile-button">
                 <i class="fa-solid fa-bars"></i>
             </button>
 
@@ -89,8 +89,7 @@
                 </div>
                 <div class="offcanvas-body">
                     <ul class="list-unstyled mobile-menu">
-                        <li><a href="/ex" class="text-decoration-none link-success active">Home</a></li>
-                        <li><a href="/" class="text-decoration-none link-success">일반</a></li>
+                        <li><a href="/" class="text-decoration-none link-success active">Home</a></li>
                         <li><a href="/project" class="text-decoration-none link-success">프로젝트</a></li>
                         <li><a href="/study" class="text-decoration-none link-success">스터디</a></li>
                         <li>

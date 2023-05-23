@@ -7,32 +7,33 @@ if(document.location.pathname.startsWith('/board/')) {
         return res.json();
     }).then(function (text) {
         let data = '';
-        let now = new Date();
-        now=new Date().getTime();
-        let the_str='0'
+
+        let now = new Date().getTime();
+        let the_str = '0';
         for (let for_a = 0; for_a < text.length; for_a++) {
-            let past_time=new Date(text[for_a]['date'].replace(/-/g, '/'));
-            past_time=past_time.getTime();
+            let past_time = new Date(text[for_a]['date'].replace(/-/g, '/'));
+            past_time = past_time.getTime();
             
-            let the_time= new Date(now - past_time); 
-            the_time= the_time/1000; //ms->s
+            let the_time = new Date(now - past_time); 
+            the_time = the_time / 1000; //ms->s
             
-            if (the_time<60){
-                the_str= String(Math.floor(the_time)) + "초전";
-            } else if(the_time<3600){ //1h
-                the_str= String(Math.floor(the_time / 60)) + "분전";
-            } else if(the_time<86400){ //1d
-                the_str= String(Math.floor(the_time / 3600)) + "시간전";
-            } else if(the_time<604800){  //7d
-                the_str= String(Math.floor(the_time / 86400)) + "일전";
-            } else if(the_time<2592000){ //30d
-                the_str= String(Math.floor(the_time / 604800)) + "주일전";
-            } else if(the_time<7776000){ //90d
-                the_str= String(Math.floor(the_time / 2592000)) + "달 전";
+            if(the_time < 60){
+                the_str = String(Math.floor(the_time)) + "초 전";
+            } else if(the_time < 3600){ //1h
+                the_str = String(Math.floor(the_time / 60)) + "분 전";
+            } else if(the_time < 86400){ //1d
+                the_str = String(Math.floor(the_time / 3600)) + "시간 전";
+            } else if(the_time < 604800){  //7d
+                the_str = String(Math.floor(the_time / 86400)) + "일 전";
+            } else if(the_time < 2592000){ //30d
+                the_str = String(Math.floor(the_time / 604800)) + "주일 전";
+            } else if(the_time < 7776000){ //90d
+                the_str = String(Math.floor(the_time / 2592000)) + "달 전";
             } else{
-                the_str=Number(the_str);
-                the_str=text[for_a]['date'].split(' ')[0];
+                the_str = Number(the_str);
+                the_str = text[for_a]['date'].split(' ')[0];
             }
+
             data += `
                 <tr>
                     <td>` + text[for_a]['doc_id'] + `</td>

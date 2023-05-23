@@ -151,35 +151,28 @@ new Promise(function(resolve) {
     db.close();
 }).then(function() {
     // url route
-    for(let for_a = 0; for_a < 2; for_a++) {
-        let ex = '';
-        if(for_a === 1) {
-            ex = 'ex';
-        }
+    app.get('/', function(req, res) { res.render('index', {}) });
 
-        app.get('/' + ex, function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+    app.get('/intro', function(req, res) { res.render('index', {}) });
 
-        app.get((ex === 'ex' ? '/ex' : '') + '/intro', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+    app.get('/project', function(req, res) { res.render('index', {}) });
+    app.get('/project/:id', function(req, res) { res.render('index', {}) });
+    app.get('/project_add', function(req, res) { res.render('index', {}) });
 
-        app.get((ex === 'ex' ? '/ex' : '') + '/project', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
-        app.get((ex === 'ex' ? '/ex' : '') + '/project/:id', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
-        app.get((ex === 'ex' ? '/ex' : '') + '/project_add', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+    app.get('/board/:b_name', function(req, res) { res.render('index', {}) });
+    app.get('/board_add/:b_name', function(req, res) { res.render('index', {}) });
+    app.get('/board_edit/:b_name/:id', function(req, res) { res.render('index', {}) });
+    app.get('/board_read/:b_name/:id', function(req, res) { res.render('index', {}) });
 
-        app.get((ex === 'ex' ? '/ex' : '') + '/board/:b_name', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
-        app.get((ex === 'ex' ? '/ex' : '') + '/board_add/:b_name', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
-        app.get((ex === 'ex' ? '/ex' : '') + '/board_edit/:b_name/:id', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
-        app.get((ex === 'ex' ? '/ex' : '') + '/board_read/:b_name/:id', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+    app.get('/study', function(req, res) { res.render('index', {}) });
+    app.get('/study_add', function(req, res) { res.render('index', {}) });
+    app.get('/study_edit/:id', function(req, res) { res.render('index', {}) });
 
-        app.get((ex === 'ex' ? '/ex' : '') + '/study', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
-        app.get((ex === 'ex' ? '/ex' : '') + '/study_add', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
-        app.get((ex === 'ex' ? '/ex' : '') + '/study_edit/:id', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
+    app.get('/signup', function(req, res) { res.render('index', {}) });
+    app.get('/signin', function(req, res) { res.render('index', {}) });
+    app.get('/signout', function(req, res) { req.session['user_name'] = undefined; res.redirect('/') });
 
-        app.get((ex === 'ex' ? '/ex' : '') + '/signup', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
-        app.get((ex === 'ex' ? '/ex' : '') + '/signin', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
-        app.get((ex === 'ex' ? '/ex' : '') + '/signout', function(req, res) { req.session['user_name'] = undefined; res.redirect('/' + ex) });
-
-        app.get((ex === 'ex' ? '/ex' : '') + '/set', function(req, res) { res.render('index' + (ex === 'ex' ? '_ex' : ''), {}) });
-    }
+    app.get('/set', function(req, res) { res.render('index', {}) });
 
     // api route
     app.get('/api/board/:b_name', board);

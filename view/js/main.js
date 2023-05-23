@@ -16,7 +16,7 @@ if(document.location.pathname === '/') {
                         </div>
                     </div>
                     <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-                        <img class="img-fluid my-5 in_logo" src="/view/img/logo.jpg" alt="..." style="height: 500px; width: 500px;">
+                        <img class="img-fluid my-5 top_logo" src="/view/img/logo.jpg" alt="..." style="height: 500px; width: 500px;">
                     </div>
                 </div>
             </div>

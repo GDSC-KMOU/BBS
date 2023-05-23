@@ -1,7 +1,7 @@
 "use strict";
 
-if(document.location.pathname.startsWith('/ex/study_edit/')) {
-    let study_id = document.location.pathname.split('/')[3];
+if(document.location.pathname.startsWith('/study_edit/')) {
+    let study_id = document.location.pathname.split('/')[2];
 
     fetch("/api/study_read/" + url_encode(study_id)).then(function(res) {
         return res.json();
@@ -58,7 +58,7 @@ if(document.location.pathname.startsWith('/ex/study_edit/')) {
                 return res.json();
             }).then(function(text) {
                 if(text.req === 'ok') {
-                    document.location.pathname = '/ex/study';
+                    document.location.pathname = '/study';
                 } else {
                     alert(text.req + '\n' + text.reason);
                 }

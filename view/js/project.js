@@ -30,7 +30,7 @@ if(document.location.pathname === '/project') {
             <br>
             <div class="container px-5">
                 <div class="container">
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">\
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         <a href="/project_add" class="text-decoration-none text-success">(글쓰기)</a>
                         <br>
                         ` + data + `
