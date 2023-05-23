@@ -1,3 +1,4 @@
+/* Public */
 body {
     font-family: 'SUIT', sans-serif;
 }
@@ -7,6 +8,25 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     height: 90vh;
+}
+/* logo animation */
+@keyframes logo-hover {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-15px);
+    }
+}
+
+.top_logo {
+    animation: logo-hover;
+    animation-duration: 900ms;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    object-fit: contain;
 }
 
 .ban {
@@ -18,33 +38,8 @@ body {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
-#faq,
-#footer {
+#faq, #footer {
     background-color: rgba(96, 125, 139, 0.1);
-}
-
-
-/* 로고 애니메이션*/
-@keyframes logo-hover {
-    from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(-15px);
-    }
-}
-
-.in_logo {
-    animation: logo-hover;
-    animation-duration: 900ms;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-.board_item {
-    font-size: 14px;
 }
 
 /* Mobile button */
@@ -66,13 +61,33 @@ body {
     line-height: 1.75;
 }
 
+#mobile-button{
+    display: none;
+}
+
+.arrow-up {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    font-size: 30px;
+    color: black;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms ease-in;
+  }
+
+/* mobile */
 @media screen and (max-width: 767px) {
 
     .ban {
         margin-bottom: 16px;
     }
 
-    .top__logo, .intro__logo {
+    .intro__logo {
         display: none;
     }
 
@@ -89,20 +104,34 @@ body {
     }
 
     .top-h {
-        height: 60vh;
+        height: 55vh;
+    }
+
+    #mobile-button {
+        display: block;
     }
 }
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    .top__logo, .intro__logo {
+/* tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .intro__logo {
         display: none;
     }
     .ban {
         margin-bottom: 16px;
     }
-    .nav__list, .nav__sign {
+    .top-h {
+        height: 50vh;
+    }
+}
+/* exception screen */
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .top-h {
+        height: 55vh;
+    }
+    .top_logo {
         display: none;
     }
-    .top-h {
-        height: 40vh;
+    .intro__logo {
+        display: none;
     }
 }
