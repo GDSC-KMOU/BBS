@@ -1,6 +1,29 @@
 const sqlite3 = require('sqlite3');
 const func = require('./func.js');
 
+function study_edit_update(res, req, check_list, for_a = 0) {
+    const db = new sqlite3.Database(__dirname + '/../data.db');
+
+    db.run("delete from study_data where doc_id = ? and set_name = ?", [req.params.id, check_list[for_a][0]], null, function() {
+        db.run("insert into study_data (doc_id, set_name, doc_data, set_data) values (?, ?, ?, '')", [
+            req.params.id, 
+            check_list[for_a][0],
+            check_list[for_a][1]
+        ], null, function() {
+            if(for_a === check_list.length - 1) {
+                res.json({
+                    "req" : "ok"
+                });
+                db.close();
+            } else {
+                db.close();
+
+                study_edit_update(res, req, check_list, for_a + 1);
+            }
+        });
+    });
+}
+
 function study_edit(req, res) {
     const db = new sqlite3.Database(__dirname + '/../data.db');
 
@@ -16,6 +39,7 @@ function study_edit(req, res) {
                         let team_name = data.team_name;
                         let content = data.content;
                         let date = data.date;
+                        let bbs_id = data.bbs_id;
 
                         try {
                             date = new Date(date);
@@ -30,25 +54,22 @@ function study_edit(req, res) {
 
                         if(content === '') {
                             db.run("delete from study_data where doc_id = ?", [req.params.id]);
-                        } else {
-                            db.run("update study_data set doc_data = ? where doc_id = ? and set_name = 'team_name'", [
-                                team_name,
-                                req.params.id
-                            ]);
-                            db.run("update study_data set doc_data = ? where doc_id = ? and set_name = 'content'", [
-                                content,
-                                req.params.id
-                            ]);
-                            db.run("update study_data set doc_data = ? where doc_id = ? and set_name = 'date'", [
-                                date,
-                                req.params.id
-                            ]);
-                        }
 
-                        res.json({
-                            "req" : "ok"
-                        });
-                        db.close();
+                            res.json({
+                                "req" : "ok"
+                            });
+                            db.close();
+                        } else {
+                            db.close();
+
+                            let check_list = [
+                                ['team_name', team_name],
+                                ['content', content],
+                                ['date', date],
+                                ['bbs_id', bbs_id]
+                            ];
+                            study_edit_update(res, req, check_list);
+                        }
                     } else {
                         res.json({
                             "req" : "error",

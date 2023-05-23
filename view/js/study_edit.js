@@ -6,6 +6,11 @@ if(document.location.pathname.startsWith('/study_edit/')) {
     fetch("/api/study_read/" + url_encode(study_id)).then(function(res) {
         return res.json();
     }).then(function(text) {
+        let bbs_id = '';
+        if(text.bbs_id !== undefined && text.bbs_id !== null) {
+            bbs_id = text.bbs_id;
+        }
+
         document.getElementById('main_data').innerHTML = `
             <section id="board">
                 <div class="container-xxl p-5 board-content">
@@ -28,6 +33,11 @@ if(document.location.pathname.startsWith('/study_edit/')) {
                                     <label for="study_content">내용</label>
                                 </div>
                                 <br>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="study_bbs_id" value="` + xss_filter(bbs_id) + `" placeholder="내용">
+                                    <label for="study_bbs_id">게시판 연계 (EX : /main/3)</label>
+                                </div>
+                                <br>
                                 <button type="submit" class="btn btn-success" id="study_save">저장</button>
                                 <button type="submit" class="btn btn-outline-success me-2" id="study_preview">미리보기</button>
                                 <br>
@@ -45,6 +55,7 @@ if(document.location.pathname.startsWith('/study_edit/')) {
             let team_name = document.getElementById('study_team_name').value;
             let date = document.getElementById('study_date').value;
             let content = document.getElementById('study_content').value;
+            let bbs_id = document.getElementById('study_bbs_id').value;
 
             fetch("/api/study_edit/" + url_encode(study_id), {
                 method : 'POST',
@@ -52,7 +63,8 @@ if(document.location.pathname.startsWith('/study_edit/')) {
                 body : JSON.stringify({
                     'team_name' : team_name,
                     'date' : date,
-                    'content' : content
+                    'content' : content,
+                    'bbs_id' : bbs_id
                 })
             }).then(function(res) {
                 return res.json();

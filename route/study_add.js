@@ -13,6 +13,7 @@ function study_add(req, res) {
             let team_name = data.team_name;
             let date = data.date;
             let content = data.content;
+            let bbs_id = data.bbs_id;
 
             try {
                 date = new Date(date);
@@ -50,6 +51,10 @@ function study_add(req, res) {
                 db.run("insert into study_data (doc_id, set_name, doc_data, set_data) values (?, 'date', ?, '')", [
                     doc_id, 
                     date
+                ]);
+                db.run("insert into study_data (doc_id, set_name, doc_data, set_data) values (?, 'bbs_id', ?, '')", [
+                    doc_id, 
+                    bbs_id
                 ]);
 
                 res.json({

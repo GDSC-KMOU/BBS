@@ -7,7 +7,7 @@ if(document.location.pathname === '/study') {
         return res.json();
     }).then(function(text) {
         let now = new Date();
-        let now_unix = now.getTime(); //A
+        let now_unix = now.getTime();
         
         let data = '';
         for(let for_a = 0; for_a < text.length; for_a++) {
@@ -22,11 +22,16 @@ if(document.location.pathname === '/study') {
                 color = "dodgerblue";
             }
 
+            let bbs_link = '';
+            if(text[for_a].bbs_id !== undefined && text[for_a].bbs_id !== null) {
+                bbs_link += '<a class="text-decoration-none text-success" href="/board_read' + xss_filter(text[for_a].bbs_id) + '">(게시글)</a>';
+            }
+
             data += `
                 <div class="d-flex text-muted pt-3">
                     <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
                         <title>상태</title>
-                        <rect width="100%" height="100%" fill="wat_color"></rect>
+                        <rect width="100%" height="100%" fill="` + color + `"></rect>
                     </svg>
 
                     <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
@@ -34,11 +39,14 @@ if(document.location.pathname === '/study') {
                             <strong class="text-gray-dark">` + xss_filter(text[for_a].team_name) + ` (` + xss_filter(text[for_a].user_name_real) + `)</strong>
                             ` + xss_filter(text[for_a].date) + `
                         </div>
-                        <span class="d-block">` + xss_filter(text[for_a].content) + ` <a class="text-decoration-none text-success" href="/study_edit/` + text[for_a].doc_id + `">(수정)</a></span>
+                        <span class="d-block">
+                            ` + xss_filter(text[for_a].content) + `
+                            ` + bbs_link + `
+                            <a class="text-decoration-none text-success" href="/study_edit/` + text[for_a].doc_id + `">(수정)</a>
+                        </span>
                     </div>
                 </div>
             `;
-            data= data.replace("wat_color", color);
         }
 
         document.getElementById('main_data').innerHTML = `
