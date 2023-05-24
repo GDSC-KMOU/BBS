@@ -28,4 +28,6 @@ if(document.location.pathname === '/project_add') {
             </div>
         </section>
     `;
+
+    
 }

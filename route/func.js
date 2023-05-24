@@ -35,6 +35,60 @@ function url_encode(data) {
     return encodeURIComponent(data);
 }
 
+function admin_check(db, req, res, true_callback, false_callback = undefined) {
+    if(req.session['user_name']) {
+        let user_name = req.session['user_name'];
+
+        db.all("select set_data from user_data where user_name = ? and set_name = 'auth'", [user_name], function(err, db_data) {
+            if(db_data[0].set_data === 'admin') {
+                true_callback();
+            } else {
+                if(false_callback === undefined) {
+                    res.json({
+                        "req" : "error",
+                        "reason" : "auth reject"
+                    });
+                    db.close();
+                } else {
+                    false_callback();
+                }
+            }
+        });
+    } else {
+        if(false_callback === undefined) {
+            res.json({
+                "req" : "error",
+                "reason" : "user_name not exist"
+            });
+            db.close();
+        } else {
+            false_callback();
+        }
+    }
+}
+
+function user_same_check(db, req, res, db_user_name, true_callback) {
+    if(req.session['user_name']) {
+        let user_name = req.session['user_name'];
+
+        if(user_name === db_user_name) {
+            true_callback();
+        } else {
+            res.json({
+                "req" : "error",
+                "reason" : "user_name !== doc_user_name"
+            });
+            db.close();
+        }
+    } else {
+        res.json({
+            "req" : "error",
+            "reason" : "user_name not exist"
+        });
+        db.close();
+    }
+}
+
 function bbs_list() {
     // 임시로 하드 코딩
     let bbs_list = ['main', 'talk', 'free', 'secret'];
@@ -47,5 +101,7 @@ module.exports = {
     date_change : date_change,
     get_random_key : get_random_key,
     bbs_list : bbs_list,
-    url_encode : url_encode
+    url_encode : url_encode,
+    admin_check : admin_check,
+    user_same_check : user_same_check
 };

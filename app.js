@@ -11,7 +11,6 @@ const func = require('./route/func.js');
 
 // load route
 const board = require('./route/board.js').board;
-const board_add = require('./route/board_add.js').board_add;
 const board_read = require('./route/board_read.js').board_read;
 const board_edit = require('./route/board_edit.js').board_edit;
 const board_notice = require('./route/board_notice.js').board_notice;
@@ -20,7 +19,6 @@ const board_preview = require('./route/board_preview.js').board_preview;
 const project = require('./route/project.js').project;
 
 const study = require('./route/study.js').study;
-const study_add = require('./route/study_add.js').study_add;
 const study_edit = require('./route/study_edit.js').study_edit;
 const study_read = require('./route/study_read.js').study_read;
 
@@ -180,7 +178,7 @@ new Promise(function(resolve) {
     app.post('/api/board_edit/:b_name/:id', board_edit);
     app.post('/api/board_notice/:b_name/:id', board_notice);
     app.post('/api/board_preview', board_preview);
-    app.post('/api/board_add/:b_name', board_add);
+    app.post('/api/board_add/:b_name', board_edit);
 
     app.get('/api/set/load/:set_name', set_load);
     app.post('/api/set/hcaptcha', set_hcaptcha);
@@ -194,7 +192,7 @@ new Promise(function(resolve) {
 
     app.get('/api/study', study);
     app.get('/api/study_read/:id', study_read);
-    app.post('/api/study_add', study_add);
+    app.post('/api/study_add', study_edit);
     app.post('/api/study_edit/:id', study_edit);
 
     app.post('/api/signin', signin);
