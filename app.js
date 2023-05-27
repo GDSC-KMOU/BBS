@@ -38,7 +38,7 @@ const signup = require('./route/signup.js').signup;
 const app = express();
 const port = 3000;
 
-app.use(logger('combined'));
+app.use(logger(':remote-addr | :remote-user | :date[clf] | HTTP/:http-version | :res[content-length] | :status | :method | :response-time ms | :url | :referrer\n:user-agent'));
 app.use(body_parser.json());
 app.set('json spaces', 2);
 
