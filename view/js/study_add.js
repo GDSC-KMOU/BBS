@@ -1,6 +1,6 @@
 "use strict";
 
-if(document.location.pathname === '/study_add') {
+if(document.location.pathname.startsWith('/study_add')) {
     document.getElementById('main_data').innerHTML = `
         <section id="board">
             <div class="container-xxl p-5 board-content">
@@ -23,6 +23,11 @@ if(document.location.pathname === '/study_add') {
                                 <label for="study_content">내용</label>
                             </div>
                             <br>
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="study_bbs_id" placeholder="내용">
+                                <label for="study_bbs_id">게시판 연계 (EX : /main/3)</label>
+                            </div>
+                            <br>
                             <button type="submit" class="btn btn-success" id="study_save">저장</button>
                             <button type="submit" class="btn btn-outline-success me-2" id="study_preview">미리보기</button>
                             <br>
@@ -40,6 +45,7 @@ if(document.location.pathname === '/study_add') {
         let team_name = document.getElementById('study_team_name').value;
         let date = document.getElementById('study_date').value;
         let content = document.getElementById('study_content').value;
+        let bbs_id = document.getElementById('study_bbs_id').value;
 
         fetch("/api/study_add", {
             method : 'POST',
@@ -47,7 +53,8 @@ if(document.location.pathname === '/study_add') {
             body : JSON.stringify({
                 'team_name' : team_name,
                 'date' : date,
-                'content' : content
+                'content' : content,
+                'bbs_id' : bbs_id
             })
         }).then(function(res) {
             return res.json();
