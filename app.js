@@ -5,6 +5,7 @@ const sqlite3 = require('sqlite3');
 const session = require('express-session');
 const body_parser = require('body-parser');
 const logger = require('morgan');
+const moment = require('moment-timezone');
 
 // load func.js
 const func = require('./route/func.js');
@@ -40,6 +41,10 @@ const port = 3000;
 app.use(logger('combined'));
 app.use(body_parser.json());
 app.set('json spaces', 2);
+
+logger.token('date', (req, res, tz) => {
+    return moment().tz("Asia/Seoul").format('YYYY-MM-DD HH:mm:ss');
+});
 
 // set template
 app.set('view engine', 'html');

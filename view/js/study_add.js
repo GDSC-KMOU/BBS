@@ -1,6 +1,6 @@
 "use strict";
 
-if(document.location.pathname.startsWith('/study_add')) {
+if(document.location.pathname === '/study_add') {
     document.getElementById('main_data').innerHTML = `
         <section id="board">
             <div class="container-xxl p-5 board-content">
