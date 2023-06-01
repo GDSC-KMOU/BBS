@@ -52,3 +52,14 @@ function bbs_nav() {
         </div>
     `;
 }
+
+// up button
+const $upBtn = document.querySelector(".up_btn");
+$upBtn.onclick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.addEventListener('scroll', () => {
+    window.scrollY > 300 ?
+        $upBtn.classList.add('show_btn') : $upBtn.classList.remove('show_btn');
+});

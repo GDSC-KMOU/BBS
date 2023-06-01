@@ -9,6 +9,7 @@ body {
     background-size: cover;
     height: 90vh;
 }
+
 /* logo animation */
 @keyframes logo-hover {
     from {
@@ -38,7 +39,8 @@ body {
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
 
-#faq, #footer {
+#faq,
+#footer {
     background-color: rgba(96, 125, 139, 0.1);
 }
 
@@ -61,24 +63,26 @@ body {
     line-height: 1.75;
 }
 
-#mobile-button{
+#mobile-button {
     display: none;
 }
 
-.arrow-up {
+.up_btn {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    font-size: 30px;
-    color: black;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    font-size: 36px;
+    bottom: 1rem;
+    right: 1rem;
+    width: 4rem;
+    height: 4rem;
+    color: #198754;
     text-align: center;
     opacity: 0;
-    pointer-events: none;
     transition: opacity 300ms ease-in;
-  }
+}
+
+.up_btn.show_btn {
+    opacity: 1;
+}
 
 /* mobile */
 @media screen and (max-width: 767px) {
@@ -99,7 +103,8 @@ body {
         padding: 0%;
     }
 
-    .nav__list, .nav__sign {
+    .nav__list,
+    .nav__sign {
         display: none;
     }
 
@@ -111,26 +116,32 @@ body {
         display: block;
     }
 }
+
 /* tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
     .intro__logo {
         display: none;
     }
+
     .ban {
         margin-bottom: 16px;
     }
+
     .top-h {
         height: 50vh;
     }
 }
+
 /* exception screen */
 @media (min-width: 1025px) and (max-width: 1199px) {
     .top-h {
         height: 55vh;
     }
+
     .top_logo {
         display: none;
     }
+
     .intro__logo {
         display: none;
     }
