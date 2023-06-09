@@ -1,10 +1,8 @@
 "use strict";
 
 if(document.location.pathname === '/') {
-    document.getElementById('load').innerHTML = `<div class="loading">
-        <img src="/view/img/logo.jpg" alt="">
-    </div>`
-    document.getElementById('main_data').innerHTML = `
+    let check_data = 0;
+    document.getElementById('main_data').innerHTML += `
         <header class="py-5 mb-5 top-h" id="top">
             <div class="container px-5">
                 <div class="row gx-5 align-items-center justify-content-center">
@@ -193,4 +191,15 @@ if(document.location.pathname === '/') {
             </div>
         </section>
     `;
+    check_data = 1;
+    
+
+    const do_loading = setInterval(() => {
+        if(check_data === 1) {
+            document.querySelector('.loading').remove();
+            clearInterval(do_loading);
+        }
+    }, 1000);
+
+    
 }

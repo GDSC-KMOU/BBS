@@ -60,16 +60,5 @@ $upBtn.onclick = () => {
 }
 
 document.addEventListener('scroll', () => {
-    window.scrollY > 300 ?
-        $upBtn.classList.add('show_btn') : $upBtn.classList.remove('show_btn');
+    window.scrollY > 300 ? $upBtn.classList.add('show_btn') : $upBtn.classList.remove('show_btn');
 });
-
-// loading page
-window.addEventListener('DOMContentLoaded', loadingPage);
-
-function loadingPage (){
-    const $loading = document.querySelector('.loading');
-    setTimeout(() => {
-        $loading.remove();
-    },1000);
-}
