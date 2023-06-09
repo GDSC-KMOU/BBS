@@ -2,6 +2,13 @@
 
 if(document.location.pathname === '/') {
     let check_data = 0;
+    const do_loading = setInterval(() => {
+        if(check_data === 1) {
+            document.querySelector('.loading').remove();
+            clearInterval(do_loading);
+        }
+    }, 1000);
+
     document.getElementById('main_data').innerHTML += `
         <header class="py-5 mb-5 top-h" id="top">
             <div class="container px-5">
@@ -192,14 +199,4 @@ if(document.location.pathname === '/') {
         </section>
     `;
     check_data = 1;
-    
-
-    const do_loading = setInterval(() => {
-        if(check_data === 1) {
-            document.querySelector('.loading').remove();
-            clearInterval(do_loading);
-        }
-    }, 1000);
-
-    
 }
