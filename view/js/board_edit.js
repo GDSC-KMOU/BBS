@@ -3,7 +3,7 @@
 function func_board_preview(){
     document.getElementById('board_add_preview').addEventListener("click", function() {
         let content = document.getElementById('board_add_content').value;
-
+        
         fetch("/api/board_preview", {
             method : 'POST',
             headers : { 'Content-Type': 'application/json' },
@@ -17,7 +17,7 @@ function func_board_preview(){
                 document.getElementById('board_add_preview_field').innerHTML = text.data;
             }
         });
-    }); //preview end
+    });
 }
 
 function func_board_save(board_name=' ', board_id=0){
@@ -53,7 +53,7 @@ function func_board_save(board_name=' ', board_id=0){
                 });
             }
     
-        } //if end
+        }
         else if(document.location.pathname.startsWith('/board_add/')){
         let board_name = document.location.pathname.split('/')[2];
         fetch("/api/board_add/" + url_encode(board_name), {
@@ -72,10 +72,8 @@ function func_board_save(board_name=' ', board_id=0){
                 alert(text.req + '\n' + text.reason);
             }
         });
-
-        }//else if end
-
-    }); //edit's save end
+    }
+}); 
 }
 
 if(document.location.pathname.startsWith('/board_edit/')) {
@@ -109,11 +107,10 @@ if(document.location.pathname.startsWith('/board_edit/')) {
                 </div>
             </section>
         `;
-
         func_board_save(board_name, board_id);
         func_board_preview();
     });
-} //if end
+}
 
 else if(document.location.pathname.startsWith('/board_add/')) {
     document.getElementById('main_data').innerHTML = `
@@ -140,7 +137,6 @@ else if(document.location.pathname.startsWith('/board_add/')) {
             </div>
         </section>
     `;
-
     func_board_save();
     func_board_preview();
-} //else if end
+}

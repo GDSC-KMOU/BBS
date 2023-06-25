@@ -11,7 +11,7 @@ function func_study_preview(){
             if(isNaN(date.getTime())) {
                 throw new Error();
             }
-
+            
             date = date_change(date);
         } catch {
             date = get_date();
@@ -61,31 +61,28 @@ function func_study_save(study_id=0){
                 alert(text.req + '\n' + text.reason);
             }
         });
-    } else if(document.location.pathname.startsWith('/study_edit/')){
-            fetch("/api/study_edit/" + url_encode(study_id), {
-                method : 'POST',
-                headers : { 'Content-Type': 'application/json' },
-                body : JSON.stringify({
-                    'team_name' : team_name,
-                    'date' : date,
-                    'content' : content,
-                    'bbs_id' : bbs_id
-                })
-            }).then(function(res) {
-                return res.json();
-            }).then(function(text) {
-                if(text.req === 'ok') {
-                    document.location.pathname = '/study';
-                } else {
-                    alert(text.req + '\n' + text.reason);
-                }
-            });   
+    } 
+    else if(document.location.pathname.startsWith('/study_edit/')){
+        fetch("/api/study_edit/" + url_encode(study_id), {
+            method : 'POST',
+            headers : { 'Content-Type': 'application/json' },
+            body : JSON.stringify({
+                'team_name' : team_name,
+                'date' : date,
+                'content' : content,
+                'bbs_id' : bbs_id
+            })
+        }).then(function(res) {
+            return res.json();
+        }).then(function(text) {
+            if(text.req === 'ok') {
+                document.location.pathname = '/study';
+            } else {
+                alert(text.req + '\n' + text.reason);
+            }
+        });
     }
-
-    
-    }); //save end 
-
-
+});
 }
 
 if(document.location.pathname === '/study_add'){
