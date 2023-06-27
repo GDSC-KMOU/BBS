@@ -1,4 +1,5 @@
 // load lib
+const path = require('path');
 const express = require('express');
 const nunjucks = require('nunjucks');
 const sqlite3 = require('sqlite3');
@@ -6,6 +7,7 @@ const session = require('express-session');
 const body_parser = require('body-parser');
 const logger = require('morgan');
 const moment = require('moment-timezone');
+const express_upload = require('express-fileupload');
 
 // load func.js
 const func = require('./route/func.js');
@@ -34,12 +36,17 @@ const set_user_delete = require('./route/set_user_delete.js').set_user_delete;
 const signin = require('./route/signin.js').signin;
 const signup = require('./route/signup.js').signup;
 
+const file_upload = require('./route/file_upload.js').file_upload;
+const file_list = require('./route/file_list.js').file_list;
+const file_send = require('./route/file_send.js').file_send;
+
 // set lib
 const app = express();
 const port = 3000;
 
 app.use(logger(':remote-addr | :remote-user | :date[clf] | HTTP/:http-version | :res[content-length] | :status | :method | :response-time ms | :url | :referrer\n:user-agent'));
 app.use(body_parser.json());
+app.use(express_upload());
 app.set('json spaces', 2);
 
 logger.token('date', (req, res, tz) => {
@@ -156,18 +163,24 @@ new Promise(function(resolve) {
     // url route
     app.get('/', function(req, res) { res.render('index', {}) });
 
-    app.get('/intro', function(req, res) { res.render('index', {}) });
+    app.get('/tool', function(req, res) { res.render('index', {}) });
+
+    app.get('/file_upload', function(req, res) { res.render('index', {}) });
+    app.get('/file_list', function(req, res) { res.render('index', {}) });
+    app.get('/file_list/:page', function(req, res) { res.render('index', {}) });
 
     app.get('/project', function(req, res) { res.render('index', {}) });
     app.get('/project/:id', function(req, res) { res.render('index', {}) });
     app.get('/project_add', function(req, res) { res.render('index', {}) });
 
     app.get('/board/:b_name', function(req, res) { res.render('index', {}) });
+    app.get('/board/:b_name/:page', function(req, res) { res.render('index', {}) });
     app.get('/board_add/:b_name', function(req, res) { res.render('index', {}) });
     app.get('/board_edit/:b_name/:id', function(req, res) { res.render('index', {}) });
     app.get('/board_read/:b_name/:id', function(req, res) { res.render('index', {}) });
 
     app.get('/study', function(req, res) { res.render('index', {}) });
+    app.get('/study/:page', function(req, res) { res.render('index', {}) });
     app.get('/study_add', function(req, res) { res.render('index', {}) });
     app.get('/study_edit/:id', function(req, res) { res.render('index', {}) });
 
@@ -179,6 +192,7 @@ new Promise(function(resolve) {
 
     // api route
     app.get('/api/board/:b_name', board);
+    app.get('/api/board/:b_name/:page', board);
     app.get('/api/board_read/:b_name/:id', board_read);
     app.post('/api/board_edit/:b_name/:id', board_edit);
     app.post('/api/board_notice/:b_name/:id', board_notice);
@@ -196,6 +210,7 @@ new Promise(function(resolve) {
     app.get('/api/project', project);
 
     app.get('/api/study', study);
+    app.get('/api/study/:page', study);
     app.get('/api/study_read/:id', study_read);
     app.post('/api/study_add', study_edit);
     app.post('/api/study_edit/:id', study_edit);
@@ -203,8 +218,13 @@ new Promise(function(resolve) {
     app.post('/api/signin', signin);
     app.post('/api/signup', signup);
 
+    app.get('/api/file_list', file_list);
+    app.get('/api/file_list/:page', file_list);
+    app.post('/api/file_upload', file_upload);
+
     // url route sys
-    app.get('/view/:url*', function(req, res) { res.sendFile(__dirname + "/view/" + req.params['url'] + req.params[0]) });
+    app.get('/view/:url*', function(req, res) { res.sendFile(path.join(__dirname, "view", req.params['url'] + req.params[0])) });
+    app.get('/file/:url*', file_send);
     app.use(function(req, res) { res.status(404).redirect('/') });
 
     // run

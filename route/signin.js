@@ -68,6 +68,12 @@ function signin(req, res) {
                 });
                 db.close();
             }
+        }).catch(function() {
+            res.json({
+                "req" : "error",
+                "reason" : "timeout error"
+            });
+            db.close();
         });
     });
 }

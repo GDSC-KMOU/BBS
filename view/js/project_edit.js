@@ -12,10 +12,7 @@ if(document.location.pathname === '/project_add') {
                                 <input id="project_add_title" type="text" class="form-control" placeholder="제목" aria-label="제목" aria-describedby="basic-addon2">
                             </div>
                             <div class="mb-3">
-                                <input id="project_add_file_name" type="text" class="form-control" placeholder="파일 이름" aria-label="파일 이름" aria-describedby="basic-addon2">
-                            </div>
-                            <div class="mb-3">
-                                <input id="project_add_file" class="form-control" type="file" id="formFile">
+                                <input id="project_add_file_name" type="text" class="form-control" placeholder="파일 주소" aria-label="파일 주소" aria-describedby="basic-addon2">
                             </div>
                             <textarea id="project_add_content" class="form-control" rows="15" placeholder="내용" aria-label="내용"></textarea>
                             <br>

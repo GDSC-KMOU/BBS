@@ -2,15 +2,19 @@
 
 if(document.location.pathname.startsWith('/board/')) {
     let board_name = document.location.pathname.split('/')[2];
+    let page = document.location.pathname.split('/')[3];
+    if(page === undefined) {
+        page = '1';
+    }
 
-    fetch("/api/board/" + url_encode(board_name)).then(function (res) {
+    fetch("/api/board/" + url_encode(board_name) + "/" + url_encode(page)).then(function (res) {
         return res.json();
     }).then(function (text) {
         let data = '';
 
         let now = new Date().getTime();
         let the_str = '0';
-        for (let for_a = 0; for_a < text.length; for_a++) {
+        for(let for_a = 0; for_a < text.length; for_a++) {
             let past_time = new Date(text[for_a]['date'].replace(/-/g, '/'));
             past_time = past_time.getTime();
             
@@ -36,7 +40,7 @@ if(document.location.pathname.startsWith('/board/')) {
 
             data += `
                 <tr>
-                    <td>` + text[for_a]['doc_id'] + `</td>
+                    <td title="` + String(for_a + 1) + `">` + text[for_a]['doc_id'] + `</td>
                     <td><a class="text-decoration-none text-success" href="/board_read/` + url_encode(board_name) + '/' + text[for_a]['doc_id'] + `">` + xss_filter(text[for_a]['title']) + `</a></td>
                     <td>` + the_str + `</td>
                     <td>` + xss_filter(text[for_a]['user_name_real']) + `</td>
@@ -44,36 +48,57 @@ if(document.location.pathname.startsWith('/board/')) {
             `;
         }
 
+        let before = '';
+        if(page !== '1') {
+            before = '<a class="text-decoration-none text-success" href="/board/' + url_encode(board_name) + '/' + String(Number(page) - 1) + '">(이전)</a>';
+        }
+        
+        let after = '';
+        if(text.length === 20) {
+            after = '<a class="text-decoration-none text-success" href="/board/' + url_encode(board_name) + '/' + String(Number(page) + 1) + '">(이후)</a>';
+        }
+
+        if(before !== '' || after !== '') {
+            data += `
+                <tr>
+                    <td colspan="4">` + before + ` ` + after + `</td>
+                </tr>
+            `;
+        }
+
         document.getElementById('main_data').innerHTML = `
             <section id="board">
-                <div class="container-xxl p-5 board-content">
-                    <a href="/board_add/` + url_encode(board_name) + `" class="text-decoration-none text-success">(글쓰기)</a>
-                    <br>
+                <div class="container-xxl p-5 board-content">                
                     <div class="row gap-5">
                         ` + bbs_nav() + `
                         <div class="col-md-9 shadow-sm rounded-5">
                             <div class="container px-1">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-sm">
-                                    <thead>
-                                    <tr class="text-center">
-                                        <th scope="col">
-                                            번호
-                                        </th>
-                                        <th scope="col">
-                                            게시글명
-                                        </th>
-                                        <th scope="col">
-                                            시간
-                                        </th>
-                                        <th scope="col">
-                                            작성자
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    ` + data + `
-                                    </tbody>
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th scope="col">
+                                                    번호
+                                                </th>
+                                                <th scope="col">
+                                                    게시글명
+                                                </th>
+                                                <th scope="col">
+                                                    시간
+                                                </th>
+                                                <th scope="col">
+                                                    작성자
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ` + data + `
+                                            <tr>
+                                                <td colspan="4">
+                                                    <a href="/board_add/` + url_encode(board_name) + `" class="text-decoration-none text-success">(글쓰기)</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

@@ -3,3 +3,9 @@ node_modules
 package-lock.json
 
 data.db
+
+data/image/*.png
+data/image/*.jpg
+data/image/*.jpeg
+data/image/*.gif
+data/image/*.webp

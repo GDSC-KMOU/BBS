@@ -13,6 +13,11 @@
                 integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
                 crossorigin="anonymous"></script>
 
+        <!-- highlight.js -->
+        <link   rel="stylesheet"
+                href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
         <!-- Get font -->
         <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 
@@ -25,8 +30,13 @@
         <!-- URL : / -->
         <script defer src="/view/js/main.js"></script>
 
+        <script defer src="/view/js/tool.js"></script>
+
+        <script defer src="/view/js/file_upload.js"></script>
+        <script defer src="/view/js/file_list.js"></script>
+
         <script defer src="/view/js/project.js"></script>
-        <script defer src="/view/js/project_add.js"></script>
+        <script defer src="/view/js/project_edit.js"></script>
 
         <script defer src="/view/js/board.js"></script>
         <script defer src="/view/js/board_read.js"></script>
@@ -63,7 +73,7 @@
                     </ul>
                 <div class="justify-content-end nav__sign">
                     {% if session.user_name %}
-                        <a href="/set" class="btn btn-outline-success me-2">설정</a>
+                        <a href="/tool" class="btn btn-outline-success me-2">기능</a>
                         <a href="/signout" class="btn btn-success">로그아웃</a>
                     {% else %}
                         <a href="/signin" class="btn btn-outline-success me-2">로그인</a>
@@ -101,7 +111,7 @@
                         </li>
                         <li>
                             {% if session.user_name %}
-                                <a href="/set" class="text-decoration-none link-success fw-bold">설정</a> &nbsp;
+                                <a href="/tool" class="text-decoration-none link-success fw-bold">기능</a> &nbsp;
                                 <a href="/signout" class="text-decoration-none link-success fw-bold">로그아웃</a>
                             {% else %}
                                 <a href="/signin" class="text-decoration-none link-success fw-bold">로그인</a> &nbsp;

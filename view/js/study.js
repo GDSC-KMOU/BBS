@@ -1,13 +1,18 @@
 "use strict";
 
-let color ="";
+if(document.location.pathname === '/study' || document.location.pathname.startsWith('/study/')) {
+    let page = document.location.pathname.split('/')[2];
+    if(page === undefined) {
+        page = '1';
+    }
 
-if(document.location.pathname === '/study') {
-    fetch("/api/study").then(function(res) {
+    fetch("/api/study/" + url_encode(page)).then(function(res) {
         return res.json();
     }).then(function(text) {
         let now = new Date();
         let now_unix = now.getTime();
+
+        let color = "";
         
         let data = '';
         for(let for_a = 0; for_a < text.length; for_a++) {
@@ -30,7 +35,7 @@ if(document.location.pathname === '/study') {
             data += `
                 <div class="d-flex text-muted pt-3">
                     <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>상태</title>
+                        <title>` + String(for_a + 1) + `</title>
                         <rect width="100%" height="100%" fill="` + color + `"></rect>
                     </svg>
 
@@ -49,6 +54,16 @@ if(document.location.pathname === '/study') {
             `;
         }
 
+        let before = '';
+        if(page !== '1') {
+            before = '<a class="text-decoration-none text-success" href="/study/' + String(Number(page) - 1) + '">(이전)</a>';
+        }
+        
+        let after = '';
+        if(text.length === 20) {
+            after = '<a class="text-decoration-none text-success" href="/study/' + String(Number(page) + 1) + '">(이후)</a>';
+        }
+
         document.getElementById('main_data').innerHTML = `
             <div class="container px-5">
                 <div class="my-3 p-3 bg-body rounded-5 shadow-sm">
@@ -56,6 +71,9 @@ if(document.location.pathname === '/study') {
                     ` + data+ `
                     
                     <small class="d-block text-end mt-3">
+                        <span style="float: left;">
+                            ` + before + ` ` + after + `
+                        </span>
                         <a href="/study_add" class="text-decoration-none text-success">(추가)</a>
                     </small>
                 </div>

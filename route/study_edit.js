@@ -94,16 +94,9 @@ function study_edit(req, res) {
                 });
             });
         } else {
-            if(req.session['user_name']) {
-                let user_name = req.session['user_name'];
+            func.user_check(db, req, res, function(user_name) {
                 study_edit_do(db, req, res, user_name);
-            } else {
-                res.json({
-                    "req" : "error",
-                    "reason" : "user_name not exist"
-                });
-                db.close();
-            }
+            });
         }
     });
 }

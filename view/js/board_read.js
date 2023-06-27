@@ -26,5 +26,6 @@ if(document.location.pathname.startsWith('/board_read/')) {
                 </div>
             </section>
         `;
+        hljs.highlightAll();
     });
 }
