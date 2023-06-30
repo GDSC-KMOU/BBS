@@ -40,10 +40,10 @@ if(document.location.pathname.startsWith('/board/')) {
 
             data += `
                 <tr>
-                    <td title="` + String(for_a + 1) + `">` + text[for_a]['doc_id'] + `</td>
-                    <td><a class="text-decoration-none text-success" href="/board_read/` + url_encode(board_name) + '/' + text[for_a]['doc_id'] + `">` + xss_filter(text[for_a]['title']) + `</a></td>
-                    <td>` + the_str + `</td>
-                    <td>` + xss_filter(text[for_a]['user_name_real']) + `</td>
+                    <td class="text-center" title="` + String(for_a + 1) + `">` + text[for_a]['doc_id'] + `</td>
+                    <td ><a class="text-decoration-none text-success" href="/board_read/` + url_encode(board_name) + '/' + text[for_a]['doc_id'] + `">` + xss_filter(text[for_a]['title']) + `</a></td>
+                    <td class="text-center">` + the_str + `</td>
+                    <td class="text-center">` + xss_filter(text[for_a]['user_name_real']) + `</td>
                 </tr>
             `;
         }
@@ -71,10 +71,10 @@ if(document.location.pathname.startsWith('/board/')) {
                 <div class="container-xxl p-5 board-content">                
                     <div class="row gap-5">
                         ` + bbs_nav() + `
-                        <div class="col-md-9 shadow-sm rounded-5">
+                        <div class="col-md-9 p-3 shadow-sm rounded-5">
                             <div class="container px-1">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-sm">
+                                    <table class="table table-hover table-sm table__rounded">
                                         <thead>
                                             <tr class="text-center">
                                                 <th scope="col">
@@ -93,13 +93,16 @@ if(document.location.pathname.startsWith('/board/')) {
                                         </thead>
                                         <tbody>
                                             ` + data + `
-                                            <tr>
-                                                <td colspan="4">
-                                                    <a href="/board_add/` + url_encode(board_name) + `" class="text-decoration-none text-success">(글쓰기)</a>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
+                                    <p class="text-end fw-bold mb-0">
+                                        <span class="board__write px-1">
+                                            <a href="/board_add/` + url_encode(board_name) + `" class="text-decoration-none">
+                                            <i class="fa-solid fa-pencil"></i>
+                                            글쓰기
+                                            </a>
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
                         </div>

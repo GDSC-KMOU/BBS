@@ -38,15 +38,15 @@ function get_date() {
 // board
 function bbs_nav() {
     return `
-        <div class="col-md-2 shadow-sm rounded-5">
-            <div class="row nav gap-2 py-2">
-            <li class="board_item text-center"><a href="/board/main"
-                class="text-decoration-none text-success fw-bold">주요사안</a> </li>
-            <li class="board_item text-center"><a href="/board/talk" class="text-decoration-none text-success">토론</a>
+        <div class="col-md-2 shadow-sm rounded-5 board__nav">
+            <div class="row nav gap-2 py-2 board__nav-item">
+            <li class="board_item text-center" data-filter="A"><a href="/board/main"
+                class="text-decoration-none text-success">주요사안</a> </li>
+            <li class="board_item text-center" data-filter="B"><a href="/board/talk" class="text-decoration-none text-success">토론</a>
             </li>
-            <li class="board_item text-center"><a href="/board/free" class="text-decoration-none text-success">자유</a>
+            <li class="board_item text-center" data-filter="C"><a href="/board/free" class="text-decoration-none text-success">자유</a>
             </li>
-            <li class="board_item text-center"><a href="/board/secret"
+            <li class="board_item text-center" data-filter="D"><a href="/board/secret"
                 class="text-decoration-none text-success">비공개</a> </li>
             </div>
         </div>
@@ -62,3 +62,5 @@ $upBtn.onclick = () => {
 document.addEventListener('scroll', () => {
     window.scrollY > 300 ? $upBtn.classList.add('show_btn') : $upBtn.classList.remove('show_btn');
 });
+
+
