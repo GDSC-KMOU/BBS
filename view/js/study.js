@@ -66,7 +66,7 @@ if(document.location.pathname === '/study' || document.location.pathname.startsW
 
         document.getElementById('main_data').innerHTML = `
             <div class="container px-5">
-                <div class="my-3 p-3 bg-body rounded-5 shadow-sm">
+                <div class="my-3 p-3 bg-body rounded-5 shadow">
                     <h6 class="border-bottom pb-2 mb-0 text-success">최근 스터디 및 세미나 일정</h6>
                     ` + data+ `
                     

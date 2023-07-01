@@ -71,7 +71,7 @@ if(document.location.pathname.startsWith('/board/')) {
                 <div class="container-xxl p-5 board-content">                
                     <div class="row gap-5">
                         ` + bbs_nav() + `
-                        <div class="col-md-9 p-3 shadow-sm rounded-5">
+                        <div class="col-md-9 p-3 shadow rounded-5">
                             <div class="container px-1">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-sm table__rounded">

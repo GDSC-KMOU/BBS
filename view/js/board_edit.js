@@ -88,7 +88,7 @@ if(document.location.pathname.startsWith('/board_edit/')) {
                 <div class="container-xxl p-5 board-content">
                     <div class="row gap-5">
                         ` + bbs_nav() + `
-                        <div class="col-md-9 shadow-sm rounded-5">
+                        <div class="col-md-9 shadow rounded-5">
                             <div class="container px-1">
                                 <br>    
                                 <div class="input-group mb-3">
@@ -118,7 +118,7 @@ else if(document.location.pathname.startsWith('/board_add/')) {
             <div class="container-xxl p-5 board-content">
                 <div class="row gap-5">
                     ` + bbs_nav() + `
-                    <div class="col-md-9 shadow-sm rounded-5">
+                    <div class="col-md-9 shadow rounded-5">
                         <div class="container px-1">
                             <br>    
                             <div class="input-group mb-3">

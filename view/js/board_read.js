@@ -12,7 +12,7 @@ if(document.location.pathname.startsWith('/board_read/')) {
                 <div class="container-xxl p-5 board-content">
                     <div class="row gap-5">
                         ` + bbs_nav() + `
-                        <div class="col-md-9 p-4 shadow-sm rounded-5">
+                        <div class="col-md-9 p-4 shadow rounded-5">
                             <div class="container px-1">
                                 <h3 class="mb-0">` + xss_filter(text.title) + `</h3>
                                 <p class="py-2 border-bottom">

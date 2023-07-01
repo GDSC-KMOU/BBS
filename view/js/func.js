@@ -38,7 +38,7 @@ function get_date() {
 // board
 function bbs_nav() {
     return `
-        <div class="col-md-2 shadow-sm rounded-5 board__nav">
+        <div class="col-md-2 shadow rounded-5 board__nav">
             <div class="row nav gap-2 py-2 board__nav-item">
             <li class="board_item text-center" data-filter="A"><a href="/board/main"
                 class="text-decoration-none text-success">주요사안</a> </li>
