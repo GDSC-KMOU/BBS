@@ -5,6 +5,7 @@ function func_study_preview(){
         let team_name = document.getElementById('study_team_name').value;
         let date = document.getElementById('study_date').value;
         let content = document.getElementById('study_content').value;
+        let bbs_id = document.getElementById('study_bbs_id').value;
 
         try {
             date = new Date(date);
@@ -15,6 +16,11 @@ function func_study_preview(){
             date = date_change(date);
         } catch {
             date = get_date();
+        }
+
+        let bbs_link = '';
+        if(bbs_id !== '') {
+            bbs_link += '<a class="text-decoration-none text-success" href="/board_read' + xss_filter(bbs_id) + '">(게시글)</a>';
         }
 
         document.getElementById('study_preview_field').innerHTML = `
@@ -29,21 +35,29 @@ function func_study_preview(){
                         <strong class="text-gray-dark">` + xss_filter(team_name) + ` (이름)</strong>
                         ` + xss_filter(date) + `
                     </div>
-                    <span class="d-block">` + xss_filter(content) + `</span>
+                    <span class="d-block">
+                        ` + xss_filter(content) + `
+                        ` + bbs_link + `
+                    </span>
                 </div>
             </div>
         `;
     });
 }
 
-function func_study_save(study_id=0){
+function func_study_save(study_id = 0){
     document.getElementById('study_save').addEventListener("click", function() {
         let team_name = document.getElementById('study_team_name').value;
         let date = document.getElementById('study_date').value;
         let content = document.getElementById('study_content').value;
         let bbs_id = document.getElementById('study_bbs_id').value;
-    if(document.location.pathname === '/study_add'){
-        fetch("/api/study_add", {
+
+        let url = "/api/study_add";
+        if(document.location.pathname.startsWith('/study_edit/')) {
+            url = "/api/study_edit/" + url_encode(study_id);
+        }
+
+        fetch(url, {
             method : 'POST',
             headers : { 'Content-Type': 'application/json' },
             body : JSON.stringify({
@@ -61,31 +75,10 @@ function func_study_save(study_id=0){
                 alert(text.req + '\n' + text.reason);
             }
         });
-    } 
-    else if(document.location.pathname.startsWith('/study_edit/')){
-        fetch("/api/study_edit/" + url_encode(study_id), {
-            method : 'POST',
-            headers : { 'Content-Type': 'application/json' },
-            body : JSON.stringify({
-                'team_name' : team_name,
-                'date' : date,
-                'content' : content,
-                'bbs_id' : bbs_id
-            })
-        }).then(function(res) {
-            return res.json();
-        }).then(function(text) {
-            if(text.req === 'ok') {
-                document.location.pathname = '/study';
-            } else {
-                alert(text.req + '\n' + text.reason);
-            }
-        });
-    }
-});
+    });
 }
 
-if(document.location.pathname === '/study_add'){
+function func_study_editor(team_name = '', date = '', content = '', bbs_id = '') {
     document.getElementById('main_data').innerHTML = `
         <section id="board">
             <div class="container-xxl p-5 board-content">
@@ -94,22 +87,22 @@ if(document.location.pathname === '/study_add'){
                         <div class="container px-1">
                             <br>    
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="study_team_name" placeholder="팀 이름">
+                                <input type="text" class="form-control" id="study_team_name" value="` + xss_filter(team_name) + `" placeholder="팀 이름">
                                 <label for="study_team_name">팀 이름</label>
                             </div>
                             <br>    
                             <div class="form-floating">
-                                <input type="datetime-local" class="form-control" id="study_date" placeholder="날짜">
+                                <input type="datetime-local" class="form-control" id="study_date" value="` + xss_filter(date) + `" placeholder="날짜">
                                 <label for="study_date">날짜</label>
                             </div>
                             <br>  
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="study_content" placeholder="내용">
+                                <input type="text" class="form-control" id="study_content" value="` + xss_filter(content) + `" placeholder="내용">
                                 <label for="study_content">내용</label>
                             </div>
                             <br>
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="study_bbs_id" placeholder="내용">
+                                <input type="text" class="form-control" id="study_bbs_id" value="` + xss_filter(bbs_id) + `" placeholder="게시판 연계">
                                 <label for="study_bbs_id">게시판 연계 (EX : /main/3)</label>
                             </div>
                             <br>
@@ -125,12 +118,14 @@ if(document.location.pathname === '/study_add'){
             </div>
         </section>
     `;
-
-func_study_save();
-func_study_preview();
 }
 
-else if(document.location.pathname.startsWith('/study_edit/')){
+if(document.location.pathname === '/study_add'){
+    func_study_editor();
+
+    func_study_save();
+    func_study_preview();
+} else if(document.location.pathname.startsWith('/study_edit/')) {
     let study_id = document.location.pathname.split('/')[2];
 
     fetch("/api/study_read/" + url_encode(study_id)).then(function(res) {
@@ -141,47 +136,9 @@ else if(document.location.pathname.startsWith('/study_edit/')){
             bbs_id = text.bbs_id;
         }
 
-        document.getElementById('main_data').innerHTML = `
-            <section id="board">
-                <div class="container-xxl p-5 board-content">
-                    <div class="row gap-5">
-                        <div class="col-md-9 shadow-sm rounded-5" style="margin: auto;">
-                            <div class="container px-1">
-                                <br>    
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="study_team_name" value="` + xss_filter(text.team_name) + `" placeholder="팀 이름">
-                                    <label for="study_team_name">팀 이름</label>
-                                </div>
-                                <br>    
-                                <div class="form-floating">
-                                    <input type="datetime-local" class="form-control" id="study_date" value="` + xss_filter(text.date) + `" placeholder="날짜">
-                                    <label for="study_date">날짜</label>
-                                </div>
-                                <br>  
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="study_content" value="` + xss_filter(text.content) + `" placeholder="내용">
-                                    <label for="study_content">내용</label>
-                                </div>
-                                <br>
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="study_bbs_id" value="` + xss_filter(bbs_id) + `" placeholder="내용">
-                                    <label for="study_bbs_id">게시판 연계 (EX : /main/3)</label>
-                                </div>
-                                <br>
-                                <button type="submit" class="btn btn-success" id="study_save">저장</button>
-                                <button type="submit" class="btn btn-outline-success me-2" id="study_preview">미리보기</button>
-                                <br>
-                                <br>
-                                <div id="study_preview_field"></div>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        `;
+        func_study_editor(text.team_name, text.date, text.content, bbs_id);
 
-    func_study_save(study_id);
-    func_study_preview(); 
+        func_study_save(study_id);
+        func_study_preview(); 
     });   
 }

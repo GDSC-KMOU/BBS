@@ -20,6 +20,8 @@ const board_notice = require('./route/board_notice.js').board_notice;
 const board_preview = require('./route/board_preview.js').board_preview;
 
 const project = require('./route/project.js').project;
+const project_edit = require('./route/project_edit.js').project_edit;
+const project_read = require('./route/project_read.js').project_read;
 
 const study = require('./route/study.js').study;
 const study_edit = require('./route/study_edit.js').study_edit;
@@ -170,8 +172,9 @@ new Promise(function(resolve) {
     app.get('/file_list/:page', function(req, res) { res.render('index', {}) });
 
     app.get('/project', function(req, res) { res.render('index', {}) });
-    app.get('/project/:id', function(req, res) { res.render('index', {}) });
+    app.get('/project/:page', function(req, res) { res.render('index', {}) });
     app.get('/project_add', function(req, res) { res.render('index', {}) });
+    app.get('/project_edit/:id', function(req, res) { res.render('index', {}) });
 
     app.get('/board/:b_name', function(req, res) { res.render('index', {}) });
     app.get('/board/:b_name/:page', function(req, res) { res.render('index', {}) });
@@ -208,6 +211,10 @@ new Promise(function(resolve) {
     app.post('/api/set/user/delete/:id', set_user_delete);
 
     app.get('/api/project', project);
+    app.get('/api/project/:page', project);
+    app.get('/api/project_read/:id', project_read);
+    app.post('/api/project_add', project_edit);
+    app.post('/api/project_edit/:id', project_edit);
 
     app.get('/api/study', study);
     app.get('/api/study/:page', study);
