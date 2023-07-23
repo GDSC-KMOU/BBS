@@ -40,8 +40,7 @@ if(document.location.pathname.startsWith('/board/')) {
 
             data += `
                 <tr>
-                    <td class="text-center" title="` + String(for_a + 1) + `">` + text[for_a]['doc_id'] + `</td>
-                    <td ><a class="text-decoration-none text-success" href="/board_read/` + url_encode(board_name) + '/' + text[for_a]['doc_id'] + `">` + xss_filter(text[for_a]['title']) + `</a></td>
+                    <td ><a class="text-decoration-none text-success ms-1" href="/board_read/` + url_encode(board_name) + '/' + text[for_a]['doc_id'] + `">` + xss_filter(text[for_a]['title']) + `</a></td>
                     <td class="text-center">` + the_str + `</td>
                     <td class="text-center">` + xss_filter(text[for_a]['user_name_real']) + `</td>
                 </tr>
@@ -68,7 +67,7 @@ if(document.location.pathname.startsWith('/board/')) {
 
         document.getElementById('main_data').innerHTML = `
             <section id="board">
-                <div class="container-xxl p-5 board-content">                
+                <div class="container-xxl p-3 board-content">                
                     <div class="row gap-5">
                         ` + bbs_nav() + `
                         <div class="col-md-9 p-3 shadow rounded-5">
@@ -77,9 +76,6 @@ if(document.location.pathname.startsWith('/board/')) {
                                     <table class="table table-hover table-sm table__rounded">
                                         <thead>
                                             <tr class="text-center">
-                                                <th scope="col">
-                                                    번호
-                                                </th>
                                                 <th scope="col">
                                                     게시글명
                                                 </th>

@@ -15,14 +15,18 @@ if(document.location.pathname.startsWith('/board_read/')) {
                         <div class="col-md-9 p-4 shadow rounded-5">
                             <div class="container px-1">
                                 <h3 class="mb-0">` + xss_filter(text.title) + `</h3>
-                                <p class="py-2 border-bottom">
-                                    <span class="board__add-write">`+ xss_filter(text.user_name_real) + `</span>
-                                    <span class="board__add-date px-3">` + text.date + `</sapn>
-                                    <span style="float:right">
-                                    <i class="fa-regular fa-pen-to-square text-success"></i>
-                                    <a class="text-decoration-none text-success" href="/board_edit/` + url_encode(board_name) + `/` + url_encode(board_id) + `">수정 및 삭제</a>
-                                    </span>
-                                </p>
+                                    <div class="d-flex justify-content-between border-bottom py-2">
+                                        <div>
+                                            <span class="board__add-write">`+ xss_filter(text.user_name_real) + `</span>
+                                            <span class="board__add-date px-3">` + text.date + `</sapn>
+                                        </div>
+                                        <div>
+                                            <span class="boardread_left">
+                                            <i class="fa-regular fa-pen-to-square text-success"></i>
+                                            <a class="text-decoration-none text-success" href="/board_edit/` + url_encode   (board_name) + `/` + url_encode(board_id) + `">수정 및 삭제</a>
+                                            </span>
+                                        </div>
+                                    </div>
                                 <p class="lead">` + text.render_content + `</p>
                             </div>
                         </div>

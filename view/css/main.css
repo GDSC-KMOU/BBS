@@ -51,7 +51,7 @@ body {
 }
 
 #faq,
-#footer {
+#footer{
     background-color: rgba(96, 125, 139, 0.1);
 }
 
@@ -77,6 +77,14 @@ body {
 #mobile-button {
     display: none;
 }
+
+/* card 형식 */
+.card__study{
+    padding: 1.5em .5em .5em;
+    border-radius: 2em;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
 
 /* Up button */
 .up_btn {
@@ -164,6 +172,9 @@ body {
 .board__add-date{
     font-size: 14px;
 }
+.card-body p,h5{
+    color: #0f5132;
+}
 /* loading page animation */
 @keyframes spin {
     100% {
@@ -173,11 +184,10 @@ body {
 
 /* mobile */
 @media screen and (max-width: 767px) {
-
+    .navbar
     .ban {
         margin-bottom: 16px;
     }
-
     .intro__logo {
         display: none;
     }
@@ -201,6 +211,13 @@ body {
 
     #mobile-button {
         display: block;
+    }
+    .study__content {
+        display: flex;
+        flex-direction: column;
+    }
+    .boardread_left{
+        font-size: 10px;
     }
 }
 
