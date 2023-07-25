@@ -18,14 +18,17 @@ const board_read = require('./route/board_read.js').board_read;
 const board_edit = require('./route/board_edit.js').board_edit;
 const board_notice = require('./route/board_notice.js').board_notice;
 const board_preview = require('./route/board_preview.js').board_preview;
+const board_length = require('./route/board_length.js').board_length;
 
 const project = require('./route/project.js').project;
 const project_edit = require('./route/project_edit.js').project_edit;
 const project_read = require('./route/project_read.js').project_read;
+const project_length = require('./route/project_length.js').project_length;
 
 const study = require('./route/study.js').study;
 const study_edit = require('./route/study_edit.js').study_edit;
 const study_read = require('./route/study_read.js').study_read;
+const study_length = require('./route/study_length.js').study_length;
 
 const set_load = require('./route/set_load.js').set_load;
 const set_hcaptcha = require('./route/set_hcaptcha.js').set_hcaptcha;
@@ -197,6 +200,7 @@ new Promise(function(resolve) {
     app.get('/api/board/:b_name', board);
     app.get('/api/board/:b_name/:page', board);
     app.get('/api/board_read/:b_name/:id', board_read);
+    app.get('/api/board_length/:b_name', board_length);
     app.post('/api/board_edit/:b_name/:id', board_edit);
     app.post('/api/board_notice/:b_name/:id', board_notice);
     app.post('/api/board_preview', board_preview);
@@ -212,12 +216,14 @@ new Promise(function(resolve) {
 
     app.get('/api/project', project);
     app.get('/api/project/:page', project);
+    app.get('/api/project_length', project_length);
     app.get('/api/project_read/:id', project_read);
     app.post('/api/project_add', project_edit);
     app.post('/api/project_edit/:id', project_edit);
 
     app.get('/api/study', study);
     app.get('/api/study/:page', study);
+    app.get('/api/study_length', study_length);
     app.get('/api/study_read/:id', study_read);
     app.post('/api/study_add', study_edit);
     app.post('/api/study_edit/:id', study_edit);
