@@ -21,12 +21,13 @@ function signup(req, res) {
             hcaptcha = db_data_2[0].set_data;
         }
 
+        let post_data = new URLSearchParams();
+        post_data.append('response', hcaptcha_res);
+        post_data.append('secret', hcaptcha);
+
         fetch("https://hcaptcha.com/siteverify", {
             method: "POST",
-            body: JSON.stringify({
-                "response" : hcaptcha_res,
-                "secret" : hcaptcha
-            })
+            body: post_data
         }).then(function(res_2) {
             return res_2.json();
         }).then(function(text) {
