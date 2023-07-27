@@ -6,6 +6,15 @@ if(document.location.pathname.startsWith('/board/')) {
     if(page === undefined) {
         page = '1';
     }
+    let pageButton = '';
+    fetch("/api/board_length/" + url_encode(board_name)).then((res) => {
+        return res.json();
+    }).then((data) => {
+        let pageNum = Math.ceil(data.length / 20);
+        for(let i =1; i <= pageNum; i++){
+            pageButton += `<a class="text-decoration-none text-success p-1 m-1" href="/board/${url_encode(board_name)}/${String(i)}">${i}</a>`;
+        }  
+    })
 
     fetch("/api/board/" + url_encode(board_name) + "/" + url_encode(page)).then(function (res) {
         return res.json();
@@ -47,30 +56,17 @@ if(document.location.pathname.startsWith('/board/')) {
             `;
         }
 
-        let before = '';
-        if(page !== '1') {
-            before = '<a class="text-decoration-none text-success" href="/board/' + url_encode(board_name) + '/' + String(Number(page) - 1) + '">(이전)</a>';
-        }
-        
-        let after = '';
-        if(text.length === 20) {
-            after = '<a class="text-decoration-none text-success" href="/board/' + url_encode(board_name) + '/' + String(Number(page) + 1) + '">(이후)</a>';
-        }
-
-        if(before !== '' || after !== '') {
-            data += `
-                <tr>
-                    <td colspan="4">` + before + ` ` + after + `</td>
-                </tr>
-            `;
-        }
-
         document.getElementById('main_data').innerHTML = `
+        <div class="container-xxl p-3">
+            <div class="rounded-5 p-3 mb-2 d-flex justify-content-start align-items-center pagetop__div"style="background-color: #dbebe1">
+                <h4 class="mb-0">Board</h4>
+            </div>
+        </div>
             <section id="board">
-                <div class="container-xxl p-3 board-content">                
-                    <div class="row gap-5">
+                <div class="container-xxl p-3">                
+                    <div class="d-flex row justify-content-between board-content">
                         ` + bbs_nav() + `
-                        <div class="col-md-9 p-3 shadow rounded-5">
+                        <div class="col-xxl-9 p-3 shadow rounded-5 board__right">
                             <div class="container px-1">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-sm table__rounded">
@@ -91,6 +87,12 @@ if(document.location.pathname.startsWith('/board/')) {
                                             ` + data + `
                                         </tbody>
                                     </table>
+                                    <div class="d-flex justify-content-between">
+                                    <div></div>
+                                    <div>
+                                        `+ pageButton +`
+                                    </div>
+                                    <div>
                                     <p class="text-end fw-bold mb-0">
                                         <span class="board__write px-1">
                                             <a href="/board_add/` + url_encode(board_name) + `" class="text-decoration-none">
@@ -99,6 +101,9 @@ if(document.location.pathname.startsWith('/board/')) {
                                             </a>
                                         </span>
                                     </p>
+                                    </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>

@@ -6,6 +6,17 @@ if(document.location.pathname === '/study' || document.location.pathname.startsW
         page = '1';
     }
 
+    // 페이지 순서
+    let pageButton = '';
+    fetch("/api/study_length").then((res) => {
+        return res.json();
+    }).then((data) => {
+        let pageNum = Math.ceil(data.length / 20);
+        for(let i =1; i <= pageNum; i++){
+            pageButton += `<a class="text-decoration-none text-success p-1 m-1" href="/study/${String(i)}">${i}</a>`;
+        }  
+    })
+
     fetch("/api/study/" + url_encode(page)).then(function(res) {
         return res.json();
     }).then(function(text) {
@@ -34,21 +45,23 @@ if(document.location.pathname === '/study' || document.location.pathname.startsW
 
             data += `
             <div class="col">
-                <div class="card__study shadow-sm" style="background-color: #e8f3ed;">
+                <div class="card__study shadow-sm" style="background-color: #dbebe1">
                     <p class= "text-center">
-                    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="64px" height="64px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice"    focusable="false">
+                    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="40px" height="40px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice"    focusable="false">
                     <title>` + String(for_a + 1) + `</title>
                     <rect width="100%" height="100%" fill="` + color + `"></rect>
                     </svg>
                     </p>
-                    <div class="card-body">
-                        <h5 class="card-title text-center">` + xss_filter(text[for_a].content) + `</h5>
-                        <p class="card-text text-center border-bottom border-2 pb-2 border-success">
+                    <div class="card-body border rounded-5 p-3 bg-white"> 
+                        <p class="card-title text-center fw-bold">` + xss_filter(text[for_a].content) + `</p>
+                        <p class="card-text text-center mb-0">
                         [` + xss_filter(text[for_a].team_name) + `]
                         </p>
-                        <p class="card-text text-center">
+                        <div class="card-border d-flex justify-content-center align-items-center pb-2 mb-3">
+                        <span class="card-text text-center border rounded bg-light px-2 m-1">
                         ` + xss_filter(text[for_a].user_name_real) + `
-                        </p>
+                        </span>
+                        </div>
                         <p class="text-center mb-0">
                         ` + xss_filter(text[for_a].date) + `
                         </p>
@@ -60,32 +73,19 @@ if(document.location.pathname === '/study' || document.location.pathname.startsW
                 </div>
             </div>
             `;
-            
-
-        }
-
-        let before = '';
-        if(page !== '1') {
-            before = '<a class="text-decoration-none text-success" href="/study/' + String(Number(page) - 1) + '">(이전)</a>';
-        }
-        
-        let after = '';
-        if(text.length === 20) {
-            after = '<a class="text-decoration-none text-success" href="/study/' + String(Number(page) + 1) + '">(이후)</a>';
         }
 
         document.getElementById('main_data').innerHTML = `
+        <div class="container px-5">
+            <div class="rounded-5 p-3 mb-2 d-flex justify-content-start align-items-center pagetop__div"style="background-color: #dbebe1">
+                <h4 class="mb-0">Study Schedule</h4>
+            </div>
+        </div>
             <div class="container px-5 mb-5">
                 <div class="my-3 p-3 bg-body rounded-5 shadow">
-                    <div class="d-flex justify-content-between border-bottom mb-3">
-                        <h6 class="pb-2 mb-2 text-success">최근 스터디 일정</h6>
-                        <h6 class="d-block text-end mt-3">
-                        <span style="float: left;">
-                            ` + before + ` ` + after + `
-                        </span>
+                    <div class="d-flex justify-content-end border-bottom mb-3">
                         <h6><a href="/study_add" class="text-decoration-none text-success"><i class="fa-solid fa-keyboard"></i>
                         작성</a></h6>
-                    </h6>
                     </div>
                     <p class="fs-6 mb-0">
                     <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice"    focusable="false">
@@ -100,6 +100,9 @@ if(document.location.pathname === '/study' || document.location.pathname.startsW
                     
                     <div class = "row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 mt-2">
                     ` + data+ `
+                    </div>
+                    <div class= "d-flex justify-content-center align-items-center border-top mt-3">
+                    `+ pageButton + `
                     </div>
                 </div>
         `;

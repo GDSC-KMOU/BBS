@@ -9,10 +9,10 @@ if(document.location.pathname.startsWith('/board_read/')) {
     }).then(function(text) {
         document.getElementById('main_data').innerHTML = `
             <section id="board">
-                <div class="container-xxl p-5 board-content">
+                <div class="container-xxl p-3 board-content">
                     <div class="row gap-5">
                         ` + bbs_nav() + `
-                        <div class="col-md-9 p-4 shadow rounded-5">
+                        <div class="col-xxl-9 p-4 shadow rounded-5">
                             <div class="container px-1">
                                 <h3 class="mb-0">` + xss_filter(text.title) + `</h3>
                                     <div class="d-flex justify-content-between border-bottom py-2">
