@@ -34,6 +34,8 @@ const set_load = require('./route/set_load.js').set_load;
 const set_hcaptcha = require('./route/set_hcaptcha.js').set_hcaptcha;
 const set_code_add = require('./route/set_code_add.js').set_code_add;
 const set_code_delete = require('./route/set_code_delete.js').set_code_delete;
+const set_api_code_add = require('./route/set_api_code_add.js').set_api_code_add;
+const set_api_code_delete = require('./route/set_api_code_delete.js').set_api_code_delete;
 const set_admin_add = require('./route/set_admin_add.js').set_admin_add;
 const set_admin_delete = require('./route/set_admin_delete.js').set_admin_delete;
 const set_user_delete = require('./route/set_user_delete.js').set_user_delete;
@@ -210,6 +212,8 @@ new Promise(function(resolve) {
     app.post('/api/set/hcaptcha', set_hcaptcha);
     app.post('/api/set/code/add', set_code_add);
     app.post('/api/set/code/delete/:id', set_code_delete);
+    app.post('/api/set/api_code/add', set_api_code_add);
+    app.post('/api/set/api_code/delete/:id', set_api_code_delete);
     app.post('/api/set/admin/add', set_admin_add);
     app.post('/api/set/admin/delete/:id', set_admin_delete);
     app.post('/api/set/user/delete/:id', set_user_delete);
