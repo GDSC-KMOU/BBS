@@ -78,7 +78,7 @@ if(document.location.pathname === '/study' || document.location.pathname.startsW
         document.getElementById('main_data').innerHTML = `
         <div class="container px-5">
             <div class="rounded-5 p-3 mb-2 d-flex justify-content-start align-items-center pagetop__div"style="background-color: #dbebe1">
-                <h4 class="mb-0">Study Schedule</h4>
+                <h4 class="mb-0 fw-bold">Study Schedule</h4>
             </div>
         </div>
             <div class="container px-5 mb-5">

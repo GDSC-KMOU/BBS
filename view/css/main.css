@@ -44,6 +44,17 @@ body {
     object-fit: contain;
 }
 
+.intro__title {
+    color: #0f5132;
+}
+.intro__body {
+    color: #0f5132;
+}
+.intro__right:hover{
+    transition: 700ms ease;
+    background-color: #dbebe1;
+}
+
 .ban, .card__study, .card__project {
     transition: 400ms ease;
 }
@@ -55,7 +66,21 @@ body {
     transform: translateY(-0.5rem);
     box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
 }
+.ban{
+    background-color: rgb(250, 255, 250);
+    color: #1b5939;
+}
+.ban-content {
+    background-color: #dbebe1;
+}
+.ban__body {
+    border-top: 4px solid #badbcb;
+}
 
+.ban__list {
+    border-bottom: 2px solid #1b5939;
+    color: #1b5939;
+}
 #faq,
 #footer{
     background-color: rgba(96, 125, 139, 0.1);
@@ -219,7 +244,6 @@ body {
 
 /* mobile */
 @media screen and (max-width: 767px) {
-    .navbar
     .ban {
         margin-bottom: 16px;
     }

@@ -15,7 +15,24 @@ if(document.location.pathname.startsWith('/board/')) {
             pageButton += `<a class="text-decoration-none text-success p-1 m-1" href="/board/${url_encode(board_name)}/${String(i)}">${i}</a>`;
         }  
     })
-
+    let boardDisplay = '';
+        const boardState = ((e) => {
+            switch(e){
+                case 'main':
+                    boardDisplay = '공지사항'
+                    break
+                case 'talk':
+                    boardDisplay = '토론'
+                    break
+                case 'free':
+                    boardDisplay = '자유'
+                    break
+                case 'secret':
+                    boardDisplay = '비공개'
+                    break
+            }
+            return boardDisplay;
+    })
     fetch("/api/board/" + url_encode(board_name) + "/" + url_encode(page)).then(function (res) {
         return res.json();
     }).then(function (text) {
@@ -55,16 +72,16 @@ if(document.location.pathname.startsWith('/board/')) {
                 </tr>
             `;
         }
-
+        
         document.getElementById('main_data').innerHTML = `
         <div class="container-xxl p-3">
             <div class="rounded-5 p-3 mb-2 d-flex justify-content-start align-items-center pagetop__div"style="background-color: #dbebe1">
-                <h4 class="mb-0">Board</h4>
+                <h4 class="mb-0 ms-3 fw-bold">${boardState(board_name)}</h4>
             </div>
         </div>
             <section id="board">
                 <div class="container-xxl p-3">                
-                    <div class="d-flex row justify-content-between board-content">
+                    <div class="d-flex row justify-content-between board-content gap-3">
                         ` + bbs_nav() + `
                         <div class="col-xxl-9 p-3 shadow rounded-5 board__right">
                             <div class="container px-1">

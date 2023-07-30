@@ -41,7 +41,7 @@ function bbs_nav() {
         <div class="col-xxl-2 shadow rounded-5 board__nav">
             <div class="row nav gap-2 py-2 board__nav-item">
             <li class="board_item text-center" data-filter="A"><a href="/board/main"
-                class="text-decoration-none text-success">주요사안</a> </li>
+                class="text-decoration-none text-success">공지사항</a> </li>
             <li class="board_item text-center" data-filter="B"><a href="/board/talk" class="text-decoration-none text-success">토론</a>
             </li>
             <li class="board_item text-center" data-filter="C"><a href="/board/free" class="text-decoration-none text-success">자유</a>

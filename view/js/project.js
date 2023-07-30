@@ -43,21 +43,21 @@ if (document.location.pathname === '/project' || document.location.pathname.star
         document.getElementById('main_data').innerHTML = `
         <div class="container-lg p-3">
             <div class="rounded-5 p-3 mb-2 d-flex justify-content-center align-items-center pagetop__div"style="background-color: #dbebe1">
-                <h4 class="mb-0">Our project</h4>
+                <h4 class="mb-0 fw-bold">Our project</h4>
             </div>
         </div>
         
-        <section id="projectCarousel" class="container-xxl carousel slide carousel-fade mt-0" data-bs-ride="carousel">
+        <section id="projectCarousel" class="container carousel slide carousel-fade mt-0" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="0" class="active" aria-current="true"
                 aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active" style="background-image: url(` + text[1]['file_url'] + `);">
+                <div class="carousel-item active" style="background-image: url(` + text[1]['file_url'] + `);" data-bs-interval="5000">
                     <div class="carousel-overlay"></div>
                 </div>
-                <div class="carousel-item" style="background-image: url(` + text[0]['file_url'] + `);">
+                <div class="carousel-item" style="background-image: url(` + text[0]['file_url'] + `);" data-bs-interval="5000">
                     <div class="carousel-overlay"></div>
                 </div>
             </div>
