@@ -1,6 +1,7 @@
 // load lib
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
 const https = require('https');
 const express = require('express');
 const nunjucks = require('nunjucks');
@@ -52,6 +53,7 @@ const file_send = require('./route/file_send.js').file_send;
 // set lib
 const app = express();
 const port = 3000;
+const port_https = 7000;
 
 app.use(logger(':remote-addr | :remote-user | :date[clf] | HTTP/:http-version | :res[content-length] | :status | :method | :response-time ms | :url | :referrer\n:user-agent'));
 app.use(body_parser.json());
@@ -260,10 +262,8 @@ new Promise(function(resolve) {
         }
     }
 
+    http.createServer(app).listen(port, function() { console.log("Run in " + String(port)) });
     if(JSON.stringify(options) !== '{}') {
-        const server = https.createServer(options, app);
-        server.listen(port, function() { console.log("Run in " + String(port)) });
-    } else {
-        app.listen(port, function() { console.log("Run in " + String(port)) });
+        https.createServer(options, app).listen(port_https, function() { console.log("Run in " + String(port_https)) });
     }
 });

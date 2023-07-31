@@ -4,6 +4,10 @@ package-lock.json
 
 data.db
 
+cert.pem
+chain.pem
+privkey.pem
+
 data/image/*.png
 data/image/*.jpg
 data/image/*.jpeg
