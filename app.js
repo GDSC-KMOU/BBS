@@ -1,5 +1,7 @@
 // load lib
+const fs = require('fs');
 const path = require('path');
+const https = require('https');
 const express = require('express');
 const nunjucks = require('nunjucks');
 const sqlite3 = require('sqlite3');
@@ -245,5 +247,23 @@ new Promise(function(resolve) {
     app.use(function(req, res) { res.status(404).redirect('/') });
 
     // run
-    app.listen(port, function() { console.log("Run in " + String(port)) });
+    let options = {};
+    if(fs.existsSync('./privkey.pem')) {
+        if(fs.existsSync('./cert.pem')) {
+            if(fs.existsSync('./chain.pem')) {
+                options = {
+                    key : fs.readFileSync('./privkey.pem'),
+                    cert : fs.readFileSync('./cert.pem'),
+                    ca : fs.readFileSync('./chain.pem')
+                };
+            }
+        }
+    }
+
+    if(JSON.stringify(options) !== '{}') {
+        const server = https.createServer(options, app);
+        server.listen(port, function() { console.log("Run in " + String(port)) });
+    } else {
+        app.listen(port, function() { console.log("Run in " + String(port)) });
+    }
 });
