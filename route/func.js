@@ -1,4 +1,6 @@
 const sqlite3 = require('sqlite3');
+const MarkdownIt = require('markdown-it');
+const markdownItRegex = require('markdown-it-regexp');
 
 // set func
 function date_change(now) {
@@ -104,6 +106,47 @@ function bbs_list() {
     return bbs_list;
 }
 
+function markdown_render(data) {
+    const md = new MarkdownIt({
+        html : false,
+        breaks : true
+    }).disable('image');;
+    md.use(markdownItRegex(
+        /@\[youtube\]\(([^()=]+)(?:=width:([0-9]+))?(?:=height:([0-9]+))?\)/,
+        (match, utils) => {
+            let width = "640px";
+            if(match[2]) {
+                width = utils.escape(match[2]) + "px";
+            }
+
+            let height = "360px";
+            if(match[3]) {
+                height = utils.escape(match[3]) + "px";
+            }
+
+            return `<iframe width="` + width + `" height="` + height + `" src="https://www.youtube.com/embed/` + utils.escape(match[1]) + `" allowfullscreen></iframe>`;
+        }
+    ));
+    md.use(markdownItRegex(
+        /!\[([^\[\]]*)\]\(([^()=]+)(?:=width:([0-9]+))?(?:=height:([0-9]+))?\)/,
+        (match, utils) => {
+            let width = "";
+            if(match[3]) {
+                width = utils.escape(match[3]) + "px";
+            }
+
+            let height = "";
+            if(match[4]) {
+                height = utils.escape(match[4]) + "px";
+            }
+
+            return `<img width="` + width + `" height="` + height + `" src="` + utils.escape(match[2]) + `" alt="` + utils.escape(match[1]) + `">`;
+        }
+    ));
+
+    return '<div class="render_field">' + md.render(data) + '</div>';
+}
+
 module.exports = {
     get_date : get_date,
     date_change : date_change,
@@ -112,5 +155,6 @@ module.exports = {
     url_encode : url_encode,
     user_check : user_check,
     admin_check : admin_check,
-    user_same_check : user_same_check
+    user_same_check : user_same_check,
+    markdown_render : markdown_render
 };

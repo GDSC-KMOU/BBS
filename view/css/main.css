@@ -316,5 +316,10 @@ body {
     }
 }
 
+.render_field iframe {
+    max-width: 100%;
+}
 
-
+.render_field img {
+    max-width: 100%;
+}
