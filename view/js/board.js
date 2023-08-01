@@ -14,10 +14,11 @@ if(document.location.pathname.startsWith('/board/')) {
         for(let i =1; i <= pageNum; i++){
             pageButton += `<a class="text-decoration-none text-success p-1 m-1" href="/board/${url_encode(board_name)}/${String(i)}">${i}</a>`;
         }  
-    })
+    });
+    
     let boardDisplay = '';
         const boardState = ((e) => {
-            switch(e){
+            switch(e) {
                 case 'main':
                     boardDisplay = '공지사항'
                     break
@@ -32,7 +33,8 @@ if(document.location.pathname.startsWith('/board/')) {
                     break
             }
             return boardDisplay;
-    })
+    });
+
     fetch("/api/board/" + url_encode(board_name) + "/" + url_encode(page)).then(function (res) {
         return res.json();
     }).then(function (text) {

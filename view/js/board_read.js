@@ -28,6 +28,14 @@ if(document.location.pathname.startsWith('/board_read/')) {
                                         </div>
                                     </div>
                                 <p class="lead">` + text.render_content + `</p>
+                                <hr>
+                                <textarea id="board_add_content" class="form-control" rows="5" placeholder="내용" aria-label="내용"></textarea>
+                                <br>
+                                <button type="submit" class="btn btn-success" id="board_add_save">저장</button> 
+                                <button type="submit" class="btn btn-outline-success me-2" id="board_add_preview">미리보기</button>
+                                <br>
+                                <br>
+                                <div id="board_add_preview_field"></div>
                             </div>
                         </div>
                     </div>
@@ -35,5 +43,6 @@ if(document.location.pathname.startsWith('/board_read/')) {
             </section>
         `;
         hljs.highlightAll();
+        func_board_preview();
     });
 }
