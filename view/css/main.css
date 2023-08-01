@@ -278,6 +278,9 @@ body {
     .boardread_left{
         font-size: 10px;
     }
+    .board__add-date{
+        font-size: 10px;
+    }
 }
 
 /* tablet */

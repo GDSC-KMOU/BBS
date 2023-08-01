@@ -41,7 +41,7 @@ if (document.location.pathname === '/project' || document.location.pathname.star
         }
 
         document.getElementById('main_data').innerHTML = `
-        <div class="container-lg p-3">
+        <div class="container p-3">
             <div class="rounded-5 p-3 mb-2 d-flex justify-content-center align-items-center pagetop__div"style="background-color: #dbebe1">
                 <h4 class="mb-0 fw-bold">Our project</h4>
             </div>

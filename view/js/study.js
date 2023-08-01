@@ -76,12 +76,12 @@ if(document.location.pathname === '/study' || document.location.pathname.startsW
         }
 
         document.getElementById('main_data').innerHTML = `
-        <div class="container px-5">
+        <div class="container p-3">
             <div class="rounded-5 p-3 mb-2 d-flex justify-content-start align-items-center pagetop__div"style="background-color: #dbebe1">
                 <h4 class="mb-0 fw-bold">Study Schedule</h4>
             </div>
         </div>
-            <div class="container px-5 mb-5">
+            <div class="container px-3 mb-5">
                 <div class="my-3 p-3 bg-body rounded-5 shadow">
                     <div class="d-flex justify-content-end border-bottom mb-3">
                         <h6><a href="/study_add" class="text-decoration-none text-success"><i class="fa-solid fa-keyboard"></i>
