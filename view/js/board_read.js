@@ -29,7 +29,11 @@ if(document.location.pathname.startsWith('/board_read/')) {
                                     </div>
                                 <p class="lead">` + text.render_content + `</p>
                                 <hr>
-                                <textarea id="board_add_content" class="form-control" rows="5" placeholder="내용" aria-label="내용"></textarea>
+                                <div class="border p-3 rounded-4 bg-light" style="height:180px;">
+                                    <p class="px-2 mb-2 fw-bold comment__title">댓글</p>
+                                    <textarea id="board_add_content" class="form-control form-control-sm mb-2" rows="4" placeholder="댓글 내용을 입력하세요." aria-label="내용" ></textarea>
+                                    <button class="comment__registration rounded btn btn-success py-0" type="submit">등록</button>
+                                </div>
                                 <br>
                                 <button type="submit" class="btn btn-success" id="board_add_save">저장</button> 
                                 <button type="submit" class="btn btn-outline-success me-2" id="board_add_preview">미리보기</button>

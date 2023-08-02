@@ -138,7 +138,15 @@ body {
 .board__add-date{
     font-size: 14px;
 }
-
+.comment__title{
+    color: gray;
+    font-size: 14px;
+}
+.comment__registration{
+    width: 55px;
+    font-size: 14px;
+    float: right;
+}
 /* loading page animation */
 @keyframes spin {
     100% {
