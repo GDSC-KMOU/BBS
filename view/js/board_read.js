@@ -1,5 +1,56 @@
 "use strict";
 
+function bbs_delete_content() {
+    let board_name = document.location.pathname.split('/')[2];
+    let board_id = document.location.pathname.split('/')[3];
+
+    document.getElementById('board_delete_content').addEventListener("click", function() {
+        let remove_content = confirm("글을 삭제하겠습니까?");
+        if(remove_content === true) {
+            fetch("/api/board_edit/" + url_encode(board_name) + '/' + url_encode(board_id), {
+                method : 'POST',
+                headers : { 'Content-Type': 'application/json' },
+                body : JSON.stringify({
+                    'title' : '',
+                    'content' : ''
+                })
+            }).then(function(res) {
+                return res.json();
+            }).then(function(text) {
+                if(text.req === 'ok') {
+                    document.location.pathname = '/board/' + url_encode(board_name);
+                } else {
+                    alert(text.req + '\n' + text.reason);
+                }
+            });
+        }
+    });
+}
+
+function bbs_delete_content() {
+    let board_name = document.location.pathname.split('/')[2];
+    let board_id = document.location.pathname.split('/')[3];
+
+    document.getElementById('board_comment').addEventListener("click", function() {
+        fetch("/api/board_edit/" + url_encode(board_name) + '/' + url_encode(board_id), {
+            method : 'POST',
+            headers : { 'Content-Type': 'application/json' },
+            body : JSON.stringify({
+                'title' : '',
+                'content' : ''
+            })
+        }).then(function(res) {
+            return res.json();
+        }).then(function(text) {
+            if(text.req === 'ok') {
+                document.location.pathname = '/board/' + url_encode(board_name);
+            } else {
+                alert(text.req + '\n' + text.reason);
+            }
+        });
+    });
+}
+
 if(document.location.pathname.startsWith('/board_read/')) {
     let board_name = document.location.pathname.split('/')[2];
     let board_id = document.location.pathname.split('/')[3];
@@ -22,8 +73,15 @@ if(document.location.pathname.startsWith('/board_read/')) {
                                         </div>
                                         <div>
                                             <span class="boardread_left">
-                                            <i class="fa-regular fa-pen-to-square text-success"></i>
-                                            <a class="text-decoration-none text-success" href="/board_edit/` + url_encode   (board_name) + `/` + url_encode(board_id) + `">수정 및 삭제</a>
+                                                <a class="text-decoration-none text-success" href="/board_edit/` + url_encode   (board_name) + `/` + url_encode(board_id) + `">
+                                                    <i class="fa-solid fa-pen-to-square text-success"></i>    
+                                                    수정
+                                                </a>
+                                                ·
+                                                <a id="board_delete_content" class="text-decoration-none text-success" href="javascript:void(0);">
+                                                    <i class="fa-solid fa-trash text-success"></i>
+                                                    삭제
+                                                </a>
                                             </span>
                                         </div>
                                     </div>
@@ -32,7 +90,7 @@ if(document.location.pathname.startsWith('/board_read/')) {
                                 <div class="border p-3 rounded-4 bg-light" style="height:180px;">
                                     <p class="px-2 mb-2 fw-bold comment__title">댓글</p>
                                     <textarea id="board_add_content" class="form-control form-control-sm mb-2" rows="4" placeholder="댓글 내용을 입력하세요." aria-label="내용" ></textarea>
-                                    <button class="comment__registration rounded btn btn-success py-0" type="submit">등록</button>
+                                    <button id="board_comment" class="comment__registration rounded btn btn-success py-0" type="submit">등록</button>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-success" id="board_add_save">저장</button> 
@@ -48,5 +106,6 @@ if(document.location.pathname.startsWith('/board_read/')) {
         `;
         hljs.highlightAll();
         func_board_preview();
+        bbs_delete_content();
     });
 }

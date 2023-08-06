@@ -54,7 +54,7 @@ function study_edit_do(db, req, res, user_name) {
             let user_real_name = db_data_2[0].set_data;
 
             db.all("select doc_id from study_data where set_name = 'team_name' order by doc_id + 0 desc limit 1", [], function(err, db_data) {
-                if(doc_id === undefined || doc_id === null) {
+                if(!doc_id) {
                     doc_id = '1';
                     if(db_data.length !== 0) {
                         doc_id = String(Number(db_data[0].doc_id) + 1);
@@ -80,7 +80,7 @@ function study_edit(req, res) {
     const db = new sqlite3.Database(__dirname + '/../data.db');
 
     let doc_id = req.params.id;
-    if(doc_id === undefined || doc_id === null) {
+    if(!doc_id) {
         doc_id = '';
     }
 

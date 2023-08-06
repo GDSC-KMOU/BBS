@@ -23,7 +23,7 @@ if(document.location.pathname.startsWith('/board/')) {
                     boardDisplay = '공지사항'
                     break
                 case 'talk':
-                    boardDisplay = '토론'
+                    boardDisplay = '기술'
                     break
                 case 'free':
                     boardDisplay = '자유'

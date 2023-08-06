@@ -1,6 +1,6 @@
 "use strict";
 
-function func_board_preview(){
+function func_board_preview() {
     document.getElementById('board_add_preview').addEventListener("click", function() {
         let content = document.getElementById('board_add_content').value;
         
@@ -20,7 +20,7 @@ function func_board_preview(){
     });
 }
 
-function func_board_save(board_name=' ', board_id=0){
+function func_board_save(board_name = ' ', board_id = 0) {
     document.getElementById('board_add_save').addEventListener("click", function() {
         let title = document.getElementById('board_add_title').value;
         let content = document.getElementById('board_add_content').value;
@@ -108,7 +108,7 @@ if(document.location.pathname.startsWith('/board_edit/')) {
     fetch("/api/board_read/" + url_encode(board_name) + '/' + url_encode(board_id)).then(function(res) {
         return res.json();
     }).then(function(text) {
-        board_edit_editor(title, content);
+        board_edit_editor(text.title, text.content);
         func_board_save(board_name, board_id);
         func_board_preview();
     });
