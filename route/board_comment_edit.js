@@ -31,11 +31,13 @@ function board_comment_edit_do(db, req, res, user_name, comment_id) {
     let doc_id = req.params.id;
     let b_name = req.params.b_name;
 
+    doc_id = b_name + '-' + doc_id;
+
     let content = data.content;
     let date = func.get_date();
 
     if(content === '' && (doc_id !== undefined || doc_id !== null)) {
-        db.run("delete from bbs_data where set_data = ? and doc_id = ?", [b_name, doc_id], function() {
+        db.run("delete from bbs_data where set_data = ? and doc_id = ?", [doc_id, comment_id], function() {
             res.json({
                 "req" : "ok"
             });
@@ -44,17 +46,15 @@ function board_comment_edit_do(db, req, res, user_name, comment_id) {
     } else {
         db.all("select set_data from user_data where user_name = ? and set_name = 'user_real_name' limit 1", [user_name], function(err, db_data_2) {
             let user_real_name = db_data_2[0].set_data;
-
-            db.all("select doc_id from bbs_data where set_name = 'title' order by doc_id + 0 desc limit 1", [], function(err, db_data) {
-                let check_list = [
-                    ['doc_id', doc_id],
-                    ['user_name', user_name],
-                    ['user_name_real', user_real_name],
-                    ['content', content],
-                    ['date', date]
-                ];
-                board_comment_edit_update(db, req, res, check_list, 2);
-            });
+            let check_list = [
+                ['b_name', doc_id],
+                ['doc_id', comment_id],
+                ['user_name', user_name],
+                ['user_name_real', user_real_name],
+                ['content', content],
+                ['date', date]
+            ];
+            board_comment_edit_update(db, req, res, check_list, 2);
         });
     }
 }
@@ -73,10 +73,10 @@ function board_comment_edit(req, res) {
         });
         db.close();
     } else {
-        db.all("select set_data from bbs_data where doc_id = ? and set_name = 'user_name' order by set_data + 0", [b_name + '-' + doc_id], function(err, db_data) {
+        db.all("select doc_id from bbs_data where set_data = ? and set_name = 'user_name' order by doc_id + 0 desc", [b_name + '-' + doc_id], function(err, db_data) {
             if(db_data.length > 0) {
                 if(!comment_id) {
-                    comment_id = String(Number(db_data[0].set_data) + 1);
+                    comment_id = String(Number(db_data[0].doc_id) + 1);
                 }
             } else {
                 if(!comment_id) {

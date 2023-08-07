@@ -22,6 +22,8 @@ const board_edit = require('./route/board_edit.js').board_edit;
 const board_notice = require('./route/board_notice.js').board_notice;
 const board_preview = require('./route/board_preview.js').board_preview;
 const board_length = require('./route/board_length.js').board_length;
+const board_comment_edit = require('./route/board_comment_edit.js').board_comment_edit;
+const board_comment_read = require('./route/board_comment_read.js').board_comment_read;
 
 const project = require('./route/project.js').project;
 const project_edit = require('./route/project_edit.js').project_edit;
@@ -55,7 +57,7 @@ const app = express();
 const port = 3000;
 const port_https = 7000;
 
-app.use(logger(':remote-addr | :remote-user | :date[clf] | HTTP/:http-version | :res[content-length] | :status | :method | :response-time ms | :url | :referrer\n:user-agent'));
+// app.use(logger(':remote-addr | :remote-user | :date[clf] | HTTP/:http-version | :res[content-length] | :status | :method | :response-time ms | :url | :referrer\n:user-agent'));
 app.use(body_parser.json());
 app.use(express_upload());
 app.set('json spaces', 2);
@@ -207,8 +209,13 @@ new Promise(function(resolve) {
     app.get('/api/board/:b_name/:page', board);
     app.get('/api/board_read/:b_name/:id', board_read);
     app.get('/api/board_length/:b_name', board_length);
+    app.get('/api/board_comment/:b_name/:id', board_comment_read);
+    app.get('/api/board_comment/:b_name/:id/:page', board_comment_read);
+//    app.get('/api/board_comment_length/:b_name/:id', board_comment_length);
     app.post('/api/board_edit/:b_name/:id', board_edit);
     app.post('/api/board_notice/:b_name/:id', board_notice);
+    app.post('/api/board_comment_edit/:b_name/:id', board_comment_edit);
+    app.post('/api/board_comment_edit/:b_name/:id/:comment_id', board_comment_edit);
     app.post('/api/board_preview', board_preview);
     app.post('/api/board_add/:b_name', board_edit);
 

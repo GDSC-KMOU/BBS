@@ -1,5 +1,4 @@
 const sqlite3 = require('sqlite3');
-const MarkdownIt = require('markdown-it');
 const func = require('./func.js');
 
 function board_read(req, res) {
