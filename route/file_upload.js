@@ -6,9 +6,8 @@ const func = require('./func.js');
 function file_upload(req, res) {
     const db = new sqlite3.Database(__dirname + '/../data.db');
 
-    // func.user_check(db, req, res, function(user_name) {
+    func.user_check(db, req, res, function(user_name) {
         if(req.files) {
-            console.log('test', req.files.image);
             let file_ext = '';
             switch(req.files.image.mimetype) {
                 case 'image/png':
@@ -55,7 +54,7 @@ function file_upload(req, res) {
                 db.close();
             }
         }
-    // });
+    });
 }
 
 module.exports = {

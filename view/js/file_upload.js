@@ -21,7 +21,6 @@ if(document.location.pathname === '/file_upload') {
 
     document.getElementById('project_add_save').addEventListener("click", function() {
         let project_add_file = document.getElementById('project_add_file').files[0];
-        console.log(project_add_file);
 
         let form_data = new FormData();
         form_data.append('image', project_add_file);
@@ -33,7 +32,7 @@ if(document.location.pathname === '/file_upload') {
             return res.json();
         }).then(function(text) {
             if(text.req === 'ok') {
-                alert(text.req + '\n' + text.id);
+                document.location.pathname = '/file_list';
             } else {
                 alert(text.req + '\n' + text.reason);
             }
