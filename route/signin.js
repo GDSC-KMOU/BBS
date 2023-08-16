@@ -31,9 +31,14 @@ function signin_val(db, req, res) {
                     });
                     db.close();
                 } else {
-                    req.session['user_name'] = user_name;
-                    res.json({ "req" : "ok" });
-                    db.close();
+                    db.all("select set_data from user_data where user_name = ? and set_name = 'auth'", [user_name], function(err, db_data) {
+                        req.session['user_name'] = user_name;
+                        res.json({
+                            "req" : "ok",
+                            "auth" : db_data[0].set_data,
+                        });
+                        db.close();
+                    });
                 }
             });
         }
@@ -48,7 +53,7 @@ function signin(req, res) {
     let hcaptcha_res = data.captcha;
     let api_code = data.api_code;
 
-    if(api_code) {
+    if(api_code && api_code !== '') {
         db.all("select set_name from set_data where set_name = 'api_code' and set_data = ? limit 1", [api_code], function(err, db_data) {
             if(db_data.length !== 0) {
                 signin_val(db, req, res);
