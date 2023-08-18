@@ -336,5 +336,5 @@ body {
 }
 
 .table__hidden {
-    overflow-y: none;
+    overflow-y: hidden;
 }
