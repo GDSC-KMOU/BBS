@@ -334,3 +334,7 @@ body {
 .render_field img {
     max-width: 100%;
 }
+
+.table__hidden {
+    overflow-y: none;
+}
