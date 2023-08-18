@@ -112,8 +112,8 @@ if (document.location.pathname.startsWith("/board/")) {
                         ` +
                 bbs_nav() +
                 `
-                        <div class="col-xxl-9 p-3 shadow rounded-5 board__right" style="overflow-y:hidden;">
-                            <div class="container px-1">
+                        <div class="col-xxl-9 p-3 shadow rounded-5 board__right">
+                            <div class="container px-1" style="overflow-y:hidden;">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-sm table__rounded">
                                         <thead>
