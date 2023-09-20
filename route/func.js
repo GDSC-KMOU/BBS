@@ -101,7 +101,7 @@ function user_same_check(db, req, res, db_user_name, true_callback) {
 
 function bbs_list() {
     // 임시로 하드 코딩
-    let bbs_list = ['main', 'talk', 'free', 'secret'];
+    let bbs_list = ['main', 'talk', 'free'];
 
     return bbs_list;
 }

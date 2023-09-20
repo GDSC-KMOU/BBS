@@ -24,7 +24,7 @@ if (document.location.pathname.startsWith("/board/")) {
     const boardState = (e) => {
         switch (e) {
             case "main":
-                boardDisplay = "공지사항";
+                boardDisplay = "공지";
                 break;
             case "talk":
                 boardDisplay = "기술";
@@ -32,8 +32,8 @@ if (document.location.pathname.startsWith("/board/")) {
             case "free":
                 boardDisplay = "자유";
                 break;
-            case "secret":
-                boardDisplay = "비공개";
+            case "all":
+                boardDisplay = "전체";
                 break;
         }
         return boardDisplay;

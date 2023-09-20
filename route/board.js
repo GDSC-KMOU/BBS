@@ -51,13 +51,13 @@ function board(req, res) {
     page *= 20;
 
     if(func.bbs_list().includes(req.params.b_name) === true) {
-        if(req.params.b_name === 'secret') {
-            res.json([]);
-        } else {
-            db.all("select distinct doc_id from bbs_data where set_data = ? order by doc_id + 0 desc limit ?, 20", [req.params.b_name, page], function(err, db_data) {    
-                board_get(db, res, req, db_data);
-            });
-        }
+        db.all("select distinct doc_id from bbs_data where set_data = ? order by doc_id + 0 desc limit ?, 20", [req.params.b_name, page], function(err, db_data) {    
+            board_get(db, res, req, db_data);
+        });
+    } else if(req.params.b_name === 'all') {
+        db.all("select distinct doc_id from bbs_data where order by doc_id + 0 desc limit ?, 20", [page], function(err, db_data) {    
+            board_get(db, res, req, db_data);
+        });
     }
 }
 
