@@ -161,8 +161,6 @@ if(document.location.pathname === '/set') {
     })};
 
     get_code_key().then(get_hcaptcha_public).then(get_hcaptcha_secret).then(get_admin_list).then(get_user_list).then(get_api_code_key).then(function(data) {
-        console.log(data);
-        
         document.getElementById('main_data').innerHTML = `
             <br>
             <div class="container px-5">

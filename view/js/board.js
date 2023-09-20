@@ -83,7 +83,7 @@ if (document.location.pathname.startsWith("/board/")) {
                     `
                 <tr>
                     <td ><a class="text-decoration-none text-success ms-1" href="/board_read/` +
-                    url_encode(board_name) +
+                    text[for_a]["board_name"] +
                     "/" +
                     text[for_a]["doc_id"] +
                     `">` +

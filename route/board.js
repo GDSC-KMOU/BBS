@@ -6,8 +6,7 @@ function board_get(db, res, req, doc_list, for_d = 0, data_list = []) {
         res.json(data_list);
         db.close();
     } else {
-        db.all("select doc_id, set_name, doc_data from bbs_data where set_data = ? and doc_id = ? order by doc_id + 0 desc", [
-            req.params.b_name,
+        db.all("select doc_id, set_name, doc_data, set_data from bbs_data where doc_id = ? order by doc_id + 0 desc", [
             doc_list[for_d].doc_id
         ], function(err, db_data) {                
             let for_b = '';
@@ -21,6 +20,7 @@ function board_get(db, res, req, doc_list, for_d = 0, data_list = []) {
                     for_c = {};
                     for_b = db_data[for_a].doc_id;
                     for_c['doc_id'] = for_b;
+                    for_c['board_name'] = db_data[for_a].set_data;
                 }
                 
                 for_c[db_data[for_a].set_name] = db_data[for_a].doc_data;
@@ -50,14 +50,16 @@ function board(req, res) {
 
     page *= 20;
 
-    if(func.bbs_list().includes(req.params.b_name) === true) {
-        db.all("select distinct doc_id from bbs_data where set_data = ? order by doc_id + 0 desc limit ?, 20", [req.params.b_name, page], function(err, db_data) {    
-            board_get(db, res, req, db_data);
-        });
-    } else if(req.params.b_name === 'all') {
-        db.all("select distinct doc_id from bbs_data where order by doc_id + 0 desc limit ?, 20", [page], function(err, db_data) {    
-            board_get(db, res, req, db_data);
-        });
+    if(func.bbs_list('read').includes(req.params.b_name) === true) {
+        if(req.params.b_name === 'all') {
+            db.all("select distinct doc_id from bbs_data order by doc_id + 0 desc limit ?, 20", [page], function(err, db_data) {    
+                board_get(db, res, req, db_data);
+            });
+        } else {
+            db.all("select distinct doc_id from bbs_data where set_data = ? order by doc_id + 0 desc limit ?, 20", [req.params.b_name, page], function(err, db_data) {    
+                board_get(db, res, req, db_data);
+            });
+        }
     }
 }
 

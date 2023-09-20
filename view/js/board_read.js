@@ -47,14 +47,6 @@ function bbs_delete_comment(doc_id) {
         .addEventListener("click", function () {
             let remove_content = confirm("글을 삭제하겠습니까?");
             if (remove_content === true) {
-                console.log(
-                    "/api/board_comment_edit/" +
-                        url_encode(board_name) +
-                        "/" +
-                        url_encode(board_id) +
-                        "/" +
-                        url_encode(doc_id)
-                );
                 fetch(
                     "/api/board_comment_edit/" +
                         url_encode(board_name) +

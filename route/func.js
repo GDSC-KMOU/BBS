@@ -99,11 +99,13 @@ function user_same_check(db, req, res, db_user_name, true_callback) {
     }
 }
 
-function bbs_list() {
+function bbs_list(data_type = 'edit') {
     // 임시로 하드 코딩
-    let bbs_list = ['main', 'talk', 'free'];
-
-    return bbs_list;
+    if(data_type === 'edit') {
+        return ['main', 'talk', 'free'];
+    } else {
+        return ['main', 'talk', 'free', 'all'];
+    }
 }
 
 function markdown_render(data) {

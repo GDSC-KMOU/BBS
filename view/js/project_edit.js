@@ -113,7 +113,6 @@ if(document.location.pathname === '/project_add'){
     fetch("/api/project_read/" + url_encode(project_id)).then(function(res) {
         return res.json();
     }).then(function(text) {
-        console.log(text);
         let bbs_id = '';
         if(text.bbs_id !== undefined && text.bbs_id !== null) {
             bbs_id = text.bbs_id;

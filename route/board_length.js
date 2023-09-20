@@ -4,9 +4,12 @@ const func = require('./func.js');
 function board_length(req, res) {
     const db = new sqlite3.Database(__dirname + '/../data.db');
     
-    if(func.bbs_list().includes(req.params.b_name) === true) {
-        if(req.params.b_name === 'secret') {
-            res.json([]);
+    if(func.bbs_list('read').includes(req.params.b_name) === true) {
+        if(req.params.b_name === 'all') {
+            db.all("select count(*) from bbs_data where set_name = 'title'", [], function(err, db_data) {
+                db.close();
+                res.json({ 'length' : db_data[0]['count(*)'] });
+            });
         } else {
             db.all("select count(*) from bbs_data where set_data = ? and set_name = 'title'", [req.params.b_name], function(err, db_data) {
                 db.close();
