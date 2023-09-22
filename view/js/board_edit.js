@@ -119,7 +119,7 @@ function board_edit_editor(title = "", conent = "") {
         xss_filter(conent) +
         `</textarea>
                             <br>
-                            <button type="submit" class="btn btn-primary" id="board_add_save">수정</button> 
+                            <button type="submit" class="btn btn-primary" id="board_add_save">저장</button> 
                             <button type="submit" class="btn btn-outline-primary me-2" id="board_add_preview">미리보기</button>
                             <br>
                             <br>
