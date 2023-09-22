@@ -126,7 +126,7 @@ if (document.location.pathname.startsWith("/board_read/")) {
     const boardState = (e) => {
         switch (e) {
             case "main":
-                boardDisplay = "공지사항";
+                boardDisplay = "공지";
                 break;
             case "talk":
                 boardDisplay = "기술";
@@ -134,13 +134,12 @@ if (document.location.pathname.startsWith("/board_read/")) {
             case "free":
                 boardDisplay = "자유";
                 break;
-            case "secret":
-                boardDisplay = "비공개";
+            case "all":
+                boardDisplay = "전체";
                 break;
         }
         return boardDisplay;
     };
-
     fetch(
         "/api/board_read/" + url_encode(board_name) + "/" + url_encode(board_id)
     )
@@ -174,8 +173,8 @@ if (document.location.pathname.startsWith("/board_read/")) {
                                 ·
                                 <a id="board_comment_delete_` +
                             text_2[for_a].doc_id +
-                            `" class="text-decoration-none text-success" href="javascript:void(0);">
-                                    <i class="fa-solid fa-trash text-success"></i>
+                            `" class="text-decoration-none board__icon-color2" href="javascript:void(0);">
+                                    <i class="fa-solid fa-trash board__icon-color2"></i>
                                     삭제
                                 </a>
                             </span>
@@ -190,20 +189,22 @@ if (document.location.pathname.startsWith("/board_read/")) {
 
                     document.getElementById("main_data").innerHTML =
                         `
-                        <div class="container-xxl p-3">
-            <div class="rounded-5 p-3 mb-2 d-flex justify-content-start align-items-center pagetop__div"style="background-color: #dbebe1">
-                <h4 class="mb-0 ms-3 fw-bold">${boardState(board_name)}</h4>
+                        <div class="container p-3">
+            <div class="rounded-5 p-3 mb-2 d-flex justify-content-start align-items-center pagetop__div"style="background-color: #d2dff0">
+                <h4 class="mb-0 ms-3 fw-bold" style="color: #2b47b1">${boardState(
+                    board_name
+                )}</h4>
             </div>
         </div>
                 <section id="board">
-                    <div class="container-xxl mb-3 p-3 board-content">
+                    <div class="container mb-3 p-3 board-content">
                         <div class="d-flex row justify-content-between board-content gap-3">
                             ` +
                         bbs_nav() +
                         `
                             <div class="col-xxl-9 p-3 shadow rounded-5 board__right">
-                                <div class="container px-1">
-                                    <h3 class="mb-0">` +
+                                <div class="container p-3">
+                                    <h3 class="mb-0 board__font-color">` +
                         xss_filter(text_1.title) +
                         `</h3>
                                         <div class="d-flex justify-content-between border-bottom py-2">
@@ -217,17 +218,17 @@ if (document.location.pathname.startsWith("/board_read/")) {
                                             </div>
                                             <div>
                                                 <span class="boardread_left">
-                                                    <a class="text-decoration-none text-success" href="/board_edit/` +
+                                                    <a class="text-decoration-none board__icon-color1 mx-2" href="/board_edit/` +
                         url_encode(board_name) +
                         `/` +
                         url_encode(board_id) +
                         `">
-                                                        <i class="fa-solid fa-pen-to-square text-success"></i>    
+                                                        <i class="fa-solid fa-pen-to-square board__icon-color1"></i>    
                                                         수정
                                                     </a>
                                                     /
-                                                    <a id="board_delete_content" class="text-decoration-none text-success" href="javascript:void(0);">
-                                                        <i class="fa-solid fa-trash text-success"></i>
+                                                    <a id="board_delete_content" class="text-decoration-none board__icon-color2 mx-2" href="javascript:void(0);">
+                                                        <i class="fa-solid fa-trash board__icon-color2"></i>
                                                         삭제
                                                     </a>
                                                 </span>
@@ -244,8 +245,8 @@ if (document.location.pathname.startsWith("/board_read/")) {
                                         <p class="px-2 mb-2 fw-bold comment__title">댓글</p>
                                         <textarea id="board_add_content" class="form-control form-control-sm mb-2" rows="4" placeholder="댓글 내용을 입력하세요." aria-label="내용" ></textarea>
                                         
-                                        <button type="submit" class="btn btn-outline-success px-2 py-0" id="board_add_preview" style="float:right;">미리보기</button>
-                                        <button type="submit" class="btn btn-success px-2 py-0 me-2"id="board_comment" style="float:right;">저장</button> 
+                                        <button type="submit" class="btn btn-outline-primary px-2 py-0" id="board_add_preview" style="float:right;">미리보기</button>
+                                        <button type="submit" class="btn btn-primary px-2 py-0 me-2"id="board_comment" style="float:right;">저장</button> 
                                         
                                     </div>
                                     <br>

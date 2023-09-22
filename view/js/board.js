@@ -14,7 +14,7 @@ if (document.location.pathname.startsWith("/board/")) {
         .then((data) => {
             let pageNum = Math.ceil(data.length / 20);
             for (let i = 1; i <= pageNum; i++) {
-                pageButton += `<a class="text-decoration-none text-success p-1 m-1" href="/board/${url_encode(
+                pageButton += `<a class="text-decoration-none pagenumber p-1 m-1" href="/board/${url_encode(
                     board_name
                 )}/${String(i)}">${i}</a>`;
             }
@@ -82,7 +82,7 @@ if (document.location.pathname.startsWith("/board/")) {
                 data +=
                     `
                 <tr>
-                    <td ><a class="text-decoration-none text-success ms-1" href="/board_read/` +
+                    <td ><a class="text-decoration-none ms-1 board__font-color" href="/board_read/` +
                     text[for_a]["board_name"] +
                     "/" +
                     text[for_a]["doc_id"] +
@@ -101,13 +101,15 @@ if (document.location.pathname.startsWith("/board/")) {
 
             document.getElementById("main_data").innerHTML =
                 `
-        <div class="container-xxl p-3">
-            <div class="rounded-5 p-3 mb-2 d-flex justify-content-start align-items-center pagetop__div"style="background-color: #dbebe1">
-                <h4 class="mb-0 ms-3 fw-bold">${boardState(board_name)}</h4>
+        <div class="container p-3">
+            <div class="rounded-5 p-3 mb-2 d-flex justify-content-start align-items-center pagetop__div" style="background-color: #d2dff0">
+                <h4 class="mb-0 ms-3 fw-bold" style="color: #2b47b1">${boardState(
+                    board_name
+                )}</h4>
             </div>
         </div>
             <section id="board">
-                <div class="container-xxl mb-3 p-3">                
+                <div class="container mb-3 p-3">                
                     <div class="d-flex row justify-content-between board-content gap-3">
                         ` +
                 bbs_nav() +

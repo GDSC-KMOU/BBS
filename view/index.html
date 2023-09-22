@@ -61,62 +61,65 @@
         <nav class="navbar navbar-expand-lg shadow-sm" id="nav">
             <div class="container nav-content">
                 <div class="nav_icon">
-                    <a href="/" class="d-flex align-items-center col-md-3 text-decoration-none">
-                        <i class="fa-solid fa-cloud me-2 mb-1 text-success fs-4 nav_icon-head"></i>
-                        <span class="navbar-brand fw-bolder text-success nav_icon-text">INCLUDER</span>
+                    <a href="/" class="d-flex align-items-center text-decoration-none text-white fw-bold align-middle site-logo">
+                        INCLUDER&nbsp;<span>&</span>&nbsp;
+                        <p class="m-0"><span class="text-g1 g-exception">G</span><span class="text-g2">D</span><span class="text-g3">S</span><span class="text-g4">C</span></p>
+                        
                     </a>
                 </div>
                     <ul class="nav col-md-auto mb-2 justify-content-center mb-md-0 nav__list">
-                        <li><a href="/project" class="nav-link px-2 nav-items fw-bold text-success">프로젝트</a></li>
-                        <li><a href="/study" class="nav-link px-2 nav-items fw-bold text-success">스터디</a></li>
-                        <li><a href="/board/main" class="nav-link px-2 nav-items fw-bold text-success">게시판</a></li>
-                        <li><a href="/" class="nav-link px-2 nav-items fw-bold text-success">블로그(공사중)</a></li>
+                        <li><a href="/project" class="nav-link px-2 nav-items text-white">프로젝트</a></li>
+                        <li><a href="/study" class="nav-link px-2 nav-items text-white">스터디</a></li>
+                        <li><a href="/board/main" class="nav-link px-2 nav-items text-white">게시판</a></li>
+                        <li><a href="/" class="nav-link px-2 nav-items text-white">블로그(공사중)</a></li>
                     </ul>
                 <div class="justify-content-end nav__sign">
                     {% if session.user_name %}
-                        <a href="/tool" class="btn btn-outline-success me-2">기능</a>
-                        <a href="/signout" class="btn btn-success">로그아웃</a>
+                        <a href="/tool" class="btn btn-outline-primary me-2 text-white">기능</a>
+                        <a href="/signout" class="btn btn-primary">로그아웃</a>
                     {% else %}
-                        <a href="/signin" class="btn btn-outline-success me-2">로그인</a>
-                        <a href="/signup" class="btn btn-success">회원가입</a>
+                        <a href="/signin" class="btn btn-primary me-2">로그인</a>
+                        <a href="/signup" class="btn btn-light text-primary">회원가입</a>
                     {% endif %}
                 </div>
             </div>
 
             <!-- mobile  -->
-            <button class="btn btn-outline-success position-absolute" type="button" data-bs-toggle="offcanvas"
+            <button class="btn btn-outline-primary position-absolute" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="right: 5%;" id="mobile-button">
-                <i class="fa-solid fa-bars"></i>
+                <i class="fa-solid fa-bars" style="color:#4285f4;"></i>
             </button>
 
             <div class="offcanvas offcanvas-end d-block d-lg-none" data-bs-scroll="true" tabindex="-1" id="offcanvasRight"
                 aria-labelledby="offcanvasRightLabel">
                 <div class="offcanvas-header">
-                    <div class="h5 offcanvasRightLabel text-success fw-bold">Menu</div>
+                    <div class="h5 offcanvasRightLabel mtext-color fw-bold">Menu</div>
                     <button class="btn-close text-reset" type="button" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <ul class="list-unstyled mobile-menu">
-                        <li><a href="/" class="text-decoration-none link-success active">Home</a></li>
-                        <li><a href="/project" class="text-decoration-none link-success">프로젝트</a></li>
-                        <li><a href="/study" class="text-decoration-none link-success">스터디</a></li>
+                        <li><a href="/" class="text-decoration-none
+                            mtext-color">Home</a></li>
+                        <li><a href="/project" class="text-decoration-none mtext-color">프로젝트</a></li>
+                        <li><a href="/study" class="text-decoration-none mtext-color">스터디</a></li>
                         <li>
-                            <a href="/board/main" class="text-decoration-none link-success">게시판</a>
+                            <a href="/board/main" class="text-decoration-none mtext-color">게시판</a>
                             <ul class="list-unstyled ms-3">
-                                <li><a href="/board/main" class="text-decoration-none link-success">주요사안</a></li>
-                                <li><a href="/board/talk" class="text-decoration-none link-success">기술</a></li>
-                                <li><a href="/board/free" class="text-decoration-none link-success">자유</a></li>
-                                <li><a href="/board/secret" class="text-decoration-none link-success">비공개</a></li>
+                                <li><a href="/board/main" class="text-decoration-none mtext-color">공지</a></li>
+                                <li><a href="/board/talk" class="text-decoration-none mtext-color">기술</a></li>
+                                <li><a href="/board/free" class="text-decoration-none mtext-color">자유</a></li>
+                                <li><a href="/board/all" class="text-decoration-none mtext-color">전체</a></li>
                             </ul>
                         </li>
+                        <li><a href="/" class="text-decoration-none mtext-color">블로그(공사중)</a></li>
                         <li>
                             {% if session.user_name %}
-                                <a href="/tool" class="text-decoration-none link-success fw-bold">기능</a> &nbsp;
-                                <a href="/signout" class="text-decoration-none link-success fw-bold">로그아웃</a>
+                                <a href="/tool" class="text-decoration-none mtext-color fw-bold">기능</a> &nbsp;
+                                <a href="/signout" class="text-decoration-none mtext-color fw-bold">로그아웃</a>
                             {% else %}
-                                <a href="/signin" class="text-decoration-none link-success fw-bold">로그인</a> &nbsp;
-                                <a href="/signup" class="text-decoration-none link-success fw-bold">회원가입</a>
+                                <a href="/signin" class="text-decoration-none mtext-color fw-bold">로그인</a> &nbsp;
+                                <a href="/signup" class="text-decoration-none mtext-color fw-bold">회원가입</a>
                             {% endif %}
                         </li>
                     </ul>
@@ -136,7 +139,7 @@
                 document.getElementById('main_data').innerHTML = `
                     <div id="load">
                         <div class="loading">
-                            <img src="/view/img/logo.jpg" alt="">
+                            <h1 class="display-5 fw-bolder text-white mb-2">INCLUDER & <span class="text-g1">G</span><span class="text-g2">D</span><span class="text-g3">S</span><span class="text-g4">C</span></h1>
                         </div>
                     </div>
                 `;
