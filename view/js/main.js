@@ -16,9 +16,10 @@ if (document.location.pathname === "/") {
             <div class="container px-5 align-items-center
             wrapper-inner">
                 <div class="inner-item">
-                            <h1 class="display-5 fw-bolder text-white mb-2">인클루더 & <span class="text-g1">G</span><span class="text-g2">D</span><span class="text-g3">S</span><span class="text-g4">C</span></h1>
+                            <h1 class="display-5 fw-bolder text-white mb-2">인클루더 & <span class="GDSC">GDSC(KMOU)</span></h1>
                             <p class="lead fw-normal text-white-50 mb-4">2023년 9월부터에 한국해양대학교 정식 동아리 인클루더와 <br> 
-                            Google Developer Student Club(GDSC)가 통합하여 운영되고 있습니다</p>
+                            Google Developer Student Club[Korea Maritime & Ocean University]<br>
+                            가 통합하여 운영되고 있습니다</p>
                             
                             <a class="btn btn-lg px-4 me-sm-3 btn-main text-white" href="#active">스터디 알아보기</a>
                             
@@ -38,7 +39,7 @@ if (document.location.pathname === "/") {
                             <h1 class="welcome-title fw-bold">INCLUDER</h1>
                             <h3 class="welcome-title fw-bold">&</h3>
                             <h1 class= "welcome-title fw-bold">
-                            <p class="m-0"><span class="text-g1 g-exception">G</span><span class="text-g2">D</span><span class="text-g3">S</span><span class="text-g4">C</span></h1>
+                            <p class="m-0"><span class="GDSC2">GDSC</span></h1>
                             <h3 class="welcome-title fw-bold">를 소개합니다</h3>
                         </div>
                         <!-- 오른쪽 부분 -->
@@ -46,7 +47,7 @@ if (document.location.pathname === "/") {
                             <div class="intro me-3">
                                 <h3>안녕하세요!</h3>
                                 <div class="d-flex flex-column intro__body">
-                                <p class="fs-5">저희 통합 동아리를 소개 드리자면 2022년에 설립되어서 2023년에 정식 승격된 한국해양대 정식 프로그래밍 동아리 인클루더와 Google Developers가 후원하는 한국해양대학교 학생을 위한 대학생 기반 커뮤니티 그룹인 Google Developer Student Clubs(GDSC)가 통합 운영중인 동아리입니다.</p>
+                                <p class="fs-5">저희 통합 동아리를 소개 드리자면 2022년에 설립되어서 2023년에 정식 승격된 한국해양대 정식 프로그래밍 동아리 인클루더와 Google Developers가 후원하는 한국해양대학교 학생을 위한 대학생 기반 커뮤니티 그룹인 Google Developer Student Clubs[Korea Maritime & Ocean University]가 통합 운영중인 동아리입니다.</p>
                                 <p class="fs-5">
                                 저희 통합 동아리는 일방적으로 가르침을 받는 것이 아니라 스스로 성장하고 지식을 함께 공유하는 것과 다양한 기술을 접해 폭 넓은 시야을 얻는 것, 마지막으로 구성원간에 긍정적인 자극을 주고 받는 것에 초점에 맞춰 운영되고 있습니다.
                                 </p>

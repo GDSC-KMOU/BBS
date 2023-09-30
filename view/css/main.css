@@ -4,10 +4,7 @@
     --main-color-light2: #abc4e4;
     --main-color-whiter: #d2dff0;
 
-    --goolge-color1: #4285f4;
-    --goolge-color2: #0f9d58;
-    --goolge-color3: #f4b400;
-    --goolge-color4: #db4437;
+    --GDSC-color: #f1f3f4;
     --font-blakc-1: rgba(0, 0, 0, 0.7);
     --temp-color: #c8dfea;
 }
@@ -33,21 +30,12 @@ body {
 .site-logo {
     font-size: 20px;
 }
-.text-g1 {
-    color: var(--goolge-color1);
+.GDSC {
+    color: var(--GDSC-color);
     text-decoration: none;
 }
-.text-g2 {
-    color: var(--goolge-color4);
-    text-decoration: none;
-}
-.text-g3 {
-    color: var(--goolge-color3);
-    text-decoration: none;
-}
-.text-g4 {
-    color: var(--goolge-color2);
-    text-decoration: none;
+.GDSC2 {
+    color: #000;
 }
 /* --------------------------------------------------------------------------------- */
 
