@@ -9,7 +9,11 @@ function board_edit_update(db, req, res, check_list, for_a = 0) {
         });
         db.close();
     } else {
-        db.run("delete from bbs_data where set_data = ? and doc_id = ? and set_name = ?", [check_list[0][1], check_list[1][1], check_list[for_a][0]], null, function() {
+        db.run("delete from bbs_data where set_data = ? and doc_id = ? and set_name = ?", [
+            check_list[0][1], 
+            check_list[1][1], 
+            check_list[for_a][0]
+        ], null, function() {
             let data = check_list[for_a][1];
             if(data === undefined || data === null) {
                 data = '';
@@ -36,7 +40,10 @@ function board_edit_do(db, req, res, user_name) {
     let date = func.get_date();
 
     if(content === '' && (doc_id !== undefined || doc_id !== null)) {
-        db.run("delete from bbs_data where set_data = ? and doc_id = ?", [b_name, doc_id], function() {
+        db.run("delete from bbs_data where set_data = ? and doc_id = ?", [
+            b_name, 
+            doc_id
+        ], function() {
             res.json({
                 "req" : "ok"
             });
@@ -80,7 +87,10 @@ function board_edit(req, res) {
     }
 
     if(func.bbs_list().includes(b_name) === true) {
-        db.all("select doc_data from bbs_data where set_data = ? and doc_id = ? and set_name = 'user_name'", [b_name, doc_id], function(err, db_data) {
+        db.all("select doc_data from bbs_data where set_data = ? and doc_id = ? and set_name = 'user_name'", [
+            b_name, 
+            doc_id
+        ], function(err, db_data) {
             if(db_data.length > 0) {
                 func.admin_check(db, req, res, function() {
                     board_edit_do(db, req, res, db_data[0].doc_data);

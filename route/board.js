@@ -51,12 +51,19 @@ function board(req, res) {
     page *= 20;
 
     if(func.bbs_list('read').includes(req.params.b_name) === true) {
-        if(req.params.b_name === 'all') {
+        if(req.params.b_name === 'notice') {
+            db.all("select distinct doc_id from bbs_data where set_name = 'notice' order by doc_id + 0", [], function(err, db_data) {    
+                board_get(db, res, req, db_data);
+            });
+        } else if(req.params.b_name === 'all') {
             db.all("select distinct doc_id from bbs_data order by doc_id + 0 desc limit ?, 20", [page], function(err, db_data) {    
                 board_get(db, res, req, db_data);
             });
         } else {
-            db.all("select distinct doc_id from bbs_data where set_data = ? order by doc_id + 0 desc limit ?, 20", [req.params.b_name, page], function(err, db_data) {    
+            db.all("select distinct doc_id from bbs_data where set_data = ? order by doc_id + 0 desc limit ?, 20", [
+                req.params.b_name, 
+                page
+            ], function(err, db_data) {    
                 board_get(db, res, req, db_data);
             });
         }

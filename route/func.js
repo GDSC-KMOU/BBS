@@ -104,7 +104,7 @@ function bbs_list(data_type = 'edit') {
     if(data_type === 'edit') {
         return ['main', 'talk', 'free'];
     } else {
-        return ['main', 'talk', 'free', 'all'];
+        return ['main', 'talk', 'free', 'all', 'notice'];
     }
 }
 
