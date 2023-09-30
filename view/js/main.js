@@ -96,7 +96,7 @@ if (document.location.pathname === "/") {
                             <img src="/view/img/newbi.png" alt="" class="study__card-img mb-1" style="width: 100%; height: 200px;">
                             <h4 class="fw-bold mb-1 ps-3">PB</h4>
                             <p class="ps-4 mb-1">[프로그래밍기초반]</p>
-                            <p class="small ps-4 mb-2">코딩 기초 문법 | 자료구조 |CS지식</p>
+                            <p class="small ps-4 mb-2">코딩 기초 문법 | 자료구조 | CS지식</p>
                         </div>
                     </div>
                     <div class="col" >

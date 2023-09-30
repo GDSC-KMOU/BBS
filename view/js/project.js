@@ -33,7 +33,7 @@ if (
                     `
                 <div class="col">
                     <div class="card card__project shadow-sm">
-                        <img class="card-img-top" src="` +
+                    <img class="card-img-top" src="` +
                     text[for_a]["file_url"] +
                     `">
                         <div class="card-body">
@@ -60,7 +60,6 @@ if (
                 </div>
             `;
             }
-
             document.getElementById("main_data").innerHTML =
                 `
         <section id="projectCarousel" class="container carousel slide carousel-fade mt-3 mb-4" data-bs-ride="carousel">
@@ -70,14 +69,10 @@ if (
                 <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active" style="background-image: url(` +
-                text[1]["file_url"] +
-                `);" data-bs-interval="5000">
+                <div class="carousel-item active" style="background-image: url(/view/img/includer&GDSC.png);" data-bs-interval="5000">
                     <div class="carousel-overlay"></div>
                 </div>
-                <div class="carousel-item" style="background-image: url(` +
-                text[0]["file_url"] +
-                `);" data-bs-interval="5000">
+                <div class="carousel-item" style="background-image: url(/view/img/includerBlog.png);" data-bs-interval="5000">
                     <div class="carousel-overlay"></div>
                 </div>
             </div>
