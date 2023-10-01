@@ -417,6 +417,14 @@ i {
         display: block;
         width: 35%;
     }
+    .nav__list,
+    .nav__sign {
+        display: none;
+    }
+    #mobile-button {
+        display: block;
+    }
+
 }
 
 /* exception screen */
