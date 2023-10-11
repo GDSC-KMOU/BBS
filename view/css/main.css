@@ -30,12 +30,18 @@ body {
 .site-logo {
     font-size: 20px;
 }
+
 .GDSC {
     color: var(--GDSC-color);
     text-decoration: none;
+    font-family: "Product Sans Light", sans-serif;
 }
 .GDSC2 {
     color: #000;
+    font-family: "Product Sans Light", sans-serif;
+}
+.GDSC-text {
+    font-family: "Product Sans Light", sans-serif;
 }
 /* --------------------------------------------------------------------------------- */
 
@@ -424,7 +430,6 @@ i {
     #mobile-button {
         display: block;
     }
-
 }
 
 /* exception screen */
