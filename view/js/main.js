@@ -168,7 +168,7 @@ if (document.location.pathname === "/") {
                         </h6>
                         <p class="mb-1 text-muted faq-content">
                             매 학기 초마다 에브리 타임을 통해 공지를 전달할 예정입니다.<br>
-                            그때 지원해주 시면 간단한 인터뷰를 거친 후 가입하실 수 있습니다.
+                            그때 지원해 주시면 간단한 인터뷰를 거친 후 가입하실 수 있습니다.
                         </p>
                     </div>
 

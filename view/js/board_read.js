@@ -253,21 +253,21 @@ if (document.location.pathname.startsWith("/board_read/")) {
                                             <div>
                                                 <span class="boardread_left">
                                                     <a id="board_notice_content" class="text-decoration-none board__icon-color1 mx-2" href="javascript:void(0);">
-                                                        <i class="fa-solid fa-bell board__icon-color1"></i>
+                                                        <i class="fa-solid fa-bell board__icon-color3"></i>
                                                         공지
                                                     </a>
                                                     /
-                                                    <a class="text-decoration-none board__icon-color1 mx-2" href="/board_edit/` +
-                                                            url_encode(board_name) +
-                                                            `/` +
-                                                            url_encode(board_id) +
-                                                        `">
-                                                        <i class="fa-solid fa-pen-to-square board__icon-color1"></i>    
+                                                    <a class="text-decoration-none text-dark mx-2" href="/board_edit/` +
+                        url_encode(board_name) +
+                        `/` +
+                        url_encode(board_id) +
+                        `">
+                                                        <i class="fa-solid fa-pen-to-square text-dark"></i>    
                                                         수정
                                                     </a>
                                                     /
-                                                    <a id="board_delete_content" class="text-decoration-none board__icon-color2 mx-2" href="javascript:void(0);">
-                                                        <i class="fa-solid fa-trash board__icon-color2"></i>
+                                                    <a id="board_delete_content" class="text-decoration-none text-danger mx-2" href="javascript:void(0);">
+                                                        <i class="fa-solid fa-trash text-danger"></i>
                                                         삭제
                                                     </a>
                                                 </span>

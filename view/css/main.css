@@ -3,7 +3,6 @@
     --main-color-light1: #2b5db1;
     --main-color-light2: #abc4e4;
     --main-color-whiter: #d2dff0;
-
     --GDSC-color: #f1f3f4;
     --font-blakc-1: rgba(0, 0, 0, 0.7);
     --temp-color: #c8dfea;
@@ -219,12 +218,6 @@ i {
 }
 .board__icon-color:hover {
     color: var(--main-color);
-}
-.board__icon-color2 {
-    color: var(--goolge-color4);
-}
-.board__icon-color2:hover {
-    color: var(--goolge-color4);
 }
 .comment__title {
     color: gray;
