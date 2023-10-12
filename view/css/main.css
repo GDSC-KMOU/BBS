@@ -345,11 +345,11 @@ i {
     display: none;
 }
 
-.loading > h1 {
+.loading > img {
     animation: spin 1s ease-in-out infinite;
-    transform-origin: 50% 20%;
-    width: auto;
-    height: 200px;
+    transform-origin: 50% 55.5%;
+    width: 300px;
+    height: 300px;
 }
 
 .pagenumber {
