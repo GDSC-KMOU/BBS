@@ -207,8 +207,8 @@ if (document.location.pathname.startsWith("/board_read/")) {
                                 ·
                                 <a id="board_comment_delete_` +
                             text_2[for_a].doc_id +
-                            `" class="text-decoration-none board__icon-color2" href="javascript:void(0);">
-                                    <i class="fa-solid fa-trash board__icon-color2"></i>
+                            `" class="text-decoration-none text-danger" href="javascript:void(0);">
+                                    <i class="fa-solid fa-trash text-danger"></i>
                                     삭제
                                 </a>
                             </span>
