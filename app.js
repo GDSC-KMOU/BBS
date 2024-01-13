@@ -48,6 +48,9 @@ const set_user_delete = require('./route/set_user_delete.js').set_user_delete;
 const signin = require('./route/signin.js').signin;
 const signup = require('./route/signup.js').signup;
 
+const chat = require('./route/chat.js').chat;
+const chat_post = require('./route/chat_post.js').chat_post;
+
 const file_upload = require('./route/file_upload.js').file_upload;
 const file_list = require('./route/file_list.js').file_list;
 const file_send = require('./route/file_send.js').file_send;
@@ -92,6 +95,8 @@ db.serialize(function() {
     db.run("create table if not exists study_data (doc_id longtext, set_name longtext, doc_data longtext, set_data longtext)");
     // user_name, set_name, user_data, set_data
     db.run("create table if not exists user_data (user_name longtext, set_name longtext, user_data longtext, set_data longtext)");
+    // user_id, set_name, user_data, set_data
+    db.run("create table if not exists chat_data (user_id longtext, set_name longtext, user_data longtext, set_data longtext)");
 
     // update
     db.all("select set_data from set_data where set_name = 'sys_ver'", [], function(err, db_data) {
@@ -178,6 +183,8 @@ new Promise(function(resolve) {
 
     app.get('/tool', function(req, res) { res.render('index', {}) });
 
+    app.get('/chat', function(req, res) { res.render('index', {}) });
+
     app.get('/file_upload', function(req, res) { res.render('index', {}) });
     app.get('/file_list', function(req, res) { res.render('index', {}) });
     app.get('/file_list/:page', function(req, res) { res.render('index', {}) });
@@ -218,6 +225,11 @@ new Promise(function(resolve) {
     app.post('/api/board_comment_edit/:b_name/:id/:comment_id', board_comment_edit);
     app.post('/api/board_preview', board_preview);
     app.post('/api/board_add/:b_name', board_edit);
+
+    app.get('/api/chat', chat);
+    app.post('/api/chat', chat_post);
+
+    app.get('/api/chat/:get_id', chat);
 
     app.get('/api/set/load/:set_name', set_load);
     app.post('/api/set/hcaptcha', set_hcaptcha);
