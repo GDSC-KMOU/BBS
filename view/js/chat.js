@@ -53,7 +53,7 @@ if (document.location.pathname === "/chat"){
             }
 
             document.getElementById('main_data').innerHTML= `
-                <div class="container p-3 border overflow-auto position-relative" style="height: 800px" id="chat_data">
+                <div class="container p-3 border-end border-start overflow-auto position-relative" style="height: 800px" id="chat_data">
                 </div>
             `;
             
