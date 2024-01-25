@@ -53,7 +53,7 @@ if (document.location.pathname === "/chat"){
             }
 
             document.getElementById('main_data').innerHTML= `
-                <div class="container p-3 border overflow-auto" style="height: 800px" id="chat_data">
+                <div class="container p-3 border overflow-auto position-relative" style="height: 800px" id="chat_data">
                 </div>
             `;
             
@@ -70,7 +70,7 @@ if (document.location.pathname === "/chat"){
                 let day = dateTime.getDate();
                 let hours = dateTime.getHours();
                 let minutes = dateTime.getMinutes();
-                if(hours>=12){
+                if(hours>12){
                     ampm = '오후';
                     hours = hours-12;
                 }
@@ -115,7 +115,7 @@ if (document.location.pathname === "/chat"){
             document.getElementById('chat_data').innerHTML+= `
                 <div class="position-absolute bottom-0 start-50 translate-middle-x input-group py-3" style="width: 95%;">
                     <textarea style="height: 0px; resize: none;" class="form-control" id="chat_input"></textarea>
-                    <button class="btn btn-outline-secondary" type="button" id="chat_send" onclick="chat_send()" disabled>&nbsp;전송&nbsp;</button>
+                    <button class="btn btn-outline-secondary" type="button" id="chat_send" disabled>&nbsp;전송&nbsp;</button>
                 </div>
                 `;
             let objDiv = document.getElementById("chat_data");
