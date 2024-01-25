@@ -1,56 +1,57 @@
 "use strict";
 
 if (document.location.pathname === "/chat"){
-    function resize() {
-        document
-        .getElementById("chat_input")
-        .addEventListener("input", function () {
-            let textarea = document.getElementById("chat_input");
-    
-            textarea.style.height = "0px";
-    
-            let scrollHeight = textarea.scrollHeight;
-            let style = window.getComputedStyle(textarea);
-            let borderTop = parseInt(style.borderTop);
-            let borderBottom = parseInt(style.borderBottom);
-    
-            let newHeight = Math.min(scrollHeight + borderTop + borderBottom, 134);
-    
-            textarea.style.height = newHeight + "px";
-    
-            let objDiv = document.getElementById("chat_data");
-            objDiv.scrollTop = objDiv.scrollHeight;
-    
-            let chat_send_btn = document.getElementById("chat_send")
-            if(textarea.value==''){
-                chat_send_btn.disabled = true;
-            }else{
-                chat_send_btn.disabled = false;
-            }
-        })
-    }
-    
-    function chat_send() {
-        document
-        .getElementById("chat_send")
-        .addEventListener("click", function () {
-            let content = document.getElementById("chat_input").value;
-            fetch("/api/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    chat: content
-                }),
-            }).then(function (res) {
-                return res.json();
-            });
-        })
-    }
     fetch('api/chat')
         .then(function (res) {
             return res.json();
         })
         .then(function (chatdata) {
+            function resize() {
+                document
+                .getElementById("chat_input")
+                .addEventListener("input", function () {
+                    let textarea = document.getElementById("chat_input");
+            
+                    textarea.style.height = "0px";
+            
+                    let scrollHeight = textarea.scrollHeight;
+                    let style = window.getComputedStyle(textarea);
+                    let borderTop = parseInt(style.borderTop);
+                    let borderBottom = parseInt(style.borderBottom);
+            
+                    let newHeight = Math.min(scrollHeight + borderTop + borderBottom, 134);
+            
+                    textarea.style.height = newHeight + "px";
+            
+                    let objDiv = document.getElementById("chat_data");
+                    objDiv.scrollTop = objDiv.scrollHeight;
+            
+                    let chat_send_btn = document.getElementById("chat_send")
+                    if(textarea.value==''){
+                        chat_send_btn.disabled = true;
+                    }else{
+                        chat_send_btn.disabled = false;
+                    }
+                })
+            }
+            
+            function chat_send() {
+                document
+                .getElementById("chat_send")
+                .addEventListener("click", function () {
+                    let content = document.getElementById("chat_input").value;
+                    fetch("/api/chat", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            chat: content
+                        }),
+                    }).then(function (res) {
+                        return res.json();
+                    });
+                })
+            }
+
             document.getElementById('main_data').innerHTML= `
                 <div class="container p-3 border overflow-auto" style="height: 800px" id="chat_data">
                 </div>
@@ -112,15 +113,15 @@ if (document.location.pathname === "/chat"){
                 }
             }
             document.getElementById('chat_data').innerHTML+= `
-                    <div class="bottom-0 start-50 translate-middle-x input-group pt-3" style="width: 95%;">
-                        <textarea style="height: 0px; resize: none;" class="form-control" id="chat_input" oninput="resize()"></textarea>
-                        <button class="btn btn-outline-secondary" type="button" id="chat_send" onclick="chat_send()" disabled>&nbsp;전송&nbsp;</button>
-                    </div>
-                    `;
+                <div class="position-absolute bottom-0 start-50 translate-middle-x input-group py-3" style="width: 95%;">
+                    <textarea style="height: 0px; resize: none;" class="form-control" id="chat_input"></textarea>
+                    <button class="btn btn-outline-secondary" type="button" id="chat_send" onclick="chat_send()" disabled>&nbsp;전송&nbsp;</button>
+                </div>
+                `;
             let objDiv = document.getElementById("chat_data");
             objDiv.scrollTop = objDiv.scrollHeight;
-        })
 
-        resize();
-        chat_send();
+            resize();
+            chat_send();
+        })
 }
