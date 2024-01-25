@@ -48,7 +48,11 @@ if (document.location.pathname === "/chat"){
                         }),
                     }).then(function (res) {
                         return res.json();
-                    });
+                    }).then(function (text) {
+                        if (text.req === "ok") {
+                            document.location.pathname = "/chat";
+                        }
+                    });;
                 })
             }
 
