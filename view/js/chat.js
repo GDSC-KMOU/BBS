@@ -119,9 +119,11 @@ if (document.location.pathname === "/chat"){
                 }
             }
             document.getElementById('chat_data').innerHTML+= `
-                <div class="position-absolute bottom-0 start-50 translate-middle-x input-group py-3" style="width: 95%;">
-                    <textarea style="height: 0px; resize: none;" class="form-control" id="chat_input"></textarea>
-                    <button class="btn btn-outline-secondary" type="button" id="chat_send" disabled>&nbsp;전송&nbsp;</button>
+                <div class="w-100 d-flex justify-content-center mt-auto">
+                    <div class=" input-group py-3" style="width: 95%;">
+                        <textarea style="height: 0px; resize: none;" class="form-control" id="chat_input"></textarea>
+                        <button class="btn btn-outline-secondary" type="button" id="chat_send" disabled>&nbsp;전송&nbsp;</button>
+                    </div>
                 </div>
                 `;
             let objDiv = document.getElementById("chat_data");
