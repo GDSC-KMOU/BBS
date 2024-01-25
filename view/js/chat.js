@@ -70,9 +70,11 @@ if (document.location.pathname === "/chat"){
                 let day = dateTime.getDate();
                 let hours = dateTime.getHours();
                 let minutes = dateTime.getMinutes();
-                if(hours>12){
+                if(hours>=12){
                     ampm = '오후';
-                    hours = hours-12;
+                    if(hours!=12){
+                        hours = hours-12;
+                    }
                 }
                 let id = chatdata.data[i].id
                 
