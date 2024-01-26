@@ -30,6 +30,9 @@ const project_edit = require('./route/project_edit.js').project_edit;
 const project_read = require('./route/project_read.js').project_read;
 const project_length = require('./route/project_length.js').project_length;
 
+const get_user_name = require('./route/get_user_name.js').get_user_name;
+const get_user_id_me = require('./route/get_user_id_me.js').get_user_id_me;
+
 const study = require('./route/study.js').study;
 const study_edit = require('./route/study_edit.js').study_edit;
 const study_read = require('./route/study_read.js').study_read;
@@ -230,6 +233,9 @@ new Promise(function(resolve) {
     app.post('/api/chat', chat_post);
 
     app.get('/api/chat/:get_id', chat);
+    
+    app.get('/api/get/my_id', get_user_id_me);
+    app.get('/api/get/name/:get_id', get_user_name);
 
     app.get('/api/set/load/:set_name', set_load);
     app.post('/api/set/hcaptcha', set_hcaptcha);
