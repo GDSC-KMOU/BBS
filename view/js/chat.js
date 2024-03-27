@@ -79,7 +79,7 @@ if (document.location.pathname === "/chat"){
 
                     let ex_dateString = ``;
                     let chat_cnt = 0
-                    if(chatdata.data.length !== undefined){
+                    if(chatdata.req !== "error"){
                         chat_cnt = chatdata.data.length
                     }
                     //for(let i = Math.max(0, chat_cnt - 20); i<chat_cnt; i++){
