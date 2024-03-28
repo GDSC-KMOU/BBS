@@ -22,11 +22,8 @@ if (document.location.pathname === "/chat"){
             
                     textarea.style.height = newHeight + "px";
             
-                    let objDiv = document.getElementById("chat_data");
-                    objDiv.scrollTop = objDiv.scrollHeight;
-            
                     let chat_send_btn = document.getElementById("chat_send")
-                    if(textarea.value==''){
+                    if(textarea.value.trim()==''){
                         chat_send_btn.disabled = true;
                     }else{
                         chat_send_btn.disabled = false;
@@ -62,6 +59,23 @@ if (document.location.pathname === "/chat"){
                     });
                 })
             }
+            function logout(){
+                const target = document.getElementById("chat_data")
+                target.style.color = "gray";
+                target.style.textAlign = "center";
+                target.innerHTML = `<h1 style="margin-top: 325px;">로그인이 필요합니다.</h1>`; 
+            }
+            function submitTextarea(event) {
+                let key = event.key || event.keyCode;
+                if (event.shiftKey && (key == 'Enter' || key === 13)){
+                        console.log("쉬프트 엔터 누름")
+
+                }else if(key == 'Enter' || key === 13){
+                        console.log("엔터만 누름")
+                        event.preventDefault();
+                        document.getElementById("chat_send").click();
+                }    
+            }
 
             document.getElementById('main_data').innerHTML= `
                 <div id="root" style="height:800px">
@@ -93,7 +107,7 @@ if (document.location.pathname === "/chat"){
                         let month = dateTime.getMonth() + 1;
                         let day = dateTime.getDate();
                         let hours = dateTime.getHours();
-                        let minutes = dateTime.getMinutes();
+                        let minutes = String(dateTime.getMinutes()).padStart(2, '0');
                         if(hours>=12){
                             ampm = '오후';
                             if(hours!=12){
@@ -150,6 +164,19 @@ if (document.location.pathname === "/chat"){
                     `;
                     let objDiv = document.getElementById("chat_data");
                     objDiv.scrollTop = objDiv.scrollHeight;
+                    if(chatdata.req == "error"){
+                        document.getElementById('chat_input').setAttribute('disabled',true);
+                        logout();
+                    }else{
+                        const target = document.getElementById('chat_input')
+                        target.removeAttribute("disabled"); 
+                        target.focus();
+                        document
+                            .getElementById("chat_input")
+                            .addEventListener("keydown", function (event) {
+                                submitTextarea(event);
+                            })
+                    }
 
                     resize();
                     chat_send();
