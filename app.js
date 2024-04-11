@@ -274,21 +274,5 @@ new Promise(function(resolve) {
     app.use(function(req, res) { res.status(404).redirect('/') });
 
     // run
-    let options = {};
-    if(fs.existsSync('./privkey.pem')) {
-        if(fs.existsSync('./cert.pem')) {
-            if(fs.existsSync('./chain.pem')) {
-                options = {
-                    key : fs.readFileSync('./privkey.pem'),
-                    cert : fs.readFileSync('./cert.pem'),
-                    ca : fs.readFileSync('./chain.pem')
-                };
-            }
-        }
-    }
-
     http.createServer(app).listen(port, function() { console.log("Run in " + String(port)) });
-    if(JSON.stringify(options) !== '{}') {
-        https.createServer(options, app).listen(port_https, function() { console.log("Run in " + String(port_https)) });
-    }
 });
