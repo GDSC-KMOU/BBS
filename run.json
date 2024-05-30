@@ -2,8 +2,7 @@
     "init_command" : [
         "npm i",
         "npm audit fix --force"
-    ],
-    "command" : [
+    ], "command" : [
         "node app.js"
     ], "port" : 3000
 }
