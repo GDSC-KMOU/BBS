@@ -1,6 +1,7 @@
 {
     "command" : [
         "npm i",
+        "npm audit fix",
         "node app.js"
     ], "port" : 3000
 }
