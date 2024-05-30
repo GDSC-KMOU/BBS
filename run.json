@@ -1,0 +1,6 @@
+{
+    "command" : [
+        "npm i",
+        "node app.js"
+    ], "port" : 3000
+}
