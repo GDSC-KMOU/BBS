@@ -1,136 +1,17 @@
 "use strict";
 
-function extractNumberFromString(inputString) {
-  let extractedNumber = inputString.match(/\d+/);
-  if (extractedNumber) {
-      return parseInt(extractedNumber[0]);
-  } else {
-      return null;
-  }
+const main = document.getElementById("main_data")
+
+let loaded_chat_num = 0;
+let polling_num = 15;
+
+async function get_my_id(){
+  const my_res = await fetch("api/get/my_id");
+  const my_data = await my_res.json();
+  return my_data.id;
 }
 
-function resize() {
-  document.getElementById("chat_input").addEventListener("input", function () {
-    let input = document.getElementById("chat_input"); 
-    let inputWrapper = document.getElementById("input_data")
-    input.style.height = "auto";
-    input.style.height = `${input.scrollHeight}px`;
-    inputWrapper.style.height = "auto";
-    input.style.maxHeight = '324px'
-    let inputHeight = extractNumberFromString(input.style.height);
-    if(inputHeight > 324){
-      input.style.overflow = "auto";
-    }else{input.style.overflow = "hidden";}
-  })
-}
-
-function sendBtnCtrl() {
-  document.getElementById("chat_input").addEventListener("input", function () {
-    let textarea = document.getElementById("chat_input");
-    let chat_send_btn = document.getElementById("chat_send");
-    if (textarea.value.trim() == "") {
-      chat_send_btn.disabled = true;
-    } else {
-      chat_send_btn.disabled = false;
-    }
-  });
-}
-
-function chat_send() {
-  document.getElementById("chat_send").addEventListener("click", function () {
-    let content = document.getElementById("chat_input").value;
-    fetch("api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat: content,
-      }),
-    })
-      .then(function (res) {
-        return res.json();
-      })
-      .then(function (text) {
-        if (text.req === "ok") {
-          //document.location.pathname = "/chat";
-          getChatData();
-        }
-      })
-      .catch(function (error) {
-        alert("로그인이 필요합니다.");
-      });
-  });
-}
-
-function logout() {
-  const target = document.getElementById("chat_data");
-  target.style.color = "gray";
-  target.style.textAlign = "center";
-  target.innerHTML = `<div class="row" style="height: calc(100vh - 56px)" ><h1 class="align-self-center">로그인이 필요합니다.</h1></div>`;
-}
-
-function submitTextarea(event) {
-  let textarea = document.getElementById("chat_input");
-  let value = textarea.value;
-  let key = event.key || event.keyCode;
-  if (event.shiftKey && (key == "Enter" || key === 13)) {
-  } else if (key == "Enter" || key === 13) {
-    event.preventDefault();
-    document.getElementById("chat_send").click();
-  }
-}
-
-
-
-let lastChatId = 0;
-let check_num;
-
-if (document.location.pathname === "/chat") {
-  getChatData();
-  setInterval(async () => {
-    let renderedLastChat = document.getElementById("chat_data").lastElementChild.firstElementChild.lastElementChild
-    renderedLastChat = extractNumberFromString(renderedLastChat.id)
-    lastChatId = parseInt(lastChatId)
-    if ( lastChatId !== renderedLastChat ){
-      getChatData();
-      lastChatId = renderedLastChat
-    }
-  }, 1000);
-}
-
-function responsive() {
-  const chatdata = document.getElementById("chat_data");
-  const chatinput = document.getElementById("input_data");
-  const root = document.getElementById("root");
-
-  if (chatdata && chatinput) {
-    if (window.innerWidth <= 1024) {
-      root.style.height = "calc(100vh - 46px)";
-      chatdata.style.width = "100%";
-      chatdata.style.height = "calc(100vh - 46px - 86px)";
-      chatinput.style.width = "100%";
-    } else {
-      root.style.height = "calc(100vh - 56px)"
-      chatdata.style.width = "80%";
-      chatdata.style.height = "calc(100vh - 56px - 86px)";
-      chatinput.style.height = "86px";
-      chatinput.style.width = "80%";
-    }
-  }
-}
-window.addEventListener("resize", responsive);
-
-function updateFooterDisplay() {
-  const footer = document.getElementById("footer");
-  if (window.innerWidth < 1024) {
-    footer.style.display = "none";
-  } else {
-    footer.style.display = "block";
-  }
-}
-updateFooterDisplay();
-window.addEventListener("resize", updateFooterDisplay);
-
-async function getName(user_id) {
+async function get_name(user_id) {
   try {
     const res = await fetch(`api/get/name/${user_id}`);
     const data = await res.json();
@@ -141,122 +22,346 @@ async function getName(user_id) {
   }
 }
 
-function getLastId(data) {
-  return data[data.length - 1].id;
+async function get_chat_data(){
+  const res = await fetch("api/chat");
+  const json = await res.json()
+  const chat_data = await json.data;
+  return chat_data;
 }
 
-async function getChatData() {
-  const res = await fetch("api/chat");
-  const chatdata = await res.json();
-  document.getElementById("main_data").innerHTML = `
-            <div id="root" style="display: flex; jutify-content: center; flex-direction: column; align-items: center; height: calc(100vh - 56px);">
-                <div class="p-3 border-end border-start overflow-auto d-flex flex-column" style="width: 100%;" id="chat_data">
-                </div>
-            </div>
-            `;
-  const myRes = await fetch("api/get/my_id");
-  const myiddata = await myRes.json();
-  let my_id = myiddata.id;
+function format_date(chat_date) {
+  const now = new Date();
+  const date = new Date(chat_date);
 
-  let ex_dateString = ``;
-  let chat_cnt = 0;
-  if (chatdata.req !== "error") {
-    chat_cnt = chatdata.data.length;
+  const isToday = now.toDateString() === date.toDateString();
+  const isYesterday = new Date(now - 86400000).toDateString() === date.toDateString();
+
+  const timeOptions = {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  };
+
+  const dateOptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  };
+
+  if (isToday) {
+    return `오늘 ${date.toLocaleTimeString('ko-KR', timeOptions)}`;
+  } else if (isYesterday) {
+    return `어제 ${date.toLocaleTimeString('ko-KR', timeOptions)}`;
+  } else {
+    const formattedDate = date.toLocaleDateString('ko-KR', dateOptions).replace(/\. /g, '.');
+    return `${formattedDate} ${date.toLocaleTimeString('ko-KR', timeOptions)}`;
   }
-  for (let i = 0; i < chat_cnt; i++) {
-    let ampm = "오전";
-    let chat = chatdata.data[i].chat.replace(/\n/g, "<br>");;
-    let user_id = chatdata.data[i].user_id;
-    let user_name = "";
-    let chatId = chatdata.data[i].id;
-    let date = chatdata.data[i].date;
-    const dateTime = new Date(date);
-    let year = dateTime.getFullYear();
-    let month = dateTime.getMonth() + 1;
-    let day = dateTime.getDate();
-    let hours = dateTime.getHours();
-    let minutes = String(dateTime.getMinutes()).padStart(2, "0");
-    
-    if (hours >= 12) {
-      ampm = "오후";
-      if (hours != 12) {
-        hours = hours - 12;
-      }
-    }
-    let dateString = `${year}${month}${day}`;
-    if (dateString != ex_dateString) {
-      document.getElementById("chat_data").innerHTML += `
-                            <div class="d-flex justify-content-center mt-2">
-                                <div class="rounded-pill bg-secondary bg-opacity-10 d-flex justify-content-center" style="width: 250px;" id="date${i}">
-                                    ${year}년 ${month}월 ${day}일
-                                </div>
-                            </div>
-                            `;
-      ex_dateString = dateString;
-    }
+}
 
-    if (user_id == my_id) {
-      //내 채팅
-      document.getElementById("chat_data").innerHTML +=`
-                        <div class="d-flex justify-content-end py-1">
-                            <div style="max-width: 80%">
-                                <div class="ps-1 pb-1" style="font-size: 12px; margin-top: 5px;">` +
-        ampm +
-        ` ${hours}:${minutes}</div>
-                                <div id=chat_${chatId} class="border p-3 text-break ms-auto bg-dark bg-opacity-10" style="border-radius: 20px; border-top-right-radius: 0px; width: fit-content;">${chat}</div>
-                            </div>
-                        </div>
-                        `;
-    } else {
-      //다른사람 채팅
-      user_name = await getName(user_id);
-      document.getElementById("chat_data").innerHTML +=`
-                        <div class="d-flex flex-row py-1">
-                            <div style="max-width: 80%">
-                                <div class="d-flex pb-1 justify-content-between">
-                                    <div class="border border-white fw-semibold">${user_name}</div>
-                                    <div class="ps-1 pe-1" style="font-size: 12px; margin-top: 5px;">` + ampm + ` ${hours}:${minutes}</div>
-                                </div>
-                                <div id=chat_${chatId} class="border p-3 text-break" style="border-radius: 20px; border-top-left-radius: 0px; width: fit-content;">${chat}</div>
-                            </div>
-                        </div>
-                        `;
+function reset_scroll(){
+  requestAnimationFrame(() => {
+    let objDiv = document.getElementById("chat_data_wrapper");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  });  
+}
+
+let insert_done_check = 0;
+let canAppend = true;
+function handleScroll(event) {
+  const chat_data_wrapper = document.getElementById("chat_data_wrapper");
+  const scrollHeight = chat_data_wrapper.scrollHeight;
+  const clientHeight = chat_data_wrapper.clientHeight;
+  const scrollPosition = chat_data_wrapper.scrollTop;
+  if (canAppend && scrollPosition <= 500) {
+    canAppend = false;
+    if (insert_done_check === 0){
+      insert_previous_chat(loaded_chat_num)
+      .then(() => {
+        setTimeout(() => {
+          canAppend = true;
+        }, 0);
+      })
+      .catch((error) => {
+        console.error('Error appending previous chat:', error);
+        canAppend = true;
+      });
     }
   }
+  const notification = document.getElementById('new_message_notification');
+  if (notification && scrollPosition >= 0.95 * (scrollHeight - clientHeight)) {
+    notification.remove();
+  }
+}
+
+function scroll_check() {
+  const chat_data_wrapper = document.getElementById("chat_data_wrapper");
+  const scrollPosition = chat_data_wrapper.scrollTop;
+
+  if (canAppend && scrollPosition <= 100) {
+    canAppend = false;
+    if (loaded_chat_num > 0 ){
+      insert_previous_chat(loaded_chat_num)
+      .then(() => {
+        setTimeout(() => {
+          canAppend = true;
+          if(loaded_chat_num > 1){
+            chat_data_wrapper.scrollTop = 900;
+          }
+        }, 0);
+      })
+      .catch((error) => {
+        console.error('Error appending previous chat:', error);
+        canAppend = true;
+      });
+    }
+    if (insert_done_check === 0){
+      insert_previous_chat(loaded_chat_num);
+    }
+  }
+}
+
+async function create_chat(chat_data, init_num, last_num){
+  const fragment = document.createDocumentFragment();
+  const my_id = await get_my_id();
+  for(let i = init_num; i < last_num; i++){
+    let chat_div;
+    let chat_id = chat_data[i].id;
+    let chat = chat_data[i].chat.replace(/\n/g, "<br>");
+    let date = format_date(chat_data[i].date);
+    if(chat_data[i].user_id === my_id){
+      chat_div = `<div class="d-flex justify-content-end py-1" id="${chat_id}">
+        <div style="max-width: 80%;" class="d-flex flex-column align-items-end">
+          <div class="d-flex justify-content-end ps-1 pe-1" style="font-size: 12px; margin-top: 5px;">${date}</div>
+          <div class="text-break d-flex justify-content-end border p-3 bg-dark bg-opacity-10" style="border-radius: 20px; border-top-right-radius: 0px; width: fit-content; white-space: pre-wrap;">${chat}</div>
+        </div>
+      </div>`;
+    }else{
+      const user_name = await get_name(chat_data[i].user_id);
+      chat_div = `<div class="d-flex flex-row py-1" id=${chat_id}>
+        <div style="max-width: 80%;">
+          <div class="d-flex">
+            <div class="fw-semibold">${user_name}</div>
+            <div class="ps-1 pe-1" style="font-size: 12px; margin-top: 5px;">${date}}</div>
+          </div>
+          <div class="text-break border p-3" style="border-radius: 20px; border-top-left-radius: 0px; width: fit-content; white-space: pre-wrap;">${chat}</div>
+        </div>
+      </div>`;
+    }
+    const tempContainer = document.createElement('div');
+    tempContainer.innerHTML = chat_div;
+    fragment.appendChild(tempContainer.firstChild);
+  }
+  return fragment;
+}
+
+async function create_chat_data(){
+  main.setAttribute("class", "d-flex flex-column align-items-center");
+  const chat_data = await get_chat_data()
+  const chat_data_wrapper = document.createElement("div")
+  chat_data_wrapper.setAttribute("id", "chat_data_wrapper")
+  chat_data_wrapper.setAttribute("class", "p-3 d-flex flex-column");
+  chat_data_wrapper.setAttribute("style", "width: 80%; height: calc(100vh - 56px - 86px); overflow: auto; position: relative;");
+  const fragment = await create_chat(chat_data, chat_data.length-polling_num, chat_data.length);
+  chat_data_wrapper.appendChild(fragment);
+  main.appendChild (chat_data_wrapper);
+  loaded_chat_num = chat_data.length-polling_num;
   create_chat_input();
+  chat_data_wrapper.addEventListener('scroll', handleScroll);
+  reset_scroll();
+}
 
-  function create_chat_input() {
-    document.getElementById("root").innerHTML += `
-                    <div class="input-group p-4 border-end border-start d-flex" style="width: 80%; height: 86px"; id="input_data">
-                    </div>
-                `;
-    document.getElementById("input_data").innerHTML += `    
-                        <textarea rows="1" style="height: 38px; resize: none;" class="form-control" id="chat_input" maxlength="300"></textarea>
-                        <button class="btn btn-outline-secondary" type="button" id="chat_send" disabled>&nbsp;전송&nbsp;</button>
-                `;
-    requestAnimationFrame(() => {
-      let objDiv = document.getElementById("chat_data");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    });
-    if (chatdata.req == "error") {
-      document.getElementById("chat_input").setAttribute("disabled", true);
-      logout();
-    } else {
-      const target = document.getElementById("chat_input");
-      target.removeAttribute("disabled");
-      target.focus();
-      document
-        .getElementById("chat_input")
-        .addEventListener("keydown", function (event) {
-          submitTextarea(event);
-        });
-    }
-
-    resize();
+async function create_chat_input(){
+  const input_wrapper = document.createElement("div");
+  input_wrapper.setAttribute("id", "chat_input_wrapper");
+  input_wrapper.setAttribute("style", "width: 80%; height: 86px;");
+  input_wrapper.setAttribute("class", "input-group p-4 d-flex")
+  const chat_input = document.createElement("textarea")
+  chat_input.setAttribute("class", "form-control")
+  chat_input.setAttribute("id", "chat_input")
+  chat_input.setAttribute("rows", "1")
+  chat_input.setAttribute("style", "resize: none;")
+  chat_input.setAttribute("maxlength", "500");
+  const chat_send_btn = document.createElement("button")
+  chat_send_btn.setAttribute("id", "chat_send_btn")
+  chat_send_btn.setAttribute("class", "btn btn-outline-secondary")
+  chat_send_btn.setAttribute("disabled", "")
+  chat_send_btn.addEventListener("click", function() {
     chat_send();
-    responsive();
-    sendBtnCtrl();
-    lastChatId = getLastId(chatdata.data)
+  });
+  chat_send_btn.innerHTML = "&nbsp전송&nbsp"
+  const new_chat = document.createElement("div");
+  new_chat.setAttribute("id", "new_chat");
+  input_wrapper.appendChild(chat_input)
+  input_wrapper.appendChild(chat_send_btn)
+  main.appendChild(input_wrapper); 
+  chat_input_resize();
+  sendBtnCtrl();
+  chat_input.focus();
+  document
+    .getElementById("chat_input")
+    .addEventListener("keydown", function (event) {
+    submit_textarea(event);
+  });
+}
+
+function sendBtnCtrl() {
+  document.getElementById("chat_input").addEventListener("input", function () {
+    let textarea = document.getElementById("chat_input");
+    let chat_send_btn = document.getElementById("chat_send_btn");
+    if (textarea.value.trim() == "") {
+      chat_send_btn.disabled = true;
+    } else {
+      chat_send_btn.disabled = false;
+    }
+  });
+}
+
+function submit_textarea(event) {
+  let textarea = document.getElementById("chat_input");
+  let key = event.key || event.keyCode;
+  if (event.shiftKey && (key == "Enter" || key === 13)) {
+  } else if (key == "Enter" || key === 13) {
+    event.preventDefault();
+    document.getElementById("chat_send_btn").click();
   }
-  check_num = chatdata.data.length;
+}
+
+function chat_input_resize(){
+  document.getElementById("chat_input_wrapper").addEventListener("input", function () {
+    let input_wrapper = document.getElementById("chat_input_wrapper");
+    input_wrapper.style.height = "auto";
+
+    let textarea = document.getElementById("chat_input");
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+    textarea.style.maxHeight = '324px';
+    let textarea_height = extractNumberFromString(textarea.style.height);
+    if(textarea_height > 324){
+      textarea.style.overflow = "auto";
+    }else{textarea.style.overflow = "hidden";}
+  })
+}
+
+function extractNumberFromString(inputString) {
+  let extractedNumber = inputString.match(/\d+/);
+  if (extractedNumber) {
+      return parseInt(extractedNumber[0]);
+  } else {
+      return null;
+  }
+}
+
+async function load_previous_chat(id){
+  const res = await fetch("api/chat/"+(id-polling_num+1));
+  const json = await res.json();
+  const chat_data = await json.data;
+  return chat_data;
+}
+
+async function insert_previous_chat(id){
+  const chat_data = await load_previous_chat(id);
+  const chat_data_wrapper = document.getElementById("chat_data_wrapper");
+  if(loaded_chat_num > 0){
+    const fragment = await create_chat(chat_data, 0, chat_data.length-chat_data_wrapper.childElementCount);
+    loaded_chat_num = id-polling_num;
+    chat_data_wrapper.prepend(fragment);
+  }else{
+    const insert_done_div_wrapper = document.createElement("div");
+    insert_done_div_wrapper.setAttribute("class", "d-flex justify-content-center w-100");
+    const insert_done_div = document.createElement("div");
+    insert_done_div.innerHTML = '이전 메시지가 없습니다.'
+    insert_done_div.setAttribute("style",`
+      max-width: 80%;
+    `);
+    insert_done_div_wrapper.append(insert_done_div)
+    chat_data_wrapper.prepend(insert_done_div_wrapper);
+    loaded_chat_num = id-polling_num;
+    insert_done_check = 1;
+  }
+}
+
+async function append_new_chat(send_who){
+  const chat_data = await get_chat_data();
+  const chat_data_wrapper = document.getElementById("chat_data_wrapper");
+  const renderd_id = parseInt(chat_data_wrapper.children[chat_data_wrapper.childElementCount-1].id)
+  const fetched_id = parseInt(chat_data[chat_data.length-1].id)
+  if (fetched_id !== renderd_id){
+    const fragment = await create_chat(chat_data, renderd_id+2, fetched_id+2)
+    chat_data_wrapper.appendChild(fragment);
+    let objDiv = document.getElementById("chat_data_wrapper");
+    const scrollPosition = objDiv.scrollTop / (objDiv.scrollHeight - objDiv.clientHeight);
+    if (scrollPosition >= 0.9 || send_who==='me') {
+      reset_scroll();
+    }else {
+      show_new_message_notification(chat_data[chat_data.length-1]);
+    }
+  }
+  scroll_check();
+}
+
+function chat_send(){
+  const chat_input = document.getElementById("chat_input");
+  const chat_value = chat_input.value;
+  const chat_send_btn = document.getElementById("chat_send_btn");
+  fetch("api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat: chat_value,
+    }),
+  })
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (text) {
+      if (text.req === "ok") {
+        chat_input.value = '';
+        chat_input.style.height = '37px';
+        chat_send_btn.disabled = true;
+        append_new_chat('me');
+      }
+    })
+    .catch(function (error) {
+      console.log(error)
+    });
+}
+
+async function show_new_message_notification(new_chat) {
+  const notification = document.getElementById('new_message_notification');
+  const user_name = await get_name(new_chat.user_id);
+  if (!notification) {
+    const chat_input_wrapper = document.getElementById("chat_input_wrapper");
+    const main = document.getElementById("main_data");
+    const notificationDiv = document.createElement('div');
+    notificationDiv.setAttribute('id', 'new_message_notification');
+    notificationDiv.setAttribute('style', `
+      max-width: 80%; 
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      cursor: pointer; 
+      position: absolute; 
+      bottom: ${chat_input_wrapper.offsetHeight + 20}px; 
+      padding: 10px; 
+      color: white;
+      border: 1px solid #f5c6cb; 
+      border-radius: 5px;
+      z-index: 1000;`);
+    notificationDiv.setAttribute('class', 'bg-dark bg-opacity-50');
+    notificationDiv.addEventListener("click", function() {
+      reset_scroll();
+    });
+    notificationDiv.innerHTML = `${user_name} : ${new_chat.chat}`;
+    main.appendChild(notificationDiv);
+  }else{
+    notification.innerHTML = `${user_name} : ${new_chat.chat}`;
+  }
+}
+
+if (document.location.pathname === "/chat") {
+  main.style.height = "calc(100vh - 56px)";
+  create_chat_data();
+  setInterval(async () => {
+    append_new_chat();
+  }, 1000);
 }
