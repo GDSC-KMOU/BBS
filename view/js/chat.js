@@ -152,8 +152,8 @@ async function create_chat(chat_data, init_num, last_num){
       tempContainer.innerHTML = chat_div;
       fragment.appendChild(tempContainer.firstChild);
     }
+    return fragment;
   }
-  return fragment;
 }
 
 async function create_chat_data(){
@@ -163,7 +163,7 @@ async function create_chat_data(){
   chat_data_wrapper.setAttribute("id", "chat_data_wrapper")
   chat_data_wrapper.setAttribute("class", "p-3 d-flex flex-column");
   chat_data_wrapper.setAttribute("style", "width: 80%; height: calc(100vh - 56px - 86px); overflow: auto; position: relative;");
-  const fragment = await create_chat(chat_data, chat_data.length-polling_num, chat_data.length);
+  const fragment = await create_chat(chat_data, chat_data.length-polling_num < 0 ? 0 : chat_data.length-polling_num, chat_data.length);
   chat_data_wrapper.appendChild(fragment);
   main.appendChild (chat_data_wrapper);
   loaded_chat_num = chat_data.length-polling_num;
