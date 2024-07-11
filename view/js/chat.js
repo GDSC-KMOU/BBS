@@ -123,33 +123,35 @@ function scroll_check() {
 async function create_chat(chat_data, init_num, last_num){
   const fragment = document.createDocumentFragment();
   const my_id = await get_my_id();
-  for(let i = init_num; i < last_num; i++){
-    let chat_div;
-    let chat_id = chat_data[i].id;
-    let chat = chat_data[i].chat.replace(/\n/g, "<br>");
-    let date = format_date(chat_data[i].date);
-    if(chat_data[i].user_id === my_id){
-      chat_div = `<div class="d-flex justify-content-end py-1" id="${chat_id}">
-        <div style="max-width: 80%;" class="d-flex flex-column align-items-end">
-          <div class="d-flex justify-content-end ps-1 pe-1" style="font-size: 12px; margin-top: 5px;">${date}</div>
-          <div class="text-break d-flex justify-content-end border p-3 bg-dark bg-opacity-10" style="border-radius: 20px; border-top-right-radius: 0px; width: fit-content; white-space: pre-wrap;">${chat}</div>
-        </div>
-      </div>`;
-    }else{
-      const user_name = await get_name(chat_data[i].user_id);
-      chat_div = `<div class="d-flex flex-row py-1" id=${chat_id}>
-        <div style="max-width: 80%;">
-          <div class="d-flex">
-            <div class="fw-semibold">${user_name}</div>
-            <div class="ps-1 pe-1" style="font-size: 12px; margin-top: 5px;">${date}}</div>
+  if(init_num >= 0){
+    for(let i = init_num; i < last_num; i++){
+      let chat_div;
+      let chat_id = chat_data[i].id;
+      let chat = chat_data[i].chat.replace(/\n/g, "<br>");
+      let date = format_date(chat_data[i].date);
+      if(chat_data[i].user_id === my_id){
+        chat_div = `<div class="d-flex justify-content-end py-1" id="${chat_id}">
+          <div style="max-width: 80%;" class="d-flex flex-column align-items-end">
+            <div class="d-flex justify-content-end ps-1 pe-1" style="font-size: 12px; margin-top: 5px;">${date}</div>
+            <div class="text-break d-flex justify-content-end border p-3 bg-dark bg-opacity-10" style="border-radius: 20px; border-top-right-radius: 0px; width: fit-content; white-space: pre-wrap;">${chat}</div>
           </div>
-          <div class="text-break border p-3" style="border-radius: 20px; border-top-left-radius: 0px; width: fit-content; white-space: pre-wrap;">${chat}</div>
-        </div>
-      </div>`;
+        </div>`;
+      }else{
+        const user_name = await get_name(chat_data[i].user_id);
+        chat_div = `<div class="d-flex flex-row py-1" id=${chat_id}>
+          <div style="max-width: 80%;">
+            <div class="d-flex">
+              <div class="fw-semibold">${user_name}</div>
+              <div class="ps-1 pe-1" style="font-size: 12px; margin-top: 5px;">${date}}</div>
+            </div>
+            <div class="text-break border p-3" style="border-radius: 20px; border-top-left-radius: 0px; width: fit-content; white-space: pre-wrap;">${chat}</div>
+          </div>
+        </div>`;
+      }
+      const tempContainer = document.createElement('div');
+      tempContainer.innerHTML = chat_div;
+      fragment.appendChild(tempContainer.firstChild);
     }
-    const tempContainer = document.createElement('div');
-    tempContainer.innerHTML = chat_div;
-    fragment.appendChild(tempContainer.firstChild);
   }
   return fragment;
 }
