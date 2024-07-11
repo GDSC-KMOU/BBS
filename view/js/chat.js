@@ -285,7 +285,8 @@ async function insert_previous_chat(id){
 async function append_new_chat(send_who){
   const chat_data = await get_chat_data();
   const chat_data_wrapper = document.getElementById("chat_data_wrapper");
-  const renderd_id = parseInt(chat_data_wrapper.children[chat_data_wrapper.childElementCount-1].id)
+  let renderd_id = 0;
+  if(chat_data_wrapper.children[chat_data_wrapper.childElementCount-1]){renderd_id = parseInt(chat_data_wrapper.children[chat_data_wrapper.childElementCount-1].id)}
   const fetched_id = parseInt(chat_data[chat_data.length-1].id)
   if (fetched_id !== renderd_id){
     const fragment = await create_chat(chat_data, renderd_id+2, fetched_id+2)
