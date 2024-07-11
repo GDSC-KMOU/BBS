@@ -142,7 +142,7 @@ async function create_chat(chat_data, init_num, last_num){
           <div style="max-width: 80%;">
             <div class="d-flex">
               <div class="fw-semibold">${user_name}</div>
-              <div class="ps-1 pe-1" style="font-size: 12px; margin-top: 5px;">${date}}</div>
+              <div class="ps-1 pe-1" style="font-size: 12px; margin-top: 5px;">${date}</div>
             </div>
             <div class="text-break border p-3" style="border-radius: 20px; border-top-left-radius: 0px; width: fit-content; white-space: pre-wrap;">${chat}</div>
           </div>
@@ -289,11 +289,11 @@ async function append_new_chat(send_who){
   if(chat_data_wrapper.children[chat_data_wrapper.childElementCount-1]){renderd_id = parseInt(chat_data_wrapper.children[chat_data_wrapper.childElementCount-1].id)}
   const fetched_id = parseInt(chat_data[chat_data.length-1].id)
   if (fetched_id !== renderd_id){
-    const fragment = await create_chat(chat_data, renderd_id+2, fetched_id+2)
+    const fragment = await create_chat(chat_data, renderd_id, fetched_id)
     chat_data_wrapper.appendChild(fragment);
     let objDiv = document.getElementById("chat_data_wrapper");
     const scrollPosition = objDiv.scrollTop / (objDiv.scrollHeight - objDiv.clientHeight);
-    if (scrollPosition >= 0.9 || send_who==='me') {
+    if (scrollPosition >= 0.7 || send_who==='me') {
       reset_scroll();
     }else {
       show_new_message_notification(chat_data[chat_data.length-1]);
@@ -332,7 +332,8 @@ function chat_send(){
 async function show_new_message_notification(new_chat) {
   const notification = document.getElementById('new_message_notification');
   const user_name = await get_name(new_chat.user_id);
-  if (!notification) {
+  const chat_data_wrapper = document.getElementById("chat_data_wrapper");
+  if (!notification && (chat_data_wrapper.scrollHeight > chat_data_wrapper.clientHeight + 100)) {
     const chat_input_wrapper = document.getElementById("chat_input_wrapper");
     const main = document.getElementById("main_data");
     const notificationDiv = document.createElement('div');
