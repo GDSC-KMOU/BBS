@@ -22,9 +22,86 @@ async function get_name(user_id) {
   }
 }
 
+function logout(){
+  const main = document.getElementById("main_data");
+  main.innerHTML += `
+    <div id="logout" style="position: absolute;
+      width: 100%;
+      height: calc(100vh - 56px);
+      background-color: rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      font-size: 30px;">
+      로그인이 필요한 서비스입니다.
+    </div>
+    <div id="chat_data_wrapper" class="p-3 d-flex flex-column" style="width: 80%; height: calc(100vh - 56px - 86px); overflow: auto; position: relative;">        
+      <div class="d-flex flex-row py-1" style="margin-top: 24px;">
+        <div style="max-width: 80%;">
+          <div class="text-break border p-3" style="border-radius: 20px; border-top-left-radius: 0px; width: fit-content; white-space: pre-wrap;">\t\t\t\t\t</div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end py-1" style="margin-top: 24px;">
+        <div style="max-width: 80%;" class="d-flex flex-column align-items-end">
+          <div class="text-break d-flex justify-content-end border p-3 bg-dark bg-opacity-10" style="border-radius: 20px; border-top-right-radius: 0px; width: fit-content; white-space: pre-wrap;">&nbsp\t\t\t\t\t\t\t</div>
+        </div>
+      </div>
+      <div class="d-flex flex-row py-1" style="margin-top: 24px;">
+        <div style="max-width: 80%;">
+          <div class="text-break border p-3" style="border-radius: 20px; border-top-left-radius: 0px; width: fit-content; white-space: pre-wrap;">\t\t\t</div>
+        </div>
+      </div>
+      <div class="d-flex flex-row py-1" style="margin-top: 24px;">
+        <div style="max-width: 80%;">
+          <div class="text-break border p-3" style="border-radius: 20px; border-top-left-radius: 0px; width: fit-content; white-space: pre-wrap;">\t\t\t\t\t\t\t</div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end py-1" style="margin-top: 24px;">
+        <div style="max-width: 80%;" class="d-flex flex-column align-items-end">
+          <div class="text-break d-flex justify-content-end border p-3 bg-dark bg-opacity-10" style="border-radius: 20px; border-top-right-radius: 0px; width: fit-content; white-space: pre-wrap;">&nbsp\t\t\t\t\t</div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end py-1" style="margin-top: 24px;">
+        <div style="max-width: 80%;" class="d-flex flex-column align-items-end">
+          <div class="text-break d-flex justify-content-end border p-3 bg-dark bg-opacity-10" style="border-radius: 20px; border-top-right-radius: 0px; width: fit-content; white-space: pre-wrap;">&nbsp\t\t\t\t\t\t\t\t\t\t</div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end py-1" style="margin-top: 24px;">
+        <div style="max-width: 80%;" class="d-flex flex-column align-items-end">
+          <div class="text-break d-flex justify-content-end border p-3 bg-dark bg-opacity-10" style="border-radius: 20px; border-top-right-radius: 0px; width: fit-content; white-space: pre-wrap;">&nbsp\t\t</div>
+        </div>
+      </div>
+    </div>
+    <div id="chat_input_wrapper" style="width: 80%; height: 86px;" class="input-group p-4 d-flex"><textarea class="form-control" id="chat_input" rows="1" style="resize: none;" maxlength="500" disabled></textarea><button id="chat_send_btn" class="btn btn-outline-secondary" disabled>&nbsp;전송&nbsp;</button></div>
+    `;
+}
+
+function responsive(){
+  main.innerHTML += `
+  <style>
+    @media (max-width: 1024px) {
+      #logout{
+        height: calc(100vh - 46px) !important;
+        font-size: 20px !important;
+      }
+      #chat_data_wrapper {
+        width: 100% !important;
+        height: calc(100vh - 46px) !important;
+      }
+      #chat_input_wrapper {
+        width: 100% !important;
+      }
+      #footer .container{
+        display: none;
+      }
+    }
+  </style>`
+}
+
 async function get_chat_data(){
   const res = await fetch("api/chat");
-  const json = await res.json()
+  const json = await res.json();
   const chat_data = await json.data;
   return chat_data;
 }
@@ -159,17 +236,21 @@ async function create_chat(chat_data, init_num, last_num){
 async function create_chat_data(){
   main.setAttribute("class", "d-flex flex-column align-items-center");
   const chat_data = await get_chat_data()
-  const chat_data_wrapper = document.createElement("div")
-  chat_data_wrapper.setAttribute("id", "chat_data_wrapper")
-  chat_data_wrapper.setAttribute("class", "p-3 d-flex flex-column");
-  chat_data_wrapper.setAttribute("style", "width: 80%; height: calc(100vh - 56px - 86px); overflow: auto; position: relative;");
-  const fragment = await create_chat(chat_data, chat_data.length-polling_num < 0 ? 0 : chat_data.length-polling_num, chat_data.length);
-  chat_data_wrapper.appendChild(fragment);
-  main.appendChild (chat_data_wrapper);
-  loaded_chat_num = chat_data.length-polling_num;
-  create_chat_input();
-  chat_data_wrapper.addEventListener('scroll', handleScroll);
-  reset_scroll();
+  if(!chat_data){
+    logout();
+  }else{
+    const chat_data_wrapper = document.createElement("div")
+    chat_data_wrapper.setAttribute("id", "chat_data_wrapper")
+    chat_data_wrapper.setAttribute("class", "p-3 d-flex flex-column");
+    chat_data_wrapper.setAttribute("style", "width: 80%; height: calc(100vh - 56px - 86px); overflow: auto; position: relative;");
+    const fragment = await create_chat(chat_data, chat_data.length-polling_num < 0 ? 0 : chat_data.length-polling_num, chat_data.length);
+    chat_data_wrapper.appendChild(fragment);
+    main.appendChild (chat_data_wrapper);
+    loaded_chat_num = chat_data.length-polling_num;
+    create_chat_input();
+    chat_data_wrapper.addEventListener('scroll', handleScroll);
+    reset_scroll();
+  }
 }
 
 async function create_chat_input(){
@@ -365,6 +446,7 @@ async function show_new_message_notification(new_chat) {
 if (document.location.pathname === "/chat") {
   main.style.height = "calc(100vh - 56px)";
   create_chat_data();
+  responsive();
   setInterval(async () => {
     append_new_chat();
   }, 1000);
