@@ -78,22 +78,33 @@ function logout(){
 }
 
 function responsive(){
+  let vh = 0;
+  vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
   main.innerHTML += `
   <style>
     @media (max-width: 1024px) {
+      #main_data{
+        height: calc(100vh - 46px) !important;
+        height: calc(var(--vh, 1vh) * 100 - 46px) !important;
+      }
       #logout{
         height: calc(100vh - 46px) !important;
+        height: calc(var(--vh, 1vh) * 100 - 46px) !important;
         font-size: 20px !important;
       }
       #chat_data_wrapper {
         width: 100% !important;
-        height: calc(100vh - 46px) !important;
+        height: calc(var(--vh, 1vh) * 100 - 46px - 86px) !important;
       }
       #chat_input_wrapper {
         width: 100% !important;
       }
       #footer .container{
         display: none;
+      }
+      div i{
+        display: none !important;
       }
     }
   </style>`
